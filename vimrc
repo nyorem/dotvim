@@ -14,6 +14,7 @@ behave xterm
 set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
+let g:SuperTabNoCompleteAfter = ['^', '\s', '0']
 
 " COLORSCHEMES
 if has('gui_running')
@@ -40,6 +41,8 @@ if has("autocmd")
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType cpp setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType lex setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType yacc setlocal ts=8 sts=8 sw=8 noexpandtab
 
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
 
@@ -92,7 +95,7 @@ cab wr w !sudo tee %
 " Compilation Latex
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Exécution d'un Makefile
-nnoremap <F3> :w<CR>:mak<CR>
+nnoremap <F3> :w<CR>:Make!<CR>
 
 " Ouvrir un fold
 " zi = activer / désactiver le folding
