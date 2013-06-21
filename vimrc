@@ -14,7 +14,6 @@ behave xterm
 set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
-let g:SuperTabNoCompleteAfter = ['^', '\s', '0']
 
 " COLORSCHEMES
 if has('gui_running')
@@ -26,7 +25,7 @@ else
     set background=dark
     call togglebg#map("<F5>")
     let g:solarized_termtrans = 1
-    let g:Powerline_symbols = 'fancy' " Powerline
+    let g:Powerline_symbols = 'compatible' " Powerline
 endif
 
 " INDENTATION
@@ -95,7 +94,7 @@ cab wr w !sudo tee %
 " Compilation Latex
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Exécution d'un Makefile
-nnoremap <F3> :w<CR>:Make!<CR>
+nnoremap <F3> :w<CR>:Make<CR>
 
 " Ouvrir un fold
 " zi = activer / désactiver le folding
