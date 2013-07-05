@@ -129,3 +129,46 @@ snippet lld
 	[${1}](${2}){
 		${3:/* code */}
 	}${4}
+##
+## SFML
+# main loop
+snippet sfml
+	#include <iostream>
+
+	#include <SFML/Window.hpp>
+	#include <SFML/Graphics.hpp>
+	
+	#define WIDTH 800
+	#define HEIGHT 600
+	
+	int main (void)
+	{
+		sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "${1:Titre}");
+		window.setVerticalSyncEnabled(true);
+	
+		while (window.isOpen()) {
+			sf::Event event;
+	
+			while (window.pollEvent(event)) {
+				switch (event.type) {
+					case sf::Event::Closed:
+						window.close();
+						break;
+	
+					case sf::Event::KeyPressed:
+						if (event.key.code == sf::Keyboard::Escape)
+							window.close();
+						break;
+	
+					default:
+						break;
+				}
+			}
+	
+			window.clear(sf::Color::White);
+			window.display();
+		}
+	
+		return EXIT_SUCCESS;
+	}
+
