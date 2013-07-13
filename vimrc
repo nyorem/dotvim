@@ -14,6 +14,7 @@ behave xterm
 set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
+let Tlist_Ctags_Cmd = '/opt/local/bin/ctags' " Taglist
 
 " COLORSCHEMES
 if has('gui_running')
@@ -22,7 +23,7 @@ if has('gui_running')
     colorscheme solarized
 else
     colorscheme solarized
-    set background=dark
+    set background=light
     call togglebg#map("<F5>")
     let g:solarized_termtrans = 1
     let g:Powerline_symbols = 'compatible' " Powerline
@@ -40,10 +41,13 @@ if has("autocmd")
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType cpp setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType yacc setlocal ts=8 sts=8 sw=8 noexpandtab
 
+        " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+        autocmd BufNewFile,BufRead *.m setfiletype objc
 
         " Utile pour l'indentation : revenir à la position ancienne du curseur
         autocmd BufReadPost *

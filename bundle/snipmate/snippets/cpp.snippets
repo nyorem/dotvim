@@ -68,14 +68,16 @@ snippet mu
 ## Class
 # class
 snippet cl
-	class ${1:`Filename('$1', 'name')`} 
-	{
-	public:
-		$1(${2});
-		~$1();
+	class ${1:`Filename('$1', 'Name')`} {
+		public:
+			// Constructeur
+			$1 (${2:void});
 
-	private:
-		${3:/* data */}
+			// Destructeur
+			~$1 (void);
+
+		private:
+			${3:/* data */}
 	};
 # member function implementation
 snippet mfun
@@ -141,8 +143,7 @@ snippet sfml
 	#define WIDTH 800
 	#define HEIGHT 600
 	
-	int main (void)
-	{
+	int main (void) {
 		sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "${1:Titre}");
 		window.setVerticalSyncEnabled(true);
 	

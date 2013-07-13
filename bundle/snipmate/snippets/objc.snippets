@@ -1,9 +1,9 @@
 # #import <...>
-snippet Imp
-	#import <${1:Cocoa/Cocoa.h}>${2}
-# #import "..."
 snippet imp
-	#import "${1:`Filename()`.h}"${2}
+	#import <${1:Cocoa/Cocoa}.h>${2}
+# #import "..."
+snippet Imp
+	#import "${1:`Filename()`}.h"${2}
 # @selector(...)
 snippet sel
 	@selector(${1:method}:)${3}
