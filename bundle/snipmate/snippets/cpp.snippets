@@ -1,3 +1,8 @@
+## Overloading
+snippet oper
+	${1:returnType} operator${2:+} (${3}) {
+		${4}
+	}
 ## STL Collections
 # std::array
 snippet array
@@ -76,12 +81,15 @@ snippet cl
 			// Destructeur
 			~$1 (void);
 
+			// Méthodes
+			$3
+
 		private:
-			${3:/* data */}
+			${4:/* data */}
 	};
 # member function implementation
 snippet mfun
-	${4:void} ${1:`Filename('$1', 'ClassName')`}::${2:memberFunction}(${3}) {
+	${4:void} ${1:`Filename('$1', 'ClassName')`}::${2:memberFunction} (${3}) {
 		${5:/* code */}
 	}
 # namespace
@@ -101,7 +109,7 @@ snippet cin
 ## Iteration
 # for i 
 snippet fori
-	for (int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+	for (unsigned int ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
 		${4:/* code */}
 	}${5}
 
@@ -112,13 +120,13 @@ snippet fore
 	}${5}
 # iterator
 snippet iter
-	for (${1:std::vector}<${2:type}>::${3:const_iterator} ${4:i} = ${5:container}.begin(); $4 != $5.end(); ++$4) {
+	for (${1:std::vector}<${2:type}>::${3:const_iterator} ${4:it} = ${5:container}.begin(); $4 != $5.end(); ++$4) {
 		${6}
 	}${7}
 
 # auto iterator
 snippet itera
-	for (auto ${1:i} = $1.begin(); $1 != $1.end(); ++$1) {
+	for (auto ${1:it} = $1.begin(); $1 != $1.end(); ++$1) {
 		${2:std::cout << *$1 << std::endl;}
 	}${3}
 ##
@@ -166,10 +174,17 @@ snippet sfml
 				}
 			}
 	
-			window.clear(sf::Color::White);
+			window.clear(sf::Color::Black);
 			window.display();
 		}
 	
 		return EXIT_SUCCESS;
 	}
 
+## Miscellanous
+# #include <...>
+snippet incpp
+	#include <${1:iostream}${2:.hpp}>${3}
+# #include "..."
+snippet Incpp
+	#include "${1:`Filename("$1")`}.hpp"${2}
