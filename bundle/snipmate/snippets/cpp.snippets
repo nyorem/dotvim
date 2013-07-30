@@ -201,7 +201,7 @@ snippet opengl
 		sf::ContextSettings contextSettings;
 		contextSettings.majorVersion = 3;
 		contextSettings.minorVersion = 1;
-		contextSettings.depthBits = 24;
+		contextSettings.depthBits = 32;
 	
 		sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "OpenGL", sf::Style::Default, contextSettings);
 		window.setVerticalSyncEnabled(true);
@@ -226,7 +226,7 @@ snippet opengl
 				}
 			}
 	
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 			window.display();
 		}
