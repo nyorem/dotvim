@@ -105,6 +105,9 @@ snippet cout
 # std::cin
 snippet cin
 	std::cin >> ${1};${2}
+# std::cerr
+snippet cerr
+	std::cerr << ${1} << std::endl;${2}
 ##
 ## Iteration
 # for i 
@@ -175,6 +178,56 @@ snippet sfml
 			}
 	
 			window.clear(sf::Color::Black);
+			window.display();
+		}
+	
+		return EXIT_SUCCESS;
+	}
+
+##
+## OpenGL
+# main loop
+snippet opengl
+	#include <iostream>
+	
+	#include <SFML/Graphics.hpp>
+	#include <SFML/OpenGL.hpp>
+	
+	#define WIDTH 800
+	#define HEIGHT 600
+	
+	int main (void) {
+		// Contexte OpenGL
+		sf::ContextSettings contextSettings;
+		contextSettings.majorVersion = 3;
+		contextSettings.minorVersion = 1;
+		contextSettings.depthBits = 24;
+	
+		sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "OpenGL", sf::Style::Default, contextSettings);
+		window.setVerticalSyncEnabled(true);
+	
+		bool running = true;
+	
+		while (running) {
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				switch (event.type) {
+					case sf::Event::Closed:
+						running = false;
+						break;
+	
+					case sf::Event::KeyPressed:
+						if (event.key.code == sf::Keyboard::Escape)
+							running = false;
+						break;
+	
+					default:
+						break;
+				}
+			}
+	
+			glClear(GL_COLOR_BUFFER_BIT);
+	
 			window.display();
 		}
 	
