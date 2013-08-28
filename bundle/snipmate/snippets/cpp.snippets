@@ -3,6 +3,12 @@ snippet oper
 	${1:returnType} operator${2:+} (${3}) {
 		${4}
 	}
+## Include guard
+snippet oncepp
+	#ifndef ${1:`toupper(Filename('_$1_H_', '_UNTITLED_HPP_'))`}
+	#define $1
+	#endif
+
 ## STL Collections
 # std::array
 snippet array
