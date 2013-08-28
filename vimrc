@@ -26,8 +26,16 @@ else
     set background=light
     call togglebg#map("<F5>")
     let g:solarized_termtrans = 1
-    let g:Powerline_symbols = 'compatible' " Powerline
 endif
+
+" Airline
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
+let g:airline_detect_modified = 1
+let g:airline_detect_paste = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#ctrlp#color_template = 'insert'
 
 " INDENTATION
 if has("autocmd")
