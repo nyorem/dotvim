@@ -11,3 +11,7 @@ Création du lien symmbolique ::
 
    ln -s ~/.vim/vimrc ~/.vimrc
 
+Mise à jour des dépôts :
+
+    git submodule foreach git pull origin master
+
