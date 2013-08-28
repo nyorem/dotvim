@@ -14,7 +14,12 @@ behave xterm
 set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
-let Tlist_Ctags_Cmd = '/opt/local/bin/ctags' " Taglist
+
+" On désactive les flèches directionnelles pour forcer à utiliser h/j/k/l
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " COLORSCHEMES
 if has('gui_running')
@@ -29,8 +34,8 @@ else
 endif
 
 " Airline
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
@@ -76,7 +81,6 @@ syn on
 syntax on
 
 " MISE EN FORME DU TEXTE
-
 set wrap " Couper les lignes suivant la largeur de la fenêtre
 set linebreak " Ne pas couper les mots en fin de lignes
 set showbreak=…
@@ -99,7 +103,6 @@ set nu " Affiche les numéros de ligne
 set hidden
 
 " RACCOURCIS CLAVIER
-
 inoremap jk <Esc>
 " Enregistre le fichier en tant que root avec :wr
 cab wr w !sudo tee %
@@ -107,22 +110,8 @@ cab wr w !sudo tee %
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Exécution d'un Makefile
 nnoremap <F3> :w<CR>:Make<CR>
-
-" Ouvrir un fold
-" zi = activer / désactiver le folding
-" zj / zk = monter / descendre d'un fold
-" zf = créer un fold (sélection visuelle)
-" zd = supprimer un fold
-" zM = ferme tous les folds
-" zR = ouvre tous les folds
-nnoremap <Space> za
-vnoremap <Space> za
-
-" On désactive les flèches directionnelles pour forcer à utiliser h/j/k/l
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" Tagbar
+nnoremap <F8> :TagbarToggle<CR>
 
 " Se déplacer sur une grande ligne
 vnoremap <D-j> gj
@@ -142,8 +131,17 @@ nnoremap <C-Up> ddkP
 vnoremap <C-Down> xp`[V`]
 vnoremap <C-Up> xkP`[V`]
 
-" Utilisation de ','
+" FOLDS
+" zi = activer / désactiver le folding
+" zj / zk = monter / descendre d'un fold
+" zf = créer un fold (sélection visuelle)
+" zd = supprimer un fold
+" zM = ferme tous les folds
+" zR = ouvre tous les folds
+nnoremap <Space> za
+vnoremap <Space> za
 
+" Utilisation de ','
 " Copier / Coller du texte depuis l'extérieur
 noremap <Leader>y "*y
 noremap <Leader>yy "*Y
@@ -175,7 +173,6 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 noremap Y y$
 
 " RECHERCHE
-
 set showmatch " Affiche les parenthèses (et autres) correspondantes
 set incsearch " Affiche les résultats de la recherche au moment de la saisie
 set ignorecase " Insensible à la casse
