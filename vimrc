@@ -43,6 +43,11 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
+" OmniCppComplete
+noremap <F12> :!/opt/local/bin/ctags -R --c-types=+p --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+set completeopt=menu
+let OmniCpp_SelectFirstItem = 2
+
 " INDENTATION
 if has("autocmd")
     filetype plugin indent on
@@ -112,7 +117,7 @@ nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Exécution d'un Makefile
 nnoremap <F3> :w<CR>:Make<CR>
 " Tagbar
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F11> :TagbarToggle<CR>
 
 " Se déplacer sur une grande ligne
 vnoremap <D-j> gj
