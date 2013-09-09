@@ -1,39 +1,46 @@
-" PATHOGEN
+" PATHOGEN {{{1
 runtime bundle/pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
+" AUTRES {{{1
+
 let mapleader = "," "<Leader> = ',' désormais
-set t_Co=256 " Force le support de 256 couleurs
+set t_Co=256 " Support de 256 couleurs
 set encoding=utf-8 " Encodage par défaut
 
 " Utilisation de la souris
 set mouse=a
 behave xterm
-
-" AUTRES
 set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
 
-" On désactive les flèches directionnelles pour forcer à utiliser h/j/k/l
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-
-" COLORSCHEMES
+" COLORSCHEMES {{{1
 if has('gui_running')
+    " GUI
     set guicursor+=a:blinkon0 " Désactivation du clignotement du curseur
     set background=dark
     colorscheme solarized
 else
-    colorscheme solarized
-    set background=light
-    call togglebg#map("<F5>")
-    let g:solarized_termtrans = 1
+    " CONSOLE
+    if has("unix")
+        let s:uname = system("uname -s")
+        if s:uname == "Darwin\n"
+            " MAC
+            colorscheme solarized
+            set background=light
+            let g:solarized_termtrans = 1
+        else
+            " Other Unix distribs
+            colorscheme desert
+            set background=light
+        endif
+    endif
 endif
 
-" Airline
+" CONFIGURATION PLUGINS {{{1
+
+" Airline {{{2
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_detect_modified = 1
@@ -43,12 +50,12 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
-" OmniCppComplete
+" OmniCppComplete {{{2
 noremap <F12> :!/opt/local/bin/ctags -R --c-types=+p --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 set completeopt=menu
 let OmniCpp_SelectFirstItem = 2
 
-" INDENTATION
+" INDENTATION et AUTOCMD {{{1
 if has("autocmd")
     filetype plugin indent on
 
@@ -57,25 +64,22 @@ if has("autocmd")
 
         " Modification de paramètres pour certains types de fichiers
         autocmd FileType text setlocal textwidth=80
-        autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType c setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType cpp setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType objc setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType lex setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType yacc setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
         autocmd BufNewFile,BufRead *.m setfiletype objc
 
-        " Utile pour l'indentation : revenir à la position ancienne du curseur
+        " Indentation : revenir à la position ancienne du curseur
         autocmd BufReadPost *
                     \ if line("'\"") > 1 && line("'\"") <= line("$") |
                     \   exe "normal! g`\"" |
 
         " Recharge le vimrc à chaque modification
-        autocmd bufwritepost .vimrc source $MYVIMRC
-        autocmd bufwritepost vimrc source $MYVIMRC
+        autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
+        " vimrc : méthode de fold = marker
+        autocmd BufReadPost .vimrc,vimrc set foldmethod=marker
     augroup END
 else
     set autoindent " Indentation auto dans tous les cas
@@ -86,7 +90,7 @@ filetype on
 syn on
 syntax on
 
-" MISE EN FORME DU TEXTE
+" MISE EN FORME DU TEXTE {{{1
 set wrap " Couper les lignes suivant la largeur de la fenêtre
 set linebreak " Ne pas couper les mots en fin de lignes
 set showbreak=…
@@ -108,7 +112,14 @@ set ruler " Affiche la position courante en bas à droite
 set nu " Affiche les numéros de ligne
 set hidden
 
-" RACCOURCIS CLAVIER
+" RACCOURCIS CLAVIER {{{1
+
+" Habit breaking, habit making
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 inoremap jk <Esc>
 " Enregistre le fichier en tant que root avec :wr
 cab wr w !sudo tee %
@@ -178,17 +189,17 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 " Cohérence avec C et D
 noremap Y y$
 
-" RECHERCHE
+" RECHERCHE {{{1
 set showmatch " Affiche les parenthèses (et autres) correspondantes
 set incsearch " Affiche les résultats de la recherche au moment de la saisie
 set ignorecase " Insensible à la casse
 set smartcase " Casse intelligente (si MAJ alors insensible sinon non)
 set hlsearch " Surbrillance des résultats d'une recherche
 
-" SUGGESTIONS
+" SUGGESTIONS {{{1
 set wildmenu " Menu de la complétion automatique
 set wildmode=list:longest,list:full " Affiche toutes les possibilités
 
-" SPÉCIFIQUE ADA
+" SPÉCIFIQUE ADA {{{1
 let g:ada_standard_types=1
 let g:ada_line_errors=1
