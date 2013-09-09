@@ -50,11 +50,6 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
-" OmniCppComplete {{{2
-noremap <F12> :!/opt/local/bin/ctags -R --c-types=+p --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-set completeopt=menu
-let OmniCpp_SelectFirstItem = 2
-
 " INDENTATION et AUTOCMD {{{1
 if has("autocmd")
     filetype plugin indent on
