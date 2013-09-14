@@ -27,12 +27,20 @@ else
         let s:uname = system("uname -s")
         if s:uname == "Darwin\n"
             " MAC
-            colorscheme solarized
+
+            " MOLOKAI
+            colorscheme molokai
             set background=light
-            let g:solarized_termtrans = 1
+            let g:molokai_original = 1
+            let g:rehash256 = 1
+            
+            " SOLARIZED
+            " colorscheme solarized
+            " set background=dark
+            " let g:solarized_termtrans = 1
         else
             " Other Unix distribs
-            colorscheme desert
+            colorscheme desertEx
             set background=light
         endif
     endif
