@@ -69,10 +69,12 @@ if has("autocmd")
         autocmd FileType text setlocal textwidth=80
         autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab foldmethod=syntax
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
         autocmd BufNewFile,BufRead *.m setfiletype objc
+        autocmd BufNewFile,BufRead *.md setfiletype markdown
 
         " Indentation : revenir à la position ancienne du curseur
         autocmd BufReadPost *
