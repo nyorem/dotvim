@@ -3,7 +3,6 @@ runtime bundle/pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
 " AUTRES {{{1
-
 let mapleader = "," "<Leader> = ',' désormais
 set t_Co=256 " Support de 256 couleurs
 set encoding=utf-8 " Encodage par défaut
@@ -59,6 +58,12 @@ let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " INDENTATION et AUTOCMD {{{1
+
+" COLORATION SYNTAXIQUE
+filetype on
+syn on
+syntax on
+
 if has("autocmd")
     filetype plugin indent on
 
@@ -69,12 +74,10 @@ if has("autocmd")
         autocmd FileType text setlocal textwidth=80
         autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab foldmethod=syntax
+        autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
-        autocmd BufNewFile,BufRead *.m setfiletype objc
-        autocmd BufNewFile,BufRead *.md setfiletype markdown
 
         " Indentation : revenir à la position ancienne du curseur
         autocmd BufReadPost *
@@ -90,24 +93,19 @@ else
     set autoindent " Indentation auto dans tous les cas
 endif
 
-" COLORATION SYNTAXIQUE
-filetype on
-syn on
-syntax on
-
 " MISE EN FORME DU TEXTE {{{1
 set wrap " Couper les lignes suivant la largeur de la fenêtre
 set linebreak " Ne pas couper les mots en fin de lignes
-set showbreak=…
+set showbreak=… " En cas de coupures de lignes, caractère de début de ligne
 
-set listchars=tab:▸\ ,eol:¬ " Invisibles
+set listchars=tab:▸\ ,eol:¬ " Caractères invisibles
 
-set tabstop=4 " Nombre d'espaces correspondants à des TAB
-set shiftwidth=4 " Nombre d'espaces utilisés par l'indentation
-set softtabstop=4 " Nombre d'espaces à supprimer lors de l'effacement d'une TAB
+set tabstop=8 " Nombre d'espaces correspondants à des TAB
+set shiftwidth=8 " Nombre d'espaces utilisés par l'indentation
+set softtabstop=8 " Nombre d'espaces à supprimer lors de l'effacement d'une TAB
 set expandtab " Remplace les TAB par des espaces
-set smartindent
-set smarttab
+set smartindent " Indentation intelligente
+set smarttab " Tab intelligent
 
 set history=50 " Nombre de commandes dans l'historique
 set showcmd " Affiche la commande que l'on est en train de taper
@@ -118,13 +116,13 @@ set nu " Affiche les numéros de ligne
 set hidden
 
 " RACCOURCIS CLAVIER {{{1
-
 " Habit breaking, habit making
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Passage en mode normal depuis le mode insertion
 inoremap jk <Esc>
 " Enregistre le fichier en tant que root avec :wr
 cab wr w !sudo tee %
@@ -136,16 +134,16 @@ nnoremap <F3> :w<CR>:Make<CR>
 nnoremap <F11> :TagbarToggle<CR>
 
 " Se déplacer sur une grande ligne
-vnoremap <D-j> gj
-vnoremap <D-k> gk
-vnoremap <D-4> g$
-vnoremap <D-6> g^
-vnoremap <D-0> g0
-nnoremap <D-j> gj
-nnoremap <D-k> gk
-nnoremap <D-4> g$
-nnoremap <D-6> g^
-nnoremap <D-0> g0
+vnoremap <C-j> gj
+vnoremap <C-k> gk
+vnoremap <C-4> g$
+vnoremap <C-6> g^
+vnoremap <C-0> g0
+nnoremap <C-j> gj
+nnoremap <C-k> gk
+nnoremap <C-4> g$
+nnoremap <C-6> g^
+nnoremap <C-0> g0
 
 " Bouger le texte
 nnoremap <C-Down> ddp
@@ -166,7 +164,7 @@ vnoremap <Space> za
 " Utilisation de ','
 " Copier / Coller du texte depuis l'extérieur
 noremap <Leader>y "*y
-noremap <Leader>yy "*Y
+noremap <Leader>yy "*yy
 noremap <Leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 
 " Passer un fichier en binaire
@@ -208,3 +206,4 @@ set wildmode=list:longest,list:full " Affiche toutes les possibilités
 " SPÉCIFIQUE ADA {{{1
 let g:ada_standard_types=1
 let g:ada_line_errors=1
+
