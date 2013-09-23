@@ -116,6 +116,11 @@ set nu " Affiche les numéros de ligne
 set hidden
 
 " RACCOURCIS CLAVIER {{{1
+
+" Accélérons la vitesse de défilement !
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
 " Habit breaking, habit making
 noremap <Up> <NOP>
 noremap <Down> <NOP>
