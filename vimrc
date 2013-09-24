@@ -24,6 +24,7 @@ Bundle "godlygeek/tabular"
 Bundle "rhysd/accelerated-jk"
 Bundle "tpope/vim-dispatch"
 Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-surround"
 Bundle "scrooloose/nerdtree"
 Bundle "ervandew/supertab"
 Bundle "altercation/vim-colors-solarized"
@@ -237,7 +238,7 @@ set hlsearch " Surbrillance des résultats d'une recherche
 set wildmenu " Menu de la complétion automatique
 set wildmode=list:longest,list:full " Affiche toutes les possibilités
 
-" SPÉCIFIQUE ADA {{{1
+" ADA {{{1
 let g:ada_standard_types=1
 let g:ada_line_errors=1
 
