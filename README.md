@@ -5,7 +5,7 @@
 	rm -f .vimrc
 	git clone git://github.com/nyorem/dotvim.git .vim
 
-# Création du lien symmbolique ::
+# Création du lien symbolique :
 
 	ln -s ~/.vim/vimrc ~/.vimrc
 
