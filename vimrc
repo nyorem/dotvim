@@ -1,6 +1,35 @@
-" PATHOGEN {{{1
-runtime bundle/pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" VUNDLE {{{1
+" BundleList          - list configured bundles
+" BundleInstall(!)    - install(update) bundles
+" BundleSearch(!) foo - search(or refresh cache first) for foo
+" BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle "gmarik/vundle"
+
+" Github repos
+Bundle "garbas/vim-snipmate"
+Bundle "tomtom/tlib_vim"
+Bundle "honza/vim-snippets"
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "bling/vim-airline"
+Bundle "kien/ctrlp.vim"
+Bundle "tomtom/tcomment_vim"
+Bundle "majutsushi/tagbar"
+Bundle "godlygeek/tabular"
+Bundle "rhysd/accelerated-jk"
+Bundle "tpope/vim-dispatch"
+Bundle "tpope/vim-fugitive"
+Bundle "scrooloose/nerdtree"
+Bundle "ervandew/supertab"
+Bundle "altercation/vim-colors-solarized"
+
+" vim-scripts
+Bundle "SearchComplete"
 
 " AUTRES {{{1
 let mapleader = "," "<Leader> = ',' désormais
