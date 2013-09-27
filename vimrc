@@ -3,7 +3,7 @@
 " BundleInstall(!)    - install(update) bundles
 " BundleSearch(!) foo - search(or refresh cache first) for foo
 " BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-set nocompatible
+set nocompatible " Non compatibilité avec les anciennes versions de vim
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -40,7 +40,6 @@ set encoding=utf-8 " Encodage par défaut
 " Utilisation de la souris
 set mouse=a
 behave xterm
-set nocp " Non compatibilité avec les anciennes versions de vim
 set laststatus=2 " Toujours afficher la barre de statut
 set timeoutlen=1000 ttimeoutlen=0 " Eviter les délais lorsqu'on appui sur <Esc>
 
@@ -105,6 +104,7 @@ if has("autocmd")
         autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+        autocmd FileType c,cpp,java setlocal cindent cino+=(0
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
