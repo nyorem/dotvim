@@ -104,7 +104,7 @@ if has("autocmd")
         autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-        autocmd FileType c,cpp,java setlocal cindent cino+=(0
+        autocmd FileType c,cpp,java setlocal cindent cino+='(0'
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
