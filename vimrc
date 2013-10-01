@@ -57,15 +57,15 @@ else
             " MAC
 
             " MOLOKAI
-            colorscheme molokai
-            set background=light
-            let g:molokai_original = 1
-            let g:rehash256 = 1
+            " colorscheme molokai
+            " set background=light
+            " let g:molokai_original = 1
+            " let g:rehash256 = 1
             
             " SOLARIZED
-            " colorscheme solarized
-            " set background=dark
-            " let g:solarized_termtrans = 1
+            colorscheme solarized
+            set background=dark
+            let g:solarized_termtrans = 1
         else
             " Other Unix distribs
             colorscheme desertEx
