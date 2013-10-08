@@ -86,6 +86,14 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
+" Ctrlp {{{2
+set wildignore+=*.class,*.o
+
+" Mutlicursor {{{2
+nnoremap <C-n> :<c-u>call MultiCursorPlaceCursor()<cr>
+nnoremap <C-m> :<c-u>call MultiCursorManual()<cr>
+let g:multicursor_quit = "jk"
+
 " INDENTATION et AUTOCMD {{{1
 
 " COLORATION SYNTAXIQUE
@@ -167,18 +175,6 @@ nnoremap <F2> :w<CR>:!pdflatex %<CR>
 nnoremap <F3> :w<CR>:Make<CR>
 " Tagbar
 nnoremap <F11> :TagbarToggle<CR>
-
-" Se déplacer sur une grande ligne
-vnoremap <C-j> gj
-vnoremap <C-k> gk
-vnoremap <C-4> g$
-vnoremap <C-6> g^
-vnoremap <C-0> g0
-nnoremap <C-j> gj
-nnoremap <C-k> gk
-nnoremap <C-4> g$
-nnoremap <C-6> g^
-nnoremap <C-0> g0
 
 " Bouger le texte
 nnoremap <C-Down> ddp
