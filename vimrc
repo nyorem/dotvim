@@ -28,6 +28,7 @@ Bundle "tpope/vim-surround"
 Bundle "scrooloose/nerdtree"
 Bundle "ervandew/supertab"
 Bundle "altercation/vim-colors-solarized"
+Bundle "othree/html5.vim"
 
 " vim-scripts
 Bundle "SearchComplete"
@@ -88,11 +89,6 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " Ctrlp {{{2
 set wildignore+=*.class,*.o
-
-" Mutlicursor {{{2
-nnoremap <C-n> :<c-u>call MultiCursorPlaceCursor()<cr>
-nnoremap <C-m> :<c-u>call MultiCursorManual()<cr>
-let g:multicursor_quit = "jk"
 
 " INDENTATION et AUTOCMD {{{1
 
