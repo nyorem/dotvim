@@ -28,6 +28,7 @@ Bundle "scrooloose/nerdtree"
 Bundle "ervandew/supertab"
 Bundle "altercation/vim-colors-solarized"
 Bundle "othree/html5.vim"
+Bundle "mileszs/ack.vim"
 
 " vim-scripts
 Bundle "SearchComplete"
@@ -88,6 +89,9 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " Ctrlp {{{2
 set wildignore+=*.class,*.o
+
+" Ag {{{2
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " INDENTATION et AUTOCMD {{{1
 
