@@ -18,7 +18,7 @@ Bundle "honza/vim-snippets"
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
-Bundle "tomtom/tcomment_vim"
+Bundle "tpope/vim-commentary"
 Bundle "godlygeek/tabular"
 Bundle "rhysd/accelerated-jk"
 Bundle "tpope/vim-dispatch"
@@ -65,7 +65,7 @@ else
             
             " SOLARIZED
             colorscheme solarized
-            set background=dark
+            set background=light
             let g:solarized_termtrans = 1
         else
             " Other Unix distribs
