@@ -37,6 +37,7 @@ Bundle "SearchComplete"
 let mapleader = "," "<Leader> = ',' désormais
 set t_Co=256 " Support de 256 couleurs
 set encoding=utf-8 " Encodage par défaut
+set shell=bash
 
 " Utilisation de la souris
 set mouse=a
@@ -115,6 +116,7 @@ if has("autocmd")
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+        autocmd BufNewFile,BufRead BUILD setfiletype json
 
         " Indentation : revenir à la position ancienne du curseur
         autocmd BufReadPost *
