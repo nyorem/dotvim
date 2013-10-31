@@ -19,16 +19,15 @@ Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
 Bundle "tpope/vim-commentary"
-Bundle "godlygeek/tabular"
+Bundle "junegunn/vim-easy-align"
 Bundle "rhysd/accelerated-jk"
 Bundle "tpope/vim-dispatch"
 Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround"
-Bundle "scrooloose/nerdtree"
 Bundle "ervandew/supertab"
 Bundle "altercation/vim-colors-solarized"
 Bundle "othree/html5.vim"
-Bundle "mileszs/ack.vim"
+Bundle "dag/vim-fish"
 
 " vim-scripts
 Bundle "SearchComplete"
@@ -93,6 +92,9 @@ set wildignore+=*.class,*.o
 
 " Ag {{{2
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Easy Alige {{{2
+vnoremap <silent> <CR> :EasyAlign<CR>
 
 " INDENTATION et AUTOCMD {{{1
 
