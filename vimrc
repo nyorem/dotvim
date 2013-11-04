@@ -90,10 +90,7 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " Ctrlp {{{2
 set wildignore+=*.class,*.o
 
-" Ag {{{2
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" Easy Alige {{{2
+" Easy Align {{{2
 vnoremap <silent> <CR> :EasyAlign<CR>
 
 " INDENTATION et AUTOCMD {{{1
@@ -114,7 +111,7 @@ if has("autocmd")
         autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-        autocmd FileType c,cpp,java setlocal cindent cino+='(0'
+        autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
@@ -176,8 +173,6 @@ cab wr w !sudo tee %
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Exécution d'un Makefile
 nnoremap <F3> :w<CR>:Make<CR>
-" Tagbar
-nnoremap <F11> :TagbarToggle<CR>
 
 " Bouger le texte
 nnoremap <C-Down> ddp
@@ -192,8 +187,8 @@ vnoremap <C-Up> xkP`[V`]
 " zd = supprimer un fold
 " zM = ferme tous les folds
 " zR = ouvre tous les folds
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <Space> zA
+vnoremap <Space> zA
 
 " Utilisation de ','
 " Copier / Coller du texte depuis l'extérieur
@@ -236,8 +231,3 @@ set hlsearch " Surbrillance des résultats d'une recherche
 " SUGGESTIONS {{{1
 set wildmenu " Menu de la complétion automatique
 set wildmode=list:longest,list:full " Affiche toutes les possibilités
-
-" ADA {{{1
-let g:ada_standard_types=1
-let g:ada_line_errors=1
-
