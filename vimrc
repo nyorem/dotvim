@@ -112,6 +112,8 @@ if has("autocmd")
         autocmd FileType lex,yacc setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
         autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
+        autocmd FileType r set commentstring=#\ %s
+        autocmd FileType matlab set commentstring=%\ %s
 
         " Nouveaux types de fichiers
         autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
