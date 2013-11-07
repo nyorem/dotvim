@@ -26,6 +26,7 @@ Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround"
 Bundle "ervandew/supertab"
 Bundle "altercation/vim-colors-solarized"
+Bundle "chriskempson/vim-tomorrow-theme"
 Bundle "othree/html5.vim"
 Bundle "dag/vim-fish"
 
@@ -67,9 +68,13 @@ else
             colorscheme solarized
             set background=light
             let g:solarized_termtrans = 1
+
+            " Tomorrow
+            " colorscheme Tomorrow-Night
+            " set background=dark
         else
             " Other Unix distribs
-            colorscheme desertEx
+            colorscheme desert
             set background=light
         endif
     endif
