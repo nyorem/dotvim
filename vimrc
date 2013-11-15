@@ -3,7 +3,7 @@
 " BundleInstall(!)    - install(update) bundles
 " BundleSearch(!) foo - search(or refresh cache first) for foo
 " BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-set nocompatible " No reason today to assure compatibility with vi
+set nocompatible " No reason today to assure compatibility with vi anymore
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -20,6 +20,7 @@ Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
 Bundle "tpope/vim-commentary"
 Bundle "junegunn/vim-easy-align"
+Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-dispatch"
 Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround"
@@ -29,6 +30,7 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "chriskempson/vim-tomorrow-theme"
 Bundle "othree/html5.vim"
 Bundle "dag/vim-fish"
+Bundle "Lokaltog/vim-easymotion"
 
 " vim-scripts
 Bundle "SearchComplete"
@@ -45,6 +47,8 @@ set cursorline " Highlight current line
 set ttyfast " Send more characters to the screen => speed up redrawing
 set gdefault " g by default for substitutions
 set showmatch " Show corresponding parentheses
+set title " Show filename in the window titlebar
+set makeprg=make "Standard make
 
 " Mouse use
 set mouse=a " Activate mouse
@@ -54,37 +58,37 @@ set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 
 " COLORSCHEMES {{{1
 if has('gui_running')
-    " GUI
-    set guicursor+=a:blinkon0 " Deactivate cursor blinking
-    set background=dark
-    colorscheme solarized
+	" GUI
+	set guicursor+=a:blinkon0 " Deactivate cursor blinking
+	set background=dark
+	colorscheme solarized
 else
-    " CONSOLE
-    if has("unix")
-        let s:uname = system("uname -s")
-        if s:uname == "Darwin\n"
-            " MAC
+	" CONSOLE
+	if has("unix")
+		let s:uname = system("uname -s")
+		if s:uname == "Darwin\n"
+			" MAC
 
-            " MOLOKAI
-            " colorscheme molokai
-            " set background=light
-            " let g:molokai_original = 1
-            " let g:rehash256 = 1
-            
-            " SOLARIZED
-            colorscheme solarized
-            set background=light
-            let g:solarized_termtrans = 1
+			" MOLOKAI
+			" colorscheme molokai
+			" set background=light
+			" let g:molokai_original = 1
+			" let g:rehash256 = 1
 
-            " Tomorrow
-            " colorscheme Tomorrow-Night
-            " set background=dark
-        else
-            " Other Unix distribs
-            colorscheme desert
-            set background=light
-        endif
-    endif
+			" SOLARIZED
+			colorscheme solarized
+			set background=light
+			let g:solarized_termtrans = 1
+
+			" Tomorrow
+			" colorscheme Tomorrow-Night
+			" set background=dark
+		else
+			" Other Unix distribs
+			colorscheme desert
+			set background=light
+		endif
+	endif
 endif
 
 " PLUGINS CONFIGURATION {{{1
@@ -112,35 +116,35 @@ syn on
 syntax on
 
 if has("autocmd")
-    filetype plugin indent on
+	filetype plugin indent on
 
-    augroup vimrcEx
-            au!
+	augroup vimrcEx
+			au!
 
-            " Specific parameters for some types of file
-            autocmd FileType text setlocal textwidth=80 noexpandtab
-            autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
-            autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-            autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
-            autocmd FileType r set commentstring=#\ %s
-            autocmd FileType matlab set commentstring=%\ %s
+			" Specific parameters for some types of file
+			autocmd FileType text setlocal textwidth=80 noexpandtab
+			autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
+			autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+			autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
+			autocmd FileType r set commentstring=#\ %s
+			autocmd FileType matlab set commentstring=%\ %s
 
-            " Add new types of file
-            autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
-            autocmd BufNewFile,BufRead BUILD setfiletype json
-        
-            " Get back to the former cursor position
-            autocmd BufReadPost *
-                                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                                    \   exe "normal! g`\"" |
+			" Add new types of file
+			autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+			autocmd BufNewFile,BufRead BUILD setfiletype json
 
-            " Reload vimrc when saving it
-            autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
-            " Auto folding vimrc with markers
-            autocmd BufReadPost .vimrc,vimrc set foldmethod=marker
-    augroup END
+			" Get back to the former cursor position
+			autocmd BufReadPost *
+									\ if line("'\"") > 1 && line("'\"") <= line("$") |
+									\	exe "normal! g`\"" |
+
+			" Reload vimrc when saving it
+			autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
+			" Auto folding vimrc with markers
+		autocmd BufRead,BufReadPost .vimrc,vimrc set foldmethod=marker
+	augroup END
 else
-        set autoindent " Auto indent every time
+		set autoindent " Auto indent every time
 endif
 
 " TEXT FORMATTING {{{1
@@ -148,7 +152,7 @@ set wrap " Cut lines according to the window's width
 set linebreak " Don't cut words in the end of lines
 set showbreak=… " Starting character when a line is too long
 
-set listchars=tab:▸\  " Invisible characters
+set listchars=tab:▸\ ,trail:·,nbsp:_  " Invisible characters
 set list " Display invisible characters
 
 " TAB
@@ -187,9 +191,7 @@ noremap <Right> <NOP>
 
 " Normal mode in insert mode
 inoremap jj <Esc>
-" Saving a file as root
-cab wr w !sudo tee %
-" Latex compilation
+" Latex building
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
 " Makefile execution
 nnoremap <F3> :w<CR>:Make<CR>
@@ -240,6 +242,19 @@ nnoremap <silent> <leader>i :set list!<CR>
 
 " ,v : open vimrc
 nnoremap <Leader>v :e $MYVIMRC<CR>
+
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+        let save_cursor = getpos(".")
+        let old_query = getreg('/')
+        :%s/\s\+$//e
+        call setpos('.', save_cursor)
+        call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " C / D coherence
 noremap Y y$
