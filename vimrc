@@ -1,8 +1,8 @@
 " VUNDLE {{{1
-" BundleList          - list configured bundles
-" BundleInstall(!)    - install(update) bundles
+" BundleList					- list configured bundles
+" BundleInstall(!)		- install(update) bundles
 " BundleSearch(!) foo - search(or refresh cache first) for foo
-" BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" BundleClean(!)			- confirm(or auto- approve) removal of unused bundles
 set nocompatible " No reason today to assure compatibility with vi anymore
 filetype off
 
@@ -19,7 +19,7 @@ Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
 Bundle "tpope/vim-commentary"
-Bundle "junegunn/vim-easy-align"
+Bundle "godlygeek/tabular"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-dispatch"
 Bundle "tpope/vim-fugitive"
@@ -119,32 +119,32 @@ if has("autocmd")
 	filetype plugin indent on
 
 	augroup vimrcEx
-			au!
+		au!
 
-			" Specific parameters for some types of file
-			autocmd FileType text setlocal textwidth=80 noexpandtab
-			autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
-			autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-			autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
-			autocmd FileType r set commentstring=#\ %s
-			autocmd FileType matlab set commentstring=%\ %s
+		" Specific parameters for some types of file
+		autocmd FileType text setlocal textwidth=80 noexpandtab
+		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
+		autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+		autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
+		autocmd FileType r set commentstring=#\ %s
+		autocmd FileType matlab set commentstring=%\ %s
 
-			" Add new types of file
-			autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
-			autocmd BufNewFile,BufRead BUILD setfiletype json
+		" Add new types of file
+		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+		autocmd BufNewFile,BufRead BUILD setfiletype json
 
-			" Get back to the former cursor position
-			autocmd BufReadPost *
-									\ if line("'\"") > 1 && line("'\"") <= line("$") |
-									\	exe "normal! g`\"" |
+		" Get back to the former cursor position
+		autocmd BufReadPost *
+					\ if line("'\"") > 1 && line("'\"") <= line("$") |
+					\	exe "normal! g`\"" |
 
-			" Reload vimrc when saving it
-			autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
-			" Auto folding vimrc with markers
+		" Reload vimrc when saving it
+		autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
+		" Auto folding vimrc with markers
 		autocmd BufRead,BufReadPost .vimrc,vimrc set foldmethod=marker
 	augroup END
 else
-		set autoindent " Auto indent every time
+	set autoindent " Auto indent every time
 endif
 
 " TEXT FORMATTING {{{1
@@ -152,15 +152,43 @@ set wrap " Cut lines according to the window's width
 set linebreak " Don't cut words in the end of lines
 set showbreak=… " Starting character when a line is too long
 
-set listchars=tab:▸\ ,trail:·,nbsp:_  " Invisible characters
+set listchars=tab:▸\ ,trail:·,nbsp:_	" Invisible characters
 set list " Display invisible characters
 
-" TAB
+" TABS
 set tabstop=8 " Number of spaces corresponding to a tabulation
 set shiftwidth=8 " Spaces used for an indentation
 set softtabstop=8 " Spaces to delete if we delete a tab
 set noexpandtab " Don't replace tabs
 set smarttab " Tab intelligent
+
+" Set tabstop, softtabstop and shiftwidth to the same value
+command! -nargs=* Stab call Stab()
+function! Stab()
+	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+	if l:tabstop > 0
+		let &l:sts = l:tabstop
+		let &l:ts = l:tabstop
+		let &l:sw = l:tabstop
+	endif
+	call SummarizeTabs()
+endfunction
+	
+function! SummarizeTabs()
+	try
+		echohl ModeMsg
+		echon 'tabstop='.&l:ts
+		echon ' shiftwidth='.&l:sw
+		echon ' softtabstop='.&l:sts
+		if &l:et
+			echon ' expandtab'
+		else
+			echon ' noexpandtab'
+		endif
+	finally
+		echohl None
+	endtry
+endfunction
 
 set smartindent " Intelligent indentation
 
@@ -197,10 +225,10 @@ nnoremap <F2> :w<CR>:!pdflatex %<CR>
 nnoremap <F3> :w<CR>:Make<CR>
 
 " Bubbling text
-nnoremap <C-Down> ddp
-nnoremap <C-Up> ddkP
-vnoremap <C-Down> xp`[V`]
-vnoremap <C-Up> xkP`[V`]
+nmap <C-Down> ]e
+nmap <C-Up> [e
+vmap <C-Down> ]egv
+vmap <C-Up> [egv
 
 " FOLDS
 " zi = toggle fold
@@ -216,11 +244,14 @@ vnoremap <Space> zA
 " Copy / paste within clipboards
 noremap <Leader>y "*y
 noremap <Leader>yy "*yy
-noremap <Leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
+noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 
-" Transform a file into binary
+" Convert a file into binary
 noremap <Leader>b :%!xxd<CR>
 noremap <Leader>nb :%!xxd -r<CR>
+
+" ,t : Change tab
+noremap <Leader>t :Stab<CR>
 
 " ,m : maximize the window
 nnoremap <Leader>m <C-W>_<C-W><Bar>
@@ -245,11 +276,11 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
-        let save_cursor = getpos(".")
-        let old_query = getreg('/')
-        :%s/\s\+$//e
-        call setpos('.', save_cursor)
-        call setreg('/', old_query)
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
