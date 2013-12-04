@@ -1,8 +1,8 @@
 " VUNDLE {{{1
-" BundleList					- list configured bundles
-" BundleInstall(!)		- install(update) bundles
-" BundleSearch(!) foo - search(or refresh cache first) for foo
-" BundleClean(!)			- confirm(or auto- approve) removal of unused bundles
+" BundleList                    - list configured bundles
+" BundleInstall(!)              - install(update) bundles
+" BundleSearch(!) foo           - search(or refresh cache first) for foo
+" BundleClean(!)                - confirm(or auto- approve) removal of unused bundles
 set nocompatible " No reason today to assure compatibility with vi anymore
 filetype off
 
@@ -30,7 +30,6 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "chriskempson/vim-tomorrow-theme"
 Bundle "othree/html5.vim"
 Bundle "dag/vim-fish"
-Bundle "Lokaltog/vim-easymotion"
 
 " vim-scripts
 Bundle "SearchComplete"
@@ -81,8 +80,8 @@ else
 			let g:solarized_termtrans = 1
 
 			" Tomorrow
-			" colorscheme Tomorrow-Night
-			" set background=dark
+			" colorscheme Tomorrow-Night-Eighties
+			" set background=light
 		else
 			" Other Unix distribs
 			colorscheme desert
@@ -208,8 +207,8 @@ vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 
 " Abolish vim regex mode !
-nnoremap / /\v
-vnoremap / /\v
+nmap / /\v
+vmap / /\v
 
 " Habit breaking, habit making
 noremap <Up> <NOP>
@@ -282,10 +281,10 @@ function! StripWhitespace()
 	call setpos('.', save_cursor)
 	call setreg('/', old_query)
 endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
+noremap <Leader>ss :call StripWhitespace()<CR>
 
 " Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+noremap <Leader>W :w !sudo tee % >/dev/null<CR>
 
 " C / D coherence
 noremap Y y$
