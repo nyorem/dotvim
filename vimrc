@@ -3,7 +3,7 @@
 " BundleInstall(!)              - install(update) bundles
 " BundleSearch(!) foo           - search(or refresh cache first) for foo
 " BundleClean(!)                - confirm(or auto- approve) removal of unused bundles
-set nocompatible " No reason today to assure compatibility with vi anymore
+set nocompatible " No reason today to assure compatibility with vi
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -172,7 +172,7 @@ function! Stab()
 	endif
 	call SummarizeTabs()
 endfunction
-	
+
 function! SummarizeTabs()
 	try
 		echohl ModeMsg
@@ -229,6 +229,13 @@ nmap <C-Up> [e
 vmap <C-Down> ]egv
 vmap <C-Up> [egv
 
+" Yanking the entire buffer
+nnoremap gy :%y+<CR>
+
+" Adding blank lines
+nnoremap go o<Esc>k
+nnoremap gO O<Esc>j
+
 " FOLDS
 " zi = toggle fold
 " zj / zk = moving with folds
@@ -257,6 +264,13 @@ nnoremap <Leader>m <C-W>_<C-W><Bar>
 
 " ,<Space> : erasing old search pattern
 nnoremap <Leader><Space> :noh<CR>
+
+" Abolish Ex mode
+nnoremap Q @@
+
+" Deactivating look-up function
+nnoremap K k
+vnoremap K k
 
 " Spell checking
 " zg(ood) : add a word to the dictionary (zG : temporarily)
@@ -292,7 +306,7 @@ noremap Y y$
 " SEARCHING {{{1
 set incsearch " Display current search results (during typing)
 set ignorecase " Case insensitive
-set smartcase " Intelligent case (if maj -> take care of the case)
+set smartcase " Intelligent case (if caps -> take care of the case)
 set hlsearch " Search results highlighting
 
 " SUGGESTIONS {{{1
