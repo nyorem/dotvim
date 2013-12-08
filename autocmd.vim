@@ -26,6 +26,11 @@ if has("autocmd")
 		autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
 		" Auto folding vimrc with markers
 		autocmd BufRead,BufReadPost .vimrc,vimrc set foldmethod=marker
+
+		" Help mode bindings
+		" C-t to go back
+		autocmd filetype help nnoremap <buffer><CR> <C-]>
+		autocmd filetype help nnoremap <buffer>q :q<CR>
 	augroup END
 else
 	set autoindent " Auto indent every time

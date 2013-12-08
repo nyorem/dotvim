@@ -27,6 +27,9 @@ vnoremap K k
 
 " Normal mode in insert mode
 inoremap jj <Esc>
+inoremap JJ <Esc>
+inoremap jJ <Esc>
+inoremap Jj <Esc>
 
 " Latex building and Makefile execution
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
@@ -40,6 +43,9 @@ vmap <C-Up> [egv
 
 " Yanking the entire buffer
 nnoremap gy :%y+<CR>
+
+" Select entire buffer
+nnoremap vy ggVG
 
 " Adding blank lines
 nnoremap go o<Esc>k
@@ -88,4 +94,13 @@ noremap <Leader>W :w !sudo tee % >/dev/null<CR>
 
 " ,ss : Strip trailing whitespaces
 noremap <Leader>ss :call StripWhitespace()<CR>
+
+" Underline the current line with '-'
+nnoremap <silent> <Leader>ul :t.\|s/./-/g\|:nohls<CR>
+
+" Underline the current line with '-'
+nnoremap <silent> <Leader>uul :t.\|s/./=/g\|:nohls<CR>
+
+" Surrent current line with lines
+nnoremap <silent> <Leader>cul :normal "lyy"lpwv$r-^"lyyk"lP<CR>
 

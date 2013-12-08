@@ -11,5 +11,6 @@ let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 " Ctrlp
-set wildignore+=*.class,*.o
+set wildignore+=*.class,*.o " Ignore some files
+let g:ctrlp_max_height = 10 " Max height
 
