@@ -83,8 +83,8 @@ nnoremap <Leader>m <C-W>_<C-W><Bar>
 " ,<Space> : erasing old search pattern
 nnoremap <Leader><Space> :noh<CR>
 
-" ,i : toggle invisible characters
-nnoremap <silent> <leader>i :set list!<CR>
+" ,l : toggle invisible characters
+nnoremap <silent> <leader>l :set list!<CR>
 
 " ,v : open the vim directory
 nnoremap <Leader>v :e ~/.vim<CR>

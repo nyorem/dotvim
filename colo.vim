@@ -28,7 +28,7 @@ else
 			" set background=light
 		else
 			" Other Unix distribs
-			colorscheme desert
+			colorscheme desertEx
 			set background=light
 		endif
 	endif

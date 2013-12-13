@@ -14,3 +14,7 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 set wildignore+=*.class,*.o " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
 
+" Emmet
+" Enable only for HTML / CSS files
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall

@@ -30,6 +30,7 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "chriskempson/vim-tomorrow-theme"
 Bundle "othree/html5.vim"
 Bundle "dag/vim-fish"
+Bundle "mattn/emmet-vim"
 
 " vim-scripts
 Bundle "SearchComplete"
