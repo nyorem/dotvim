@@ -15,8 +15,8 @@ vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 
 " Abolish vim regex mode
-nmap / /\v
-vmap / /\v
+nnoremap / /\v
+vnoremap / /\v
 
 " Abolish Ex mode
 nnoremap Q @@

@@ -19,7 +19,7 @@ Bundle "godlygeek/tabular"
 Bundle "ervandew/supertab"
 Bundle "dag/vim-fish"
 
-" Snippets
+" Snipmate & Snippets
 Bundle "garbas/vim-snipmate"
 Bundle "tomtom/tlib_vim"
 Bundle "nyorem/vim-snippets"
@@ -31,12 +31,13 @@ Bundle "tpope/vim-dispatch"
 Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround"
 Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-vinegar"
 
 " Colorschemes
 Bundle "altercation/vim-colors-solarized"
 Bundle "chriskempson/vim-tomorrow-theme"
 
-" Web dev
+" Web development
 Bundle "mattn/emmet-vim"
 Bundle "digitaltoad/vim-jade"
 Bundle "othree/html5.vim"
@@ -44,4 +45,3 @@ Bundle "kchmck/vim-coffee-script"
 
 " vim-scripts
 Bundle "SearchComplete"
-
