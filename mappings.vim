@@ -48,8 +48,8 @@ nnoremap gy :%y+<CR>
 nnoremap vy ggVG
 
 " Adding blank lines
-nnoremap go o<Esc>k
-nnoremap gO O<Esc>j
+nnoremap go o<Esc>0C<Esc>k
+nnoremap gO O<Esc>0C<Esc>j
 
 " FOLDS
 " zi = toggle fold

@@ -22,13 +22,12 @@ if has("autocmd")
 					\ if line("'\"") > 1 && line("'\"") <= line("$") |
 					\	exe "normal! g`\"" |
 
-		" Reload vimrc when saving it
-		autocmd BufWritePost .vimrc,vimrc source $MYVIMRC
-		" Auto folding vimrc with markers
-		autocmd BufRead,BufReadPost .vimrc,vimrc set foldmethod=marker
+		" Reload vim config files when saving them
+		autocmd BufWritePost autocmd.vim,colo.vim,config.vim,functions.vim,mappings.vim,plugins.vim,text.vim,vundle.vim,vimrc,.vimrc source $MYVIMRC
 
 		" Help mode bindings
 		" C-t to go back
+		" q to quit
 		autocmd filetype help nnoremap <buffer><CR> <C-]>
 		autocmd filetype help nnoremap <buffer>q :q<CR>
 	augroup END
