@@ -39,9 +39,10 @@ Bundle "chriskempson/vim-tomorrow-theme"
 
 " Web development
 Bundle "mattn/emmet-vim"
-Bundle "digitaltoad/vim-jade"
 Bundle "othree/html5.vim"
-Bundle "kchmck/vim-coffee-script"
+Bundle "digitaltoad/vim-jade"
+Bundle "wavded/vim-stylus"
 
 " vim-scripts
 Bundle "SearchComplete"
+Bundle "loremipsum"
