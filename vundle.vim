@@ -45,4 +45,3 @@ Bundle "wavded/vim-stylus"
 
 " vim-scripts
 Bundle "SearchComplete"
-Bundle "loremipsum"

@@ -1,0 +1,9 @@
+*~
+.*.swp
+.swp
+
+.DS_Store
+
+.VimballRecord
+.netrwhist
+view/*

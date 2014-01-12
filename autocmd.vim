@@ -8,10 +8,14 @@ if has("autocmd")
 		" Specific parameters for some types of file
 		autocmd FileType text setlocal textwidth=80 noexpandtab
 		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
-		autocmd FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
 		autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
 		autocmd FileType r set commentstring=#\ %s
 		autocmd FileType matlab set commentstring=%\ %s
+
+		" GL Project (Ensimag)
+		autocmd BufNewFile,BufRead *.deca setfiletype java
+		autocmd BufNewFile,BufRead *.ass setfiletype asm
 
 		" Add new types of file
 		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
