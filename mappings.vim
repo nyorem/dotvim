@@ -25,6 +25,10 @@ nnoremap Q @@
 nnoremap K k
 vnoremap K k
 
+" vim's mark function with gm
+" since 'm' is used by easyclip
+nnoremap gm m
+
 " Normal mode in insert mode
 inoremap jj <Esc>
 inoremap JJ <Esc>

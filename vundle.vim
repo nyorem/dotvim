@@ -18,6 +18,7 @@ Bundle "tpope/vim-commentary"
 Bundle "godlygeek/tabular"
 Bundle "ervandew/supertab"
 Bundle "dag/vim-fish"
+Bundle "svermeulen/vim-easyclip"
 
 " Snipmate & Snippets
 Bundle "garbas/vim-snipmate"
