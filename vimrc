@@ -1,26 +1,364 @@
-" Sourcing...
+" {{{1 VUNDLE
+" BundleList                    - list configured bundles
+" BundleInstall(!)              - install(update) bundles
+" BundleSearch(!) foo           - search(or refresh cache first) for foo
+" BundleClean(!)                - confirm(or auto- approve) removal of unused bundles
+set nocompatible " No reason today to assure compatibility with vi
+filetype off
 
-" Vundle
-source ~/.vim/vundle.vim
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" Basic config : searching, show line numbers...
-source ~/.vim/config.vim
+Bundle "gmarik/vundle"
 
-" Choose a colorscheme
-source ~/.vim/colo.vim
+" Github repos
+Bundle "bling/vim-airline"
+Bundle "kien/ctrlp.vim"
+Bundle "tpope/vim-commentary"
+Bundle "godlygeek/tabular"
+Bundle "ervandew/supertab"
+Bundle "dag/vim-fish"
+Bundle "tommcdo/vim-exchange"
 
-" Plugins specific config
-source ~/.vim/plugins.vim
+" Snipmate & Snippets
+Bundle "garbas/vim-snipmate"
+Bundle "tomtom/tlib_vim"
+Bundle "nyorem/vim-snippets"
+Bundle "MarcWeber/vim-addon-mw-utils"
 
-" Some functions
-source ~/.vim/functions.vim
+" Tpope
+Bundle "tpope/vim-unimpaired"
+Bundle "tpope/vim-dispatch"
+Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-surround"
+Bundle "tpope/vim-repeat"
 
-" Autocmds
-source ~/.vim/autocmd.vim
+" Colorschemes
+Bundle "altercation/vim-colors-solarized"
+Bundle "chriskempson/vim-tomorrow-theme"
 
-" Text formatting
-source ~/.vim/text.vim
+" Web development
+Bundle "mattn/emmet-vim"
+Bundle "othree/html5.vim"
+Bundle "digitaltoad/vim-jade"
+Bundle "wavded/vim-stylus"
 
-" Mappings
-source ~/.vim/mappings.vim
+" vim-scripts
+Bundle "SearchComplete"
+Bundle "LanguageTool"
 
+" {{{1 BASIC CONFIGURATION
+
+let mapleader = "," " ',' is more accessible
+
+" UI
+set t_Co=256 " 256 colors support
+set ruler " Show current position
+set nu " Show lines number
+set relativenumber " Use relative numbers
+set encoding=utf-8 " Default character encoding
+set cursorline " Highlight current line
+set title " Show filename in the window titlebar
+set noshowmode " Dont't show the mode since Powerline does
+set laststatus=2 " Always display status bar
+set scrolloff=3 " Number of lines to see when scrolling
+set visualbell " No sound !
+set ttyfast " Send more characters to the screen => speed up redrawing
+
+" Behaviors
+set shell=bash " Default shell to use with :sh command
+set hidden " Hidden buffer by default
+set autoread " Automatically reload file if changes detected
+set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
+set modelines=0 " Prevent security exploits
+set makeprg=make "Standard make
+set showmatch " Show corresponding parentheses
+set backspace=indent,eol,start " Use backspace
+set history=50 " Maximum numbers of commands in q:
+set showcmd " Show current command
+
+" Mouse use
+set mousehide
+set mouse=a " Activate mouse
+behave xterm
+
+" Syntax Highlighting
+filetype on
+syn on
+syntax on
+
+" Spell checking
+" zg(ood) : add a word to the dictionary (zG : temporarily)
+" zw : misspelled word
+" zuw et zug : undoing
+" :runtime spell/cleanadd.vim : cleaning spell dictionary
+set spelllang=fr
+let g:languagetool_jar='$HOME/libs/languagetool/languagetool-commandline.jar'
+
+" Searching
+set incsearch " Display current search results (during typing)
+set ignorecase " Case insensitive
+set smartcase " Intelligent case (if caps -> take care of the case)
+set hlsearch " Search results highlighting
+
+" Suggestions
+set wildmenu " Display auto completion menu
+set wildmode=list:longest,list:full " Display every possibilities
+
+" {{{1 COLORSCHEMES
+
+if has('gui_running')
+	" GUI
+	set guicursor+=a:blinkon0 " Deactivate cursor blinking
+	set background=dark
+	colorscheme solarized
+else
+	" CONSOLE
+	if has("unix")
+		let s:uname = system("uname -s")
+		if s:uname == "Darwin\n"
+			" MAC
+
+			" MOLOKAI
+			" colorscheme molokai
+			" set background=light
+			" let g:molokai_original = 1
+			" let g:rehash256 = 1
+
+			" SOLARIZED
+			colorscheme solarized
+			set background=dark
+			let g:solarized_termtrans = 1
+
+			" Tomorrow
+			" colorscheme Tomorrow-Night-Eighties
+			" set background=light
+		else
+			" Other Unix distribs
+			colorscheme desertEx
+			set background=light
+		endif
+	endif
+endif
+
+" {{{1 PLUGINS
+
+" Airline
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_detect_modified = 1
+let g:airline_detect_paste = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#ctrlp#color_template = 'insert'
+let g:airline#extensions#whitespace#checks = [ 'indent' ]
+
+" Ctrlp
+set wildignore+=*.class,*.o " Ignore some files
+let g:ctrlp_max_height = 10 " Max height
+
+" Emmet
+" Enable only for HTML / CSS files
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+" {{{1 USEFUL FUNCTIONS
+
+" Set tabstop, softtabstop and shiftwidth to the same value
+command! -nargs=* Stab call Stab()
+function! Stab()
+	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+	if l:tabstop > 0
+		let &l:sts = l:tabstop
+		let &l:ts = l:tabstop
+		let &l:sw = l:tabstop
+	endif
+	call SummarizeTabs()
+endfunction
+
+function! SummarizeTabs()
+	try
+		echohl ModeMsg
+		echon 'tabstop='.&l:ts
+		echon ' shiftwidth='.&l:sw
+		echon ' softtabstop='.&l:sts
+		if &l:et
+			echon ' expandtab'
+		else
+			echon ' noexpandtab'
+		endif
+	finally
+		echohl None
+	endtry
+endfunction
+
+" Strip trailing whitespace
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+
+" {{{1 AUTOCMD
+if has("autocmd")
+	filetype plugin indent on
+
+	augroup vimrcEx
+		au!
+
+		" Specific parameters for some types of file
+		autocmd FileType text setlocal textwidth=80 noexpandtab
+		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
+		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
+		autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
+		autocmd FileType r set commentstring=#\ %s
+		autocmd FileType matlab set commentstring=%\ %s
+
+		" GL Project (Ensimag)
+		autocmd BufNewFile,BufRead *.deca setfiletype java
+		autocmd BufNewFile,BufRead *.ass setfiletype asm
+
+		" Add new types of file
+		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+		autocmd BufNewFile,BufRead BUILD setfiletype json
+
+		" Get back to the former cursor position
+		autocmd BufReadPost *
+					\ if line("'\"") > 1 && line("'\"") <= line("$") |
+					\	exe "normal! g`\"" |
+
+		" Reload vim config files when saving them
+		autocmd BufWritePost vimrc,.vimrc source $MYVIMRC
+		autocmd BufRead vimrc,.vimrc set foldmethod=marker
+
+		" Help mode bindings
+		" C-t to go back
+		" q to quit
+		autocmd filetype help nnoremap <buffer><CR> <C-]>
+		autocmd filetype help nnoremap <buffer>q :q<CR>
+	augroup END
+else
+	set autoindent " Auto indent every time
+endif
+
+" {{{1 TEXT FORMATTING
+set wrap " Cut lines according to the window's width
+set linebreak " Don't cut words in the end of lines
+set showbreak=… " Starting character when a line is too long
+set smartindent " Intelligent indentation
+
+" INVISIBLES
+set listchars=tab:▸\ ,trail:·,nbsp:_	" Invisible characters
+set list " Display invisible characters
+
+" TABS
+set tabstop=8 " Number of spaces corresponding to a tabulation
+set shiftwidth=8 " Spaces used for an indentation
+set softtabstop=8 " Spaces to delete if we delete a tab
+set noexpandtab " Don't replace tabs
+set smarttab " Tab intelligent
+
+" {{{1 MAPPINGS
+
+" C / D coherence
+noremap Y y$
+
+" Habit breaking, habit making
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" Get rid of F1
+inoremap <F1> <Esc>
+vnoremap <F1> <Esc>
+nnoremap <F1> <Esc>
+
+" Abolish vim regex mode
+nnoremap / /\v
+vnoremap / /\v
+
+" Abolish Ex mode
+nnoremap Q @@
+
+" Deactivate look-up and join functions
+nnoremap K k
+vnoremap K k
+nnoremap J j
+vnoremap J j
+
+" vim's mark function with gm
+" since 'm' is used by easyclip
+nnoremap gm m
+
+" Normal mode in insert mode
+inoremap jj <Esc>
+inoremap JJ <Esc>
+inoremap jJ <Esc>
+inoremap Jj <Esc>
+
+" Latex building and Makefile execution
+nnoremap <F2> :w<CR>:!pdflatex %<CR>
+nnoremap <F3> :w<CR>:Make<CR>
+
+" Bubbling text
+nmap <C-Down> ]e
+nmap <C-Up> [e
+vmap <C-Down> ]egv
+vmap <C-Up> [egv
+
+" Yanking the entire buffer
+nnoremap gy :%y+<CR>
+
+" Select entire buffer
+nnoremap vy ggVG
+
+" Adding blank lines
+nnoremap go o<Esc>0C<Esc>k
+nnoremap gO O<Esc>0C<Esc>j
+
+" FOLDS
+" zi = toggle fold
+" zj / zk = moving with folds
+" zf = creating a fold (visual mode)
+" zd = delete a fold
+" zM = close all folds
+" zR = open all folds
+nnoremap <Space> zA
+vnoremap <Space> zA
+
+" <Leader> shortcuts
+" Copy / paste within clipboards
+noremap <Leader>y "*y
+noremap <Leader>yy "*yy
+noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
+
+" Convert a file into binary
+nnoremap <Leader>b :%!xxd<CR>
+nnoremap <Leader>nb :%!xxd -r<CR>
+
+" ,s : toggle spell checking
+nnoremap <silent> <leader>s :set spell!<CR>
+
+" ,t : Change tab
+noremap <Leader>t :Stab<CR>
+
+" ,m : maximize the window
+nnoremap <Leader>m <C-W>_<C-W><Bar>
+
+" ,<Space> : erasing old search pattern
+nnoremap <Leader><Space> :noh<CR>
+
+" ,l : toggle invisible characters
+nnoremap <silent> <leader>l :set list!<CR>
+
+" ,v : open the vim directory
+nnoremap <Leader>v :e $MYVIMRC<CR>
+
+" ,W : Save a file as root
+noremap <Leader>W :w !sudo tee % >/dev/null<CR>
+
+" ,ss : Strip trailing whitespaces
+noremap <Leader>ss :call StripWhitespace()<CR>
