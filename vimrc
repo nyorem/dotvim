@@ -12,13 +12,20 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Github repos
+
+" Helpers
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
-Bundle "tpope/vim-commentary"
-Bundle "godlygeek/tabular"
 Bundle "ervandew/supertab"
-Bundle "dag/vim-fish"
+
+" Text manipulation
+Bundle "godlygeek/tabular"
 Bundle "tommcdo/vim-exchange"
+Bundle "wellle/targets.vim"
+
+" Support for others languages
+Bundle "dag/vim-fish"
+Bundle "JuliaLang/julia-vim"
 
 " Snipmate & Snippets
 Bundle "garbas/vim-snipmate"
@@ -27,15 +34,15 @@ Bundle "nyorem/vim-snippets"
 Bundle "MarcWeber/vim-addon-mw-utils"
 
 " Tpope
+Bundle "tpope/vim-commentary"
 Bundle "tpope/vim-unimpaired"
-Bundle "tpope/vim-dispatch"
-Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround"
 Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-dispatch"
 
 " Colorschemes
 Bundle "altercation/vim-colors-solarized"
-Bundle "chriskempson/vim-tomorrow-theme"
 
 " Web development
 Bundle "mattn/emmet-vim"
@@ -212,7 +219,7 @@ if has("autocmd")
 		autocmd FileType text setlocal textwidth=80 noexpandtab
 		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
 		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
-		autocmd FileType c,cpp,java setlocal cindent cino+='(0'set foldmethod=syntax
+		autocmd FileType c,cpp,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'set foldmethod=syntax
 		autocmd FileType r set commentstring=#\ %s
 		autocmd FileType matlab set commentstring=%\ %s
 
@@ -289,10 +296,6 @@ vnoremap K k
 nnoremap J j
 vnoremap J j
 
-" vim's mark function with gm
-" since 'm' is used by easyclip
-nnoremap gm m
-
 " Normal mode in insert mode
 inoremap jj <Esc>
 inoremap JJ <Esc>
@@ -308,16 +311,6 @@ nmap <C-Down> ]e
 nmap <C-Up> [e
 vmap <C-Down> ]egv
 vmap <C-Up> [egv
-
-" Yanking the entire buffer
-nnoremap gy :%y+<CR>
-
-" Select entire buffer
-nnoremap vy ggVG
-
-" Adding blank lines
-nnoremap go o<Esc>0C<Esc>k
-nnoremap gO O<Esc>0C<Esc>j
 
 " FOLDS
 " zi = toggle fold
@@ -339,20 +332,11 @@ noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 nnoremap <Leader>b :%!xxd<CR>
 nnoremap <Leader>nb :%!xxd -r<CR>
 
-" ,s : toggle spell checking
-nnoremap <silent> <leader>s :set spell!<CR>
-
 " ,t : Change tab
 noremap <Leader>t :Stab<CR>
 
 " ,m : maximize the window
 nnoremap <Leader>m <C-W>_<C-W><Bar>
-
-" ,<Space> : erasing old search pattern
-nnoremap <Leader><Space> :noh<CR>
-
-" ,l : toggle invisible characters
-nnoremap <silent> <leader>l :set list!<CR>
 
 " ,v : open the vim directory
 nnoremap <Leader>v :e $MYVIMRC<CR>
