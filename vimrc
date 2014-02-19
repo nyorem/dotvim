@@ -17,6 +17,8 @@ Bundle "gmarik/vundle"
 Bundle "bling/vim-airline"
 Bundle "kien/ctrlp.vim"
 Bundle "ervandew/supertab"
+Bundle "christoomey/vim-tmux-navigator"
+Bundle "edkolev/tmuxline.vim"
 
 " Text manipulation
 Bundle "godlygeek/tabular"
@@ -53,6 +55,8 @@ Bundle "wavded/vim-stylus"
 " vim-scripts
 Bundle "SearchComplete"
 Bundle "LanguageTool"
+Bundle "DoxygenToolkit.vim"
+Bundle 'a.vim'
 
 " {{{1 BASIC CONFIGURATION
 
@@ -168,6 +172,16 @@ let g:ctrlp_max_height = 10 " Max height
 " Enable only for HTML / CSS files
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+" Tmuxline
+" Not use powerline symbols
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+let g:tmuxline_preset = 'full'
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -286,6 +300,12 @@ nnoremap <F1> <Esc>
 " Abolish vim regex mode
 nnoremap / /\v
 vnoremap / /\v
+
+" Navigation in splits
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 " Abolish Ex mode
 nnoremap Q @@
