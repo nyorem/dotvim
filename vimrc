@@ -27,7 +27,6 @@ Bundle "wellle/targets.vim"
 
 " Support for others languages
 Bundle "dag/vim-fish"
-Bundle "JuliaLang/julia-vim"
 
 " Snipmate & Snippets
 Bundle "garbas/vim-snipmate"
@@ -47,14 +46,12 @@ Bundle "tpope/vim-dispatch"
 Bundle "altercation/vim-colors-solarized"
 
 " Web development
-Bundle "mattn/emmet-vim"
 Bundle "othree/html5.vim"
 Bundle "digitaltoad/vim-jade"
 Bundle "wavded/vim-stylus"
 
 " vim-scripts
 Bundle "SearchComplete"
-Bundle "LanguageTool"
 Bundle "DoxygenToolkit.vim"
 Bundle 'a.vim'
 
@@ -104,7 +101,6 @@ syntax on
 " zuw et zug : undoing
 " :runtime spell/cleanadd.vim : cleaning spell dictionary
 set spelllang=fr
-let g:languagetool_jar='$HOME/libs/languagetool/languagetool-commandline.jar'
 
 " Searching
 set incsearch " Display current search results (during typing)
@@ -138,7 +134,7 @@ else
 
 			" SOLARIZED
 			colorscheme solarized
-			set background=dark
+			set background=light
 			let g:solarized_termtrans = 1
 
 			" Tomorrow
