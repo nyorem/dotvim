@@ -14,45 +14,46 @@ Bundle "gmarik/vundle"
 " Github repos
 
 " Helpers
-Bundle "bling/vim-airline"
-Bundle "kien/ctrlp.vim"
-Bundle "ervandew/supertab"
-Bundle "christoomey/vim-tmux-navigator"
-Bundle "edkolev/tmuxline.vim"
+Bundle 'bling/vim-airline'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ervandew/supertab'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'edkolev/tmuxline.vim'
 
 " Text manipulation
-Bundle "godlygeek/tabular"
-Bundle "tommcdo/vim-exchange"
-Bundle "wellle/targets.vim"
+Bundle 'godlygeek/tabular'
+Bundle 'tommcdo/vim-exchange'
+Bundle 'wellle/targets.vim'
 
 " Support for others languages
-Bundle "dag/vim-fish"
+Bundle 'dag/vim-fish'
+Bundle 'freefem.vim'
 
 " Snipmate & Snippets
-Bundle "garbas/vim-snipmate"
-Bundle "tomtom/tlib_vim"
-Bundle "nyorem/vim-snippets"
-Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle 'garbas/vim-snipmate'
+Bundle 'tomtom/tlib_vim'
+Bundle 'nyorem/vim-snippets'
+Bundle 'MarcWeber/vim-addon-mw-utils'
 
 " Tpope
-Bundle "tpope/vim-commentary"
-Bundle "tpope/vim-unimpaired"
-Bundle "tpope/vim-surround"
-Bundle "tpope/vim-repeat"
-Bundle "tpope/vim-fugitive"
-Bundle "tpope/vim-dispatch"
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-dispatch'
 
 " Colorschemes
-Bundle "altercation/vim-colors-solarized"
+Bundle 'altercation/vim-colors-solarized'
 
 " Web development
-Bundle "othree/html5.vim"
-Bundle "digitaltoad/vim-jade"
-Bundle "wavded/vim-stylus"
+Bundle 'othree/html5.vim'
+" Bundle 'digitaltoad/vim-jade'
+" Bundle 'wavded/vim-stylus'
 
 " vim-scripts
-Bundle "SearchComplete"
-Bundle "DoxygenToolkit.vim"
+Bundle 'SearchComplete'
+Bundle 'DoxygenToolkit.vim'
 Bundle 'a.vim'
 
 " {{{1 BASIC CONFIGURATION
@@ -163,14 +164,12 @@ let g:airline#extensions#whitespace#checks = [ 'indent' ]
 " Ctrlp
 set wildignore+=*.class,*.o " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
-
-" Emmet
-" Enable only for HTML / CSS files
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+" Make Ctrlp faster in a git repo
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
 
 " Tmuxline
-" Not use powerline symbols
+" Not using powerline symbols
 let g:tmuxline_separators = {
     \ 'left' : '',
     \ 'left_alt': '>',
@@ -229,17 +228,12 @@ if has("autocmd")
 		autocmd FileType text setlocal textwidth=80 noexpandtab
 		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
 		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
-		autocmd FileType c,cpp,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'set foldmethod=syntax
+		autocmd FileType c,cpp,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
 		autocmd FileType r set commentstring=#\ %s
 		autocmd FileType matlab set commentstring=%\ %s
 
-		" GL Project (Ensimag)
-		autocmd BufNewFile,BufRead *.deca setfiletype java
-		autocmd BufNewFile,BufRead *.ass setfiletype asm
-
 		" Add new types of file
 		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
-		autocmd BufNewFile,BufRead BUILD setfiletype json
 
 		" Get back to the former cursor position
 		autocmd BufReadPost *
@@ -293,10 +287,6 @@ inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 
-" Abolish vim regex mode
-nnoremap / /\v
-vnoremap / /\v
-
 " Navigation in splits
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
@@ -348,7 +338,7 @@ noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 nnoremap <Leader>b :%!xxd<CR>
 nnoremap <Leader>nb :%!xxd -r<CR>
 
-" ,t : Change tab
+" ,t : Change indentation parameters
 noremap <Leader>t :Stab<CR>
 
 " ,m : maximize the window
