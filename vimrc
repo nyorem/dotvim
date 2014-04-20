@@ -42,6 +42,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/timl'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
@@ -68,7 +69,6 @@ set relativenumber " Use relative numbers
 set encoding=utf-8 " Default character encoding
 set cursorline " Highlight current line
 set title " Show filename in the window titlebar
-set noshowmode " Dont't show the mode since Powerline does
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
 set visualbell " No sound !
@@ -77,14 +77,13 @@ set ttyfast " Send more characters to the screen => speed up redrawing
 " Behaviors
 set shell=bash " Default shell to use with :sh command
 set hidden " Hidden buffer by default
-set autoread " Automatically reload file if changes detected
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
-set modelines=0 " Prevent security exploits
 set makeprg=make "Standard make
 set showmatch " Show corresponding parentheses
 set backspace=indent,eol,start " Use backspace
 set history=50 " Maximum numbers of commands in q:
 set showcmd " Show current command
+set autoread " Automatically reload a file when changed
 
 " Mouse use
 set mousehide
@@ -154,12 +153,15 @@ endif
 " Airline
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+let g:airline_section_warning = ''
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
-let g:airline#extensions#whitespace#checks = [ 'indent' ]
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " Ctrlp
 set wildignore+=*.class,*.o " Ignore some files
@@ -226,8 +228,9 @@ if has("autocmd")
 
 		" Specific parameters for some types of file
 		autocmd FileType text setlocal textwidth=80 noexpandtab
-		autocmd FileType lex,yacc,make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
+		autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
 		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
+		autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
 		autocmd FileType c,cpp,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
 		autocmd FileType r set commentstring=#\ %s
 		autocmd FileType matlab set commentstring=%\ %s
@@ -273,8 +276,17 @@ set smarttab " Tab intelligent
 
 " {{{1 MAPPINGS
 
+" Working with buffers like tabs (better!)
+nmap <Leader>l :bnext<CR>
+nmap <Leader>h :bprevious<CR>
+nmap <Leader>bq :bp <BAR> bd #<CR>
+nmap <Leader>bn :enew<CR>
+
 " C / D coherence
 noremap Y y$
+
+" Select text previously pasted
+noremap gV `[v`]
 
 " Habit breaking, habit making
 noremap <Up> <NOP>
@@ -318,15 +330,13 @@ nmap <C-Up> [e
 vmap <C-Down> ]egv
 vmap <C-Up> [egv
 
-" FOLDS
+" FOLDS Cheatshet
 " zi = toggle fold
 " zj / zk = moving with folds
 " zf = creating a fold (visual mode)
 " zd = delete a fold
 " zM = close all folds
 " zR = open all folds
-nnoremap <Space> zA
-vnoremap <Space> zA
 
 " <Leader> shortcuts
 " Copy / paste within clipboards
