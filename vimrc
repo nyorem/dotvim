@@ -19,11 +19,14 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'ervandew/supertab'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
+Bundle 'sheerun/vim-polyglot'
+Bundle 'szw/vim-ctrlspace'
 
 " Text manipulation
 Bundle 'godlygeek/tabular'
 Bundle 'tommcdo/vim-exchange'
 Bundle 'wellle/targets.vim'
+Bundle 'thinca/vim-visualstar'
 
 " Support for others languages
 Bundle 'dag/vim-fish'
@@ -42,6 +45,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-eunuch'
+
 Bundle 'tpope/timl'
 
 " Colorschemes
@@ -59,7 +64,7 @@ Bundle 'a.vim'
 
 " {{{1 BASIC CONFIGURATION
 
-let mapleader = "," " ',' is more accessible
+let mapleader = ","
 
 " UI
 set t_Co=256 " 256 colors support
@@ -159,9 +164,7 @@ let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_exclude_preview = 1
 
 " Ctrlp
 set wildignore+=*.class,*.o " Ignore some files
