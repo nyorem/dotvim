@@ -1,66 +1,79 @@
-" {{{1 VUNDLE
-" BundleList                    - list configured bundles
-" BundleInstall(!)              - install(update) bundles
-" BundleSearch(!) foo           - search(or refresh cache first) for foo
-" BundleClean(!)                - confirm(or auto- approve) removal of unused bundles
+" {{{1 NeoBundle
+" NeoBundleList                    - list configured bundles
+" NeoBundleInstall(!)              - install(update) bundles
+" NeoBundleClean(!)                - confirm(or auto- approve) removal of unused bundles
 set nocompatible " No reason today to assure compatibility with vi
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-Bundle "gmarik/vundle"
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Github repos
 
 " Helpers
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ervandew/supertab'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'edkolev/tmuxline.vim'
-Bundle 'sheerun/vim-polyglot'
-Bundle 'szw/vim-ctrlspace'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'edkolev/tmuxline.vim'
+NeoBundle 'sheerun/vim-polyglot'
+NeoBundle 'szw/vim-ctrlspace'
 
 " Text manipulation
-Bundle 'godlygeek/tabular'
-Bundle 'tommcdo/vim-exchange'
-Bundle 'wellle/targets.vim'
-Bundle 'thinca/vim-visualstar'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'tommcdo/vim-exchange'
+NeoBundle 'wellle/targets.vim'
+NeoBundle 'thinca/vim-visualstar'
 
 " Support for others languages
-Bundle 'dag/vim-fish'
-Bundle 'freefem.vim'
+NeoBundle 'dag/vim-fish'
+NeoBundle 'freefem.vim'
 
 " Snipmate & Snippets
-Bundle 'garbas/vim-snipmate'
-Bundle 'tomtom/tlib_vim'
-Bundle 'nyorem/vim-snippets'
-Bundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'nyorem/vim-snippets'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
 " Tpope
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'tpope/vim-eunuch'
 
-Bundle 'tpope/timl'
+NeoBundle 'tpope/timl'
 
 " Colorschemes
-Bundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 
 " Web development
-Bundle 'othree/html5.vim'
+NeoBundle 'othree/html5.vim'
 " Bundle 'digitaltoad/vim-jade'
 " Bundle 'wavded/vim-stylus'
 
+" Haskell
+NeoBundle 'eagletmt/neco-ghc'
+NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+
 " vim-scripts
-Bundle 'SearchComplete'
-Bundle 'DoxygenToolkit.vim'
-Bundle 'a.vim'
+NeoBundle 'SearchComplete'
+NeoBundle 'DoxygenToolkit.vim'
+NeoBundle 'a.vim'
+
+call neobundle#end()
 
 " {{{1 BASIC CONFIGURATION
 
@@ -183,6 +196,9 @@ let g:tmuxline_separators = {
     \ 'space' : ' '}
 let g:tmuxline_preset = 'full'
 
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -240,6 +256,9 @@ if has("autocmd")
 
 		" Add new types of file
 		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
+
+		" Haskell
+		autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
 
 		" Get back to the former cursor position
 		autocmd BufReadPost *
