@@ -3,14 +3,13 @@ SearchComplete
 a.vim
 ctrlp.vim
 freefem.vim
-ghcmod-vim
+haskellmode-vim
 html5.vim
 neco-ghc
 neobundle.vim
 supertab
 tabular
 targets.vim
-timl
 tlib_vim
 tmuxline.vim
 vim-addon-mw-utils

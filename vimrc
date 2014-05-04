@@ -46,8 +46,6 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-eunuch'
 
-NeoBundle 'tpope/timl'
-
 " Colorschemes
 NeoBundle 'altercation/vim-colors-solarized'
 
@@ -58,7 +56,6 @@ NeoBundle 'othree/html5.vim'
 
 " Haskell
 NeoBundle 'eagletmt/neco-ghc'
-NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -67,6 +64,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'lukerandall/haskellmode-vim'
 
 " vim-scripts
 NeoBundle 'SearchComplete'
@@ -199,6 +197,10 @@ let g:tmuxline_preset = 'full'
 " Supertab
 let g:SuperTabDefaultCompletionType = "context"
 
+" Haskellmode
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -259,6 +261,7 @@ if has("autocmd")
 
 		" Haskell
 		autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
+		autocmd BufEnter *.hs compiler ghc
 
 		" Get back to the former cursor position
 		autocmd BufReadPost *
