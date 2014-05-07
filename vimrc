@@ -64,7 +64,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'lukerandall/haskellmode-vim'
+NeoBundle 'nyorem/haskellmode-vim'
 
 " vim-scripts
 NeoBundle 'SearchComplete'
