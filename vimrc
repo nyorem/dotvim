@@ -71,6 +71,9 @@ NeoBundle 'SearchComplete'
 NeoBundle 'DoxygenToolkit.vim'
 NeoBundle 'a.vim'
 
+" Unite
+NeoBundle 'Shougo/unite.vim'
+
 call neobundle#end()
 
 " {{{1 BASIC CONFIGURATION
