@@ -14,7 +14,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Helpers
 NeoBundle 'bling/vim-airline'
-NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'edkolev/tmuxline.vim'
@@ -177,15 +176,7 @@ let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
-let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline_exclude_preview = 1
-
-" Ctrlp
-set wildignore+=*.class,*.o " Ignore some files
-let g:ctrlp_max_height = 10 " Max height
-" Make Ctrlp faster in a git repo
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_use_caching = 0
 
 " Tmuxline
 " Not using powerline symbols
@@ -203,6 +194,9 @@ let g:SuperTabDefaultCompletionType = "context"
 " Haskellmode
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
+
+" Unite
+nnoremap <C-p> :Unite file_rec/async<CR>
 
 " {{{1 USEFUL FUNCTIONS
 

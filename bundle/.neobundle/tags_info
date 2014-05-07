@@ -1,7 +1,6 @@
 DoxygenToolkit.vim
 SearchComplete
 a.vim
-ctrlp.vim
 freefem.vim
 haskellmode-vim
 html5.vim
@@ -12,6 +11,7 @@ tabular
 targets.vim
 tlib_vim
 tmuxline.vim
+unite.vim
 vim-addon-mw-utils
 vim-airline
 vim-colors-solarized
