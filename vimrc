@@ -90,7 +90,6 @@ set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
 set visualbell " No sound !
-set ttyfast " Send more characters to the screen => speed up redrawing
 
 " Behaviors
 set shell=bash " Default shell to use with :sh command
@@ -98,7 +97,7 @@ set hidden " Hidden buffer by default
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 set makeprg=make "Standard make
 set showmatch " Show corresponding parentheses
-set backspace=indent,eol,start " Use backspace
+set backspace=indent,eol,start " Allow using backspace
 set history=50 " Maximum numbers of commands in q:
 set showcmd " Show current command
 set autoread " Automatically reload a file when changed
@@ -179,7 +178,7 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline_exclude_preview = 1
 
 " Tmuxline
-" Not using powerline symbols
+" Not use powerline symbols
 let g:tmuxline_separators = {
     \ 'left' : '',
     \ 'left_alt': '>',
@@ -196,7 +195,8 @@ let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 
 " Unite
-nnoremap <C-p> :Unite file_rec/async<CR>
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <C-p> :Unite -start-insert file_rec/async<CR>
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -246,17 +246,13 @@ if has("autocmd")
 
 		" Specific parameters for some types of file
 		autocmd FileType text setlocal textwidth=80 noexpandtab
-		autocmd FileType make,c,cpp,objc setlocal ts=8 sts=8 sw=8 noexpandtab
-		autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
-		autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-		autocmd FileType c,cpp,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+		autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+		autocmd FileType c,cpp,objc,java setlocal ts=8 sts=8 sw=8 expandtab cindent cino+='(0'
 		autocmd FileType r set commentstring=#\ %s
 		autocmd FileType matlab set commentstring=%\ %s
 
-		" Add new types of file
-		autocmd BufNewFile,BufRead *.zsh-theme setfiletype zsh
-
 		" Haskell
+		autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
 		autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
 		autocmd BufEnter *.hs compiler ghc
 
@@ -297,12 +293,6 @@ set noexpandtab " Don't replace tabs
 set smarttab " Tab intelligent
 
 " {{{1 MAPPINGS
-
-" Working with buffers like tabs (better!)
-nmap <Leader>l :bnext<CR>
-nmap <Leader>h :bprevious<CR>
-nmap <Leader>bq :bp <BAR> bd #<CR>
-nmap <Leader>bn :enew<CR>
 
 " C / D coherence
 noremap Y y$
@@ -366,10 +356,6 @@ noremap <Leader>y "*y
 noremap <Leader>yy "*yy
 noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 
-" Convert a file into binary
-nnoremap <Leader>b :%!xxd<CR>
-nnoremap <Leader>nb :%!xxd -r<CR>
-
 " ,t : Change indentation parameters
 noremap <Leader>t :Stab<CR>
 
@@ -378,9 +364,6 @@ nnoremap <Leader>m <C-W>_<C-W><Bar>
 
 " ,v : open the vim directory
 nnoremap <Leader>v :e $MYVIMRC<CR>
-
-" ,W : Save a file as root
-noremap <Leader>W :w !sudo tee % >/dev/null<CR>
 
 " ,ss : Strip trailing whitespaces
 noremap <Leader>ss :call StripWhitespace()<CR>
