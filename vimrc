@@ -1,4 +1,4 @@
-" {{{1 NeoBundle
+" {{{1 NEOBUNDLE
 " NeoBundleList                    - list configured bundles
 " NeoBundleInstall(!)              - install(update) bundles
 " NeoBundleClean(!)                - confirm(or auto- approve) removal of unused bundles
@@ -12,29 +12,26 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Github repos
 
-" Helpers
+" Must-have
 NeoBundle 'bling/vim-airline'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'edkolev/tmuxline.vim'
-NeoBundle 'sheerun/vim-polyglot'
 NeoBundle 'szw/vim-ctrlspace'
 
 " Text manipulation
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'tommcdo/vim-exchange'
-NeoBundle 'wellle/targets.vim'
-NeoBundle 'thinca/vim-visualstar'
 
 " Support for others languages
+NeoBundle 'sheerun/vim-polyglot'
 NeoBundle 'dag/vim-fish'
 NeoBundle 'freefem.vim'
+NeoBundle 'tikhomirov/vim-glsl'
 
-" Snipmate & Snippets
-NeoBundle 'garbas/vim-snipmate'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'nyorem/vim-snippets'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
+" Snippets
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
 
 " Tpope
 NeoBundle 'tpope/vim-commentary'
@@ -48,21 +45,16 @@ NeoBundle 'tpope/vim-eunuch'
 " Colorschemes
 NeoBundle 'altercation/vim-colors-solarized'
 
-" Web development
-NeoBundle 'othree/html5.vim'
-" Bundle 'digitaltoad/vim-jade'
-" Bundle 'wavded/vim-stylus'
-
 " Haskell
 NeoBundle 'eagletmt/neco-ghc'
 NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 NeoBundle 'nyorem/haskellmode-vim'
 
 " vim-scripts
@@ -132,37 +124,37 @@ set wildmode=list:longest,list:full " Display every possibilities
 " {{{1 COLORSCHEMES
 
 if has('gui_running')
-	" GUI
-	set guicursor+=a:blinkon0 " Deactivate cursor blinking
-	set background=dark
-	colorscheme solarized
+    " GUI
+    set guicursor+=a:blinkon0 " Deactivate cursor blinking
+    set background=dark
+    colorscheme solarized
 else
-	" CONSOLE
-	if has("unix")
-		let s:uname = system("uname -s")
-		if s:uname == "Darwin\n"
-			" MAC
+    " CONSOLE
+    if has("unix")
+        let s:uname = system("uname -s")
+        if s:uname == "Darwin\n"
+            " MAC
 
-			" MOLOKAI
-			" colorscheme molokai
-			" set background=light
-			" let g:molokai_original = 1
-			" let g:rehash256 = 1
+            " MOLOKAI
+            " colorscheme molokai
+            " set background=light
+            " let g:molokai_original = 1
+            " let g:rehash256 = 1
 
-			" SOLARIZED
-			colorscheme solarized
-			set background=light
-			let g:solarized_termtrans = 1
+            " SOLARIZED
+            colorscheme solarized
+            set background=light
+            let g:solarized_termtrans = 1
 
-			" Tomorrow
-			" colorscheme Tomorrow-Night-Eighties
-			" set background=light
-		else
-			" Other Unix distribs
-			colorscheme desertEx
-			set background=light
-		endif
-	endif
+            " Tomorrow
+            " colorscheme Tomorrow-Night-Eighties
+            " set background=light
+        else
+            " Other Unix distribs
+            colorscheme desertEx
+            set background=light
+        endif
+    endif
 endif
 
 " {{{1 PLUGINS
@@ -180,99 +172,99 @@ let g:airline_exclude_preview = 1
 " Tmuxline
 " Not use powerline symbols
 let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '>',
-    \ 'right' : '',
-    \ 'right_alt' : '<',
-    \ 'space' : ' '}
+            \ 'left' : '',
+            \ 'left_alt': '>',
+            \ 'right' : '',
+            \ 'right_alt' : '<',
+            \ 'space' : ' '}
 let g:tmuxline_preset = 'full'
-
-" Supertab
-let g:SuperTabDefaultCompletionType = "context"
 
 " Haskellmode
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 
 " Unite
+" Ctrlp file searching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :Unite -start-insert file_rec/async<CR>
+nnoremap <silent><Leader>o :Unite -silent -start-insert file<CR>
+nnoremap <silent><Leader>O :Unite -silent -start-insert file_rec/async<CR>
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
 function! Stab()
-	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
-	if l:tabstop > 0
-		let &l:sts = l:tabstop
-		let &l:ts = l:tabstop
-		let &l:sw = l:tabstop
-	endif
-	call SummarizeTabs()
+    let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+    if l:tabstop > 0
+        let &l:sts = l:tabstop
+        let &l:ts = l:tabstop
+        let &l:sw = l:tabstop
+    endif
+    call SummarizeTabs()
 endfunction
 
 function! SummarizeTabs()
-	try
-		echohl ModeMsg
-		echon 'tabstop='.&l:ts
-		echon ' shiftwidth='.&l:sw
-		echon ' softtabstop='.&l:sts
-		if &l:et
-			echon ' expandtab'
-		else
-			echon ' noexpandtab'
-		endif
-	finally
-		echohl None
-	endtry
+    try
+        echohl ModeMsg
+        echon 'tabstop='.&l:ts
+        echon ' shiftwidth='.&l:sw
+        echon ' softtabstop='.&l:sts
+        if &l:et
+            echon ' expandtab'
+        else
+            echon ' noexpandtab'
+        endif
+    finally
+        echohl None
+    endtry
 endfunction
 
 " Strip trailing whitespace
 function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
 endfunction
 
 " {{{1 AUTOCMD
 if has("autocmd")
-	filetype plugin indent on
+    filetype plugin indent on
 
-	augroup vimrcEx
-		au!
+    augroup vimrcEx
+        au!
 
-		" Specific parameters for some types of file
-		autocmd FileType text setlocal textwidth=80 noexpandtab
-		autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-		autocmd FileType c,cpp,objc,java setlocal ts=8 sts=8 sw=8 expandtab cindent cino+='(0'
-		autocmd FileType r set commentstring=#\ %s
-		autocmd FileType matlab set commentstring=%\ %s
+        " Specific parameters for some filetypes
+        autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+        autocmd FileType c,cpp,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+        autocmd FileType r set commentstring=#\ %s
+        autocmd FileType matlab set commentstring=%\ %s
 
-		" Haskell
-		autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-		autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
-		autocmd BufEnter *.hs compiler ghc
+        " Haskell
+        autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
+        autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
+        autocmd BufEnter *.hs compiler ghc
+        autocmd BufEnter *.hs let g:SuperTabDefaultCompletionType = "context"
 
-		" Get back to the former cursor position
-		autocmd BufReadPost *
-					\ if line("'\"") > 1 && line("'\"") <= line("$") |
-					\	exe "normal! g`\"" |
+        " Get back to the former cursor position
+        autocmd BufReadPost *
+                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                    \	exe "normal! g`\"" |
 
-		" Reload vim config files when saving them
-		autocmd BufWritePost vimrc,.vimrc source $MYVIMRC
-		autocmd BufRead vimrc,.vimrc set foldmethod=marker
-
-		" Help mode bindings
-		" C-t to go back
-		" q to quit
-		autocmd filetype help nnoremap <buffer><CR> <C-]>
-		autocmd filetype help nnoremap <buffer>q :q<CR>
-	augroup END
+        " Help mode bindings
+        " C-t to go back
+        " q to quit
+        autocmd filetype help nnoremap <buffer><CR> <C-]>
+        autocmd filetype help nnoremap <buffer>q :q<CR>
+    augroup END
 else
-	set autoindent " Auto indent every time
+    set autoindent " Auto indent every time
 endif
 
 " {{{1 TEXT FORMATTING
@@ -285,12 +277,12 @@ set smartindent " Intelligent indentation
 set listchars=tab:▸\ ,trail:·,nbsp:_	" Invisible characters
 set list " Display invisible characters
 
-" TABS
-set tabstop=8 " Number of spaces corresponding to a tabulation
-set shiftwidth=8 " Spaces used for an indentation
-set softtabstop=8 " Spaces to delete if we delete a tab
-set noexpandtab " Don't replace tabs
-set smarttab " Tab intelligent
+" DEFAULTS TABULATIONS PARAMETERS
+set expandtab " Replace tabs with spaces
+set tabstop=4 " Number of spaces corresponding to a tabulation
+set shiftwidth=4 " Spaces used for an indentation
+set softtabstop=4 " Spaces to delete if we delete a tab
+set smarttab
 
 " {{{1 MAPPINGS
 
@@ -310,12 +302,6 @@ noremap <Right> <NOP>
 inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
-
-" Navigation in splits
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
 
 " Abolish Ex mode
 nnoremap Q @@
@@ -350,8 +336,8 @@ vmap <C-Up> [egv
 " zM = close all folds
 " zR = open all folds
 
-" <Leader> shortcuts
-" Copy / paste within clipboards
+" <Leader> mappings
+" Copy / paste within system clipboard
 noremap <Leader>y "*y
 noremap <Leader>yy "*yy
 noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
@@ -359,10 +345,10 @@ noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 " ,t : Change indentation parameters
 noremap <Leader>t :Stab<CR>
 
-" ,m : maximize the window
+" ,m : maximize the current window
 nnoremap <Leader>m <C-W>_<C-W><Bar>
 
-" ,v : open the vim directory
+" ,v : open the vimrc
 nnoremap <Leader>v :e $MYVIMRC<CR>
 
 " ,ss : Strip trailing whitespaces
