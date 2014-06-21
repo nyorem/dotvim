@@ -1,71 +1,54 @@
-" {{{1 NEOBUNDLE
-" NeoBundleList                    - list configured bundles
-" NeoBundleInstall(!)              - install(update) bundles
-" NeoBundleClean(!)                - confirm(or auto- approve) removal of unused bundles
+" {{{1 vim-plug
 set nocompatible " No reason today to assure compatibility with vi
 filetype off
 
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/bundle/')
 
 " Github repos
 
 " Must-have
-NeoBundle 'bling/vim-airline'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'edkolev/tmuxline.vim'
-NeoBundle 'szw/vim-ctrlspace'
+Plug 'bling/vim-airline'
+Plug 'ervandew/supertab'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'edkolev/tmuxline.vim'
+Plug 'szw/vim-ctrlspace'
+Plug 'kien/ctrlp.vim'
 
 " Text manipulation
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-lion'
+Plug 'tommcdo/vim-exchange'
 
 " Support for others languages
-NeoBundle 'sheerun/vim-polyglot'
-NeoBundle 'dag/vim-fish'
-NeoBundle 'freefem.vim'
-NeoBundle 'tikhomirov/vim-glsl'
+Plug 'sheerun/vim-polyglot'
+Plug 'dag/vim-fish'
+Plug 'freefem.vim'
+Plug 'tikhomirov/vim-glsl'
+Plug 'toyamarinyon/vim-swift'
 
 " Snippets
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Tpope
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 
 " Colorschemes
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 " Haskell
-NeoBundle 'eagletmt/neco-ghc'
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
-            \ }
-NeoBundle 'nyorem/haskellmode-vim'
+Plug 'nyorem/haskellmode-vim'
 
 " vim-scripts
-NeoBundle 'SearchComplete'
-NeoBundle 'DoxygenToolkit.vim'
-NeoBundle 'a.vim'
+Plug 'SearchComplete'
+Plug 'DoxygenToolkit.vim'
+Plug 'a.vim'
 
-" Unite
-NeoBundle 'Shougo/unite.vim'
-
-call neobundle#end()
+call plug#end()
 
 " {{{1 BASIC CONFIGURATION
 
@@ -145,10 +128,6 @@ else
             colorscheme solarized
             set background=light
             let g:solarized_termtrans = 1
-
-            " Tomorrow
-            " colorscheme Tomorrow-Night-Eighties
-            " set background=light
         else
             " Other Unix distribs
             colorscheme desertEx
@@ -167,6 +146,7 @@ let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline_exclude_preview = 1
 
 " Tmuxline
@@ -183,16 +163,18 @@ let g:tmuxline_preset = 'full'
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 
-" Unite
-" Ctrlp file searching
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <silent><Leader>o :Unite -silent -start-insert file<CR>
-nnoremap <silent><Leader>O :Unite -silent -start-insert file_rec/async<CR>
+" Ctrlp
+set wildignore+=*.class,*.o " Ignore some files
+let g:ctrlp_max_height = 10 " Max height
+" Make Ctrlp faster in a git repo
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -248,9 +230,7 @@ if has("autocmd")
 
         " Haskell
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-        autocmd BufNewFile,BufRead *.hs setlocal omnifunc=necoghc#omnifunc
         autocmd BufEnter *.hs compiler ghc
-        autocmd BufEnter *.hs let g:SuperTabDefaultCompletionType = "context"
 
         " Get back to the former cursor position
         autocmd BufReadPost *
@@ -313,10 +293,7 @@ nnoremap J j
 vnoremap J j
 
 " Normal mode in insert mode
-inoremap jj <Esc>
-inoremap JJ <Esc>
-inoremap jJ <Esc>
-inoremap Jj <Esc>
+inoremap jk <Esc>
 
 " Latex building and Makefile execution
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
@@ -336,20 +313,21 @@ vmap <C-Up> [egv
 " zM = close all folds
 " zR = open all folds
 
-" <Leader> mappings
+" <leader> mappings
 " Copy / paste within system clipboard
-noremap <Leader>y "*y
-noremap <Leader>yy "*yy
-noremap <Leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
+noremap <leader>y "*y
+noremap <leader>yy "*yy
+noremap <leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 
 " ,t : Change indentation parameters
-noremap <Leader>t :Stab<CR>
+noremap <leader>t :Stab<CR>
 
 " ,m : maximize the current window
-nnoremap <Leader>m <C-W>_<C-W><Bar>
+nnoremap <leader>m <C-W>_<C-W><Bar>
 
-" ,v : open the vimrc
-nnoremap <Leader>v :e $MYVIMRC<CR>
+" ,ev : open the vimrc and ,sv source it
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " ,ss : Strip trailing whitespaces
-noremap <Leader>ss :call StripWhitespace()<CR>
+noremap <leader>ss :call StripWhitespace()<CR>
