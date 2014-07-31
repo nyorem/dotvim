@@ -1,8 +1,8 @@
 # Setup
 
-	cd
-	rm -rf .vim
-	rm -f .vimrc
+	cd ~
+	cp -r .vim .vim.bak
+	cp .vimrc .vimrc.bak
 	git clone git://github.com/nyorem/dotvim.git .vim
 
 # Symlink
@@ -11,5 +11,5 @@
 
 # Updating bundles
 
-	vim +BundleInstall +qall
+	vim +PlugInstall +qall
 
