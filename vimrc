@@ -1,4 +1,4 @@
-" {{{1 vim-plug
+" {{{1 VIM-PLUG
 set nocompatible " No reason today to assure compatibility with vi
 filetype off
 
@@ -17,13 +17,15 @@ Plug 'kien/ctrlp.vim'
 " Text manipulation
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'junegunn/goyo.vim'
+Plug 'jgdavey/tslime.vim'
 
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
-Plug 'dag/vim-fish'
-Plug 'freefem.vim'
-Plug 'tikhomirov/vim-glsl'
-Plug 'toyamarinyon/vim-swift'
+Plug 'dag/vim-fish', {'for': 'fish'}
+Plug 'freefem.vim', {'for': 'edp'}
+Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -50,9 +52,10 @@ Plug 'a.vim'
 
 call plug#end()
 
-" {{{1 BASIC CONFIGURATION
+" {{{1 BASIC OPTIONS
 
 let mapleader = ","
+let maplocalleader = ","
 
 " UI
 set t_Co=256 " 256 colors support
@@ -176,6 +179,11 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
+" tslime
+vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
+nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
+nmap <silent> <Leader>rv <Plug>SetTmuxVars
+
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -283,17 +291,27 @@ inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 
+" Use sane regexes
+nnoremap / /\v
+vnoremap / /\v
+
+" Keep search matches in the middle of the window
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 " Abolish Ex mode
-nnoremap Q @@
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" Shift+directions to switch tabs
+noremap <S-l> gt
+noremap <S-h> gT
 
 " Deactivate look-up and join functions
 nnoremap K k
 vnoremap K k
 nnoremap J j
 vnoremap J j
-
-" Normal mode in insert mode
-inoremap jk <Esc>
 
 " Latex building and Makefile execution
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
@@ -330,4 +348,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " ,ss : Strip trailing whitespaces
-noremap <leader>ss :call StripWhitespace()<CR>
+nnoremap <leader>ss :call StripWhitespace()<CR>
+
+" ,tig : open tig
+nnoremap <leader>tig :!tig<CR>
