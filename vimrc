@@ -18,7 +18,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'junegunn/goyo.vim'
 Plug 'jgdavey/tslime.vim'
 
 " Support for others languages
@@ -41,9 +40,6 @@ Plug 'tpope/vim-eunuch'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
-
-" Haskell
-Plug 'nyorem/haskellmode-vim'
 
 " vim-scripts
 Plug 'SearchComplete'
@@ -162,10 +158,6 @@ let g:tmuxline_separators = {
             \ 'space' : ' '}
 let g:tmuxline_preset = 'full'
 
-" Haskellmode
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-
 " Ctrlp
 set wildignore+=*.class,*.o " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
@@ -238,7 +230,6 @@ if has("autocmd")
 
         " Haskell
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-        autocmd BufEnter *.hs compiler ghc
 
         " Get back to the former cursor position
         autocmd BufReadPost *
@@ -295,6 +286,9 @@ nnoremap <F1> <Esc>
 nnoremap / /\v
 vnoremap / /\v
 
+" Restore ','
+nnoremap ,, ,
+
 " Keep search matches in the middle of the window
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -331,6 +325,8 @@ vmap <C-Up> [egv
 " zM = close all folds
 " zR = open all folds
 
+set foldmethod=marker " Default fold method
+
 " <leader> mappings
 " Copy / paste within system clipboard
 noremap <leader>y "*y
@@ -352,3 +348,10 @@ nnoremap <leader>ss :call StripWhitespace()<CR>
 
 " ,tig : open tig
 nnoremap <leader>tig :!tig<CR>
+
+" Open file with current path
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+" Force redraw
+nnoremap <silent> <leader>r :redraw!<CR>
+
