@@ -13,6 +13,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
+Plug 'bronson/vim-visual-star-search'
+Plug 'whatyouhide/vim-lengthmatters'
+Plug 'mhinz/vim-startify'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -25,6 +28,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'freefem.vim', {'for': 'edp'}
 Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
+Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -125,7 +129,7 @@ else
 
             " SOLARIZED
             colorscheme solarized
-            set background=light
+            set background=dark
             let g:solarized_termtrans = 1
         else
             " Other Unix distribs
@@ -226,6 +230,7 @@ if has("autocmd")
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c,cpp,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
         autocmd FileType r set commentstring=#\ %s
+        autocmd FileType cabal set commentstring=--\ %s
         autocmd FileType matlab set commentstring=%\ %s
 
         " Haskell
