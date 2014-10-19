@@ -14,14 +14,12 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
-Plug 'whatyouhide/vim-lengthmatters'
 Plug 'mhinz/vim-startify'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'jgdavey/tslime.vim'
 
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
@@ -31,7 +29,7 @@ Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 
 " Snippets
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Tpope
@@ -54,20 +52,21 @@ call plug#end()
 
 " {{{1 BASIC OPTIONS
 
+" Leader
 let mapleader = ","
 let maplocalleader = ","
 
 " UI
 set t_Co=256 " 256 colors support
 set ruler " Show current position
-set nu " Show lines number
+set number " Show lines number
 set relativenumber " Use relative numbers
 set encoding=utf-8 " Default character encoding
 set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
-set visualbell " No sound !
+set visualbell " No sound!
 
 " Behaviors
 set shell=bash " Default shell to use with :sh command
@@ -121,12 +120,6 @@ else
         if s:uname == "Darwin\n"
             " MAC
 
-            " MOLOKAI
-            " colorscheme molokai
-            " set background=light
-            " let g:molokai_original = 1
-            " let g:rehash256 = 1
-
             " SOLARIZED
             colorscheme solarized
             set background=dark
@@ -174,11 +167,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
-
-" tslime
-vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
-nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
-nmap <silent> <Leader>rv <Plug>SetTmuxVars
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -229,12 +217,11 @@ if has("autocmd")
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c,cpp,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+        autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
         autocmd FileType r set commentstring=#\ %s
         autocmd FileType cabal set commentstring=--\ %s
         autocmd FileType matlab set commentstring=%\ %s
-
-        " Haskell
-        autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
+        autocmd FileType tex set textwidth=80
 
         " Get back to the former cursor position
         autocmd BufReadPost *
@@ -282,6 +269,9 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Escape in insert mode
+inoremap jj <Esc>
+
 " Get rid of F1
 inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
@@ -302,15 +292,9 @@ nnoremap N Nzzzv
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
 
-" Shift+directions to switch tabs
-noremap <S-l> gt
-noremap <S-h> gT
-
-" Deactivate look-up and join functions
+" Deactivate look-up functions
 nnoremap K k
 vnoremap K k
-nnoremap J j
-vnoremap J j
 
 " Latex building and Makefile execution
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
@@ -322,7 +306,7 @@ nmap <C-Up> [e
 vmap <C-Down> ]egv
 vmap <C-Up> [egv
 
-" FOLDS Cheatshet
+" FOLDS
 " zi = toggle fold
 " zj / zk = moving with folds
 " zf = creating a fold (visual mode)
@@ -353,9 +337,6 @@ nnoremap <leader>ss :call StripWhitespace()<CR>
 
 " ,tig : open tig
 nnoremap <leader>tig :!tig<CR>
-
-" Open file with current path
-nnoremap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 
 " Force redraw
 nnoremap <silent> <leader>r :redraw!<CR>
