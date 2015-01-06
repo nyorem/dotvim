@@ -1,4 +1,12 @@
-snippet m "Main with no arguments" b
+snippet m "Main with arguments" b
+int main (int argc, char* argv[]) {
+	$1
+	return 0;
+}
+
+endsnippet
+
+snippet mm "Main with no arguments" b
 int main (void) {
 	$1
 	return 0;

@@ -14,7 +14,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
-Plug 'mhinz/vim-startify'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -25,11 +24,12 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'freefem.vim', {'for': 'edp'}
-Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
+Plug 'idris-hackers/idris-vim', {'for': 'idris'}
+Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 
 " Snippets
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Tpope
@@ -54,7 +54,7 @@ call plug#end()
 
 " Leader
 let mapleader = ","
-let maplocalleader = ","
+let maplocalleader = " "
 
 " UI
 set t_Co=256 " 256 colors support
@@ -122,7 +122,7 @@ else
 
             " SOLARIZED
             colorscheme solarized
-            set background=dark
+            set background=light
             let g:solarized_termtrans = 1
         else
             " Other Unix distribs
@@ -156,11 +156,9 @@ let g:tmuxline_separators = {
 let g:tmuxline_preset = 'full'
 
 " Ctrlp
-set wildignore+=*.class,*.o " Ignore some files
+set wildignore+=*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
-" Make Ctrlp faster in a git repo
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_use_caching = 0
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -216,9 +214,9 @@ if has("autocmd")
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType c,cpp,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+        autocmd FileType c,cpp,cuda,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-        autocmd FileType r set commentstring=#\ %s
+        autocmd FileType r,cmake set commentstring=#\ %s
         autocmd FileType cabal set commentstring=--\ %s
         autocmd FileType matlab set commentstring=%\ %s
         autocmd FileType tex set textwidth=80
@@ -332,8 +330,8 @@ nnoremap <leader>m <C-W>_<C-W><Bar>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" ,ss : Strip trailing whitespaces
-nnoremap <leader>ss :call StripWhitespace()<CR>
+" ,tw : Strip trailing whitespaces
+nnoremap <leader>tw :call StripWhitespace()<CR>
 
 " ,tig : open tig
 nnoremap <leader>tig :!tig<CR>
