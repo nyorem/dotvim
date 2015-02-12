@@ -2,6 +2,14 @@
 set nocompatible " No reason today to assure compatibility with vi
 filetype off
 
+" Install vim-plug if not present
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !mkdir -p ~/.vim/autoload
+  silent !curl -fLo ~/.vim/autoload/plug.vim
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin('~/.vim/bundle/')
 
 " Github repos
@@ -14,6 +22,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
+Plug 'rking/ag.vim'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -27,6 +36,7 @@ Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
+Plug 'JuliaLang/julia-vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -39,6 +49,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -159,6 +171,9 @@ let g:tmuxline_preset = 'full'
 set wildignore+=*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -216,15 +231,13 @@ if has("autocmd")
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c,cpp,cuda,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
-        autocmd FileType r,cmake set commentstring=#\ %s
-        autocmd FileType cabal set commentstring=--\ %s
-        autocmd FileType matlab set commentstring=%\ %s
-        autocmd FileType tex set textwidth=80
+        autocmd FileType r,cmake setlocal commentstring=#\ %s
+        autocmd FileType cabal setlocal commentstring=--\ %s
+        autocmd FileType matlab setlocal commentstring=%\ %s
+        autocmd FileType tex setlocal textwidth=80
 
-        " Get back to the former cursor position
-        autocmd BufReadPost *
-                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                    \	exe "normal! g`\"" |
+        " Get back to the last cursor position
+        autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 
         " Help mode bindings
         " C-t to go back
@@ -266,6 +279,10 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
 
 " Escape in insert mode
 inoremap jj <Esc>
@@ -330,8 +347,8 @@ nnoremap <leader>m <C-W>_<C-W><Bar>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" ,tw : Strip trailing whitespaces
-nnoremap <leader>tw :call StripWhitespace()<CR>
+" ,ss : Strip trailing whitespaces
+nnoremap <leader>ss :call StripWhitespace()<CR>
 
 " ,tig : open tig
 nnoremap <leader>tig :!tig<CR>
