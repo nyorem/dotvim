@@ -14,6 +14,11 @@ call plug#begin('~/.vim/bundle/')
 
 " Github repos
 
+" In development
+Plug '~/projets/hawking/vim'
+Plug '~/dev/viml/vim-potion'
+Plug '~/dev/viml/vim-todo'
+
 " Must-have
 Plug 'bling/vim-airline'
 Plug 'ervandew/supertab'
@@ -36,7 +41,6 @@ Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
-Plug 'JuliaLang/julia-vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -123,7 +127,7 @@ set wildmode=list:longest,list:full " Display every possibilities
 if has('gui_running')
     " GUI
     set guicursor+=a:blinkon0 " Deactivate cursor blinking
-    set background=dark
+    set background=light
     colorscheme solarized
 else
     " CONSOLE
@@ -168,7 +172,7 @@ let g:tmuxline_separators = {
 let g:tmuxline_preset = 'full'
 
 " Ctrlp
-set wildignore+=*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
+set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
@@ -240,11 +244,19 @@ if has("autocmd")
         autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 
         " Help mode bindings
+        " <CR> to follow a link
         " C-t to go back
         " q to quit
         autocmd filetype help nnoremap <buffer><CR> <C-]>
         autocmd filetype help nnoremap <buffer>q :q<CR>
     augroup END
+
+    " Vimscript file settings {{{
+    augroup filetype_vim
+        autocmd!
+        autocmd FileType vim setlocal foldmethod=marker
+    augroup END
+    " }}}
 else
     set autoindent " Auto indent every time
 endif
@@ -284,8 +296,15 @@ inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 
+" Use arrows for tab switching
+nnoremap <Left> gT
+nnoremap <Right> gt
+
+" Sudo write a file
+cmap w!! w !sudo tee > /dev/null %
+
 " Escape in insert mode
-inoremap jj <Esc>
+inoremap jk <Esc>
 
 " Get rid of F1
 inoremap <F1> <Esc>
@@ -353,6 +372,23 @@ nnoremap <leader>ss :call StripWhitespace()<CR>
 " ,tig : open tig
 nnoremap <leader>tig :!tig<CR>
 
+" ,b / ,nb to convert to binary
+nnoremap <Leader>b :%!xxd<CR>
+nnoremap <Leader>nb :%!xxd -r<CR>
+
 " Force redraw
 nnoremap <silent> <leader>r :redraw!<CR>
+
+" Don't save files named ':'
+cnoremap w: w
+
+" Fix common mistakes
+cnoremap ww w
+cnoremap qw wq
+
+" {{{1 NVIM
+if has('nvim')
+  tnoremap <Esc> <c-\><c-n>
+  au WinEnter *term://* call feedkeys('i')
+endif
 

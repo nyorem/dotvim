@@ -7,3 +7,4 @@
 .VimballRecord
 .netrwhist
 view/*
+autoload/plug.vim.old
