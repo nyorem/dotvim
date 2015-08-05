@@ -85,7 +85,7 @@ set scrolloff=3 " Number of lines to see when scrolling
 set visualbell " No sound!
 
 " Behaviors
-set shell=bash " Default shell to use with :sh command
+set shell=zsh " Default shell to use with :sh command
 set hidden " Hidden buffer by default
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 set makeprg=make "Standard make
@@ -132,25 +132,16 @@ if has('gui_running')
 else
     " CONSOLE
     if has("unix")
-        let s:uname = system("uname -s")
-        if s:uname == "Darwin\n"
-            " MAC
-
-            " SOLARIZED
-            colorscheme solarized
-            set background=light
-            let g:solarized_termtrans = 1
-        else
-            " Other Unix distribs
-            colorscheme desertEx
-            set background=light
-        endif
+        " SOLARIZED
+        colorscheme solarized
+        set background=dark
+        let g:solarized_termtrans = 1
     endif
 endif
 
 " {{{1 PLUGINS
 
-" Airline
+" {{{2 Airline
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_warning = ''
@@ -161,7 +152,7 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline_exclude_preview = 1
 
-" Tmuxline
+" {{{2 Tmuxline
 " Not use powerline symbols
 let g:tmuxline_separators = {
             \ 'left' : '',
@@ -171,7 +162,7 @@ let g:tmuxline_separators = {
             \ 'space' : ' '}
 let g:tmuxline_preset = 'full'
 
-" Ctrlp
+" {{{2 Ctrlp
 set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
@@ -179,11 +170,17 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-" Ultisnips
+" {{{2 Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
+" {{{2 a.vim
+" Alternate files for GLSL code
+let g:alternateExtensions_vert = "frag,geom"
+let g:alternateExtensions_frag = "geom,vert"
+let g:alternateExtensions_geom = "vert,frag"
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -352,8 +349,8 @@ set foldmethod=marker " Default fold method
 
 " <leader> mappings
 " Copy / paste within system clipboard
-noremap <leader>y "*y
-noremap <leader>yy "*yy
+noremap <leader>y "+y
+noremap <leader>yy "+yy
 noremap <leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 
 " ,t : Change indentation parameters
