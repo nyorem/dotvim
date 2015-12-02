@@ -16,8 +16,6 @@ call plug#begin('~/.vim/bundle/')
 
 " In development
 Plug '~/projets/hawking/vim'
-Plug '~/dev/viml/vim-potion'
-Plug '~/dev/viml/vim-todo'
 
 " Must-have
 Plug 'bling/vim-airline'
@@ -28,6 +26,8 @@ Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'rking/ag.vim'
+Plug 'unblevable/quick-scope'
+Plug 'KabbAmine/zeavim.vim'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -40,7 +40,7 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 Plug 'idris-hackers/idris-vim', {'for': 'idris'}
-Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
+Plug 'JuliaLang/julia-vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -73,7 +73,7 @@ let mapleader = ","
 let maplocalleader = " "
 
 " UI
-set t_Co=256 " 256 colors support
+set t_Co=256 " 256 colours support
 set ruler " Show current position
 set number " Show lines number
 set relativenumber " Use relative numbers
@@ -134,8 +134,10 @@ else
     if has("unix")
         " SOLARIZED
         colorscheme solarized
-        set background=dark
+        set background=light
         let g:solarized_termtrans = 1
+    else
+        colorscheme desertEx
     endif
 endif
 
@@ -153,14 +155,23 @@ let g:airline#extensions#ctrlp#color_template = 'insert'
 let g:airline_exclude_preview = 1
 
 " {{{2 Tmuxline
-" Not use powerline symbols
+" Do not use powerline symbols
 let g:tmuxline_separators = {
             \ 'left' : '',
             \ 'left_alt': '>',
             \ 'right' : '',
             \ 'right_alt' : '<',
             \ 'space' : ' '}
-let g:tmuxline_preset = 'full'
+let g:tmuxline_theme = 'airline'
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#H',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '#(mpc current)',
+      \'y'    : '%a',
+      \'z'    : '%R'}
 
 " {{{2 Ctrlp
 set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
@@ -178,9 +189,36 @@ let g:UltiSnipsEditSplit="vertical"
 
 " {{{2 a.vim
 " Alternate files for GLSL code
-let g:alternateExtensions_vert = "frag,geom"
-let g:alternateExtensions_frag = "geom,vert"
-let g:alternateExtensions_geom = "vert,frag"
+let g:alternateExtensions_vert = "geom,frag"
+let g:alternateExtensions_frag = "vert,geom"
+let g:alternateExtensions_geom = "frag,vert"
+
+" {{{2 quick-scope
+" Only enable quick-scope when using f/F/t/T movements
+" see: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
+let g:qs_enable = 0
+let g:qs_enable_char_list = [ 'f', 'F', 't', 'T' ]
+
+function! Quick_scope_selective(movement)
+    let needs_disabling = 0
+    if !g:qs_enable
+        QuickScopeToggle
+        redraw
+        let needs_disabling = 1
+    endif
+    let letter = nr2char(getchar())
+    if needs_disabling
+        QuickScopeToggle
+    endif
+    return a:movement . letter
+endfunction
+
+for i in g:qs_enable_char_list
+    execute 'noremap <expr> <silent>' . i . " Quick_scope_selective('". i . "')"
+endfor
+
+" {{{2 vim-polyglot
+let g:polyglot_disabled = ['julia']
 
 " {{{1 USEFUL FUNCTIONS
 
