@@ -4,10 +4,10 @@ filetype off
 
 " Install vim-plug if not present
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !mkdir -p ~/.vim/autoload
-  silent !curl -fLo ~/.vim/autoload/plug.vim
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
+    silent !mkdir -p ~/.vim/autoload
+    silent !curl -fLo ~/.vim/autoload/plug.vim
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin('~/.vim/bundle/')
@@ -15,10 +15,11 @@ call plug#begin('~/.vim/bundle/')
 " Github repos
 
 " In development
-Plug '~/projets/hawking/vim'
+" Plug '~/projets/hawking/vim'
 
 " Must-have
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'ervandew/supertab'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
@@ -40,7 +41,6 @@ Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 Plug 'idris-hackers/idris-vim', {'for': 'idris'}
-Plug 'JuliaLang/julia-vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -266,6 +266,9 @@ if has("autocmd")
     augroup vimrcEx
         au!
 
+        " New filetypes
+        autocmd BufNewFile,BufRead *.comp set filetype=glsl
+
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
         autocmd FileType c,cpp,cuda,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
@@ -339,7 +342,7 @@ nnoremap <Right> gt
 cmap w!! w !sudo tee > /dev/null %
 
 " Escape in insert mode
-inoremap jk <Esc>
+inoremap jj <Esc>
 
 " Get rid of F1
 inoremap <F1> <Esc>
@@ -354,8 +357,13 @@ vnoremap / /\v
 nnoremap ,, ,
 
 " Keep search matches in the middle of the window
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" and keep the same directions no matter we used '/' or '?'
+nnoremap <expr> n  'Nn'[v:searchforward].'zvzz'
+nnoremap <expr> N  'nN'[v:searchforward].'zvzz'
+
+" Don't lose selection when shifting sidewards
+xnoremap <  <gv
+xnoremap >  >gv
 
 " Abolish Ex mode
 nnoremap Q @q
