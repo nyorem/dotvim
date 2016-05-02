@@ -23,7 +23,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ervandew/supertab'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
-Plug 'szw/vim-ctrlspace'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'rking/ag.vim'
@@ -38,9 +37,9 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish', {'for': 'fish'}
-Plug 'freefem.vim', {'for': 'edp'}
+" Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
-Plug 'idris-hackers/idris-vim', {'for': 'idris'}
+" Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -94,6 +93,7 @@ set backspace=indent,eol,start " Allow using backspace
 set history=50 " Maximum numbers of commands in q:
 set showcmd " Show current command
 set autoread " Automatically reload a file when changed
+set path+=$PWD/** " Add stuff to the search path (gf)
 
 " Mouse use
 set mousehide
@@ -189,9 +189,11 @@ let g:UltiSnipsEditSplit="vertical"
 
 " {{{2 a.vim
 " Alternate files for GLSL code
-let g:alternateExtensions_vert = "geom,frag"
-let g:alternateExtensions_frag = "vert,geom"
-let g:alternateExtensions_geom = "frag,vert"
+let g:alternateExtensions_vert = "tesc,tese,geom,frag"
+let g:alternateExtensions_tesc = "tese,geom,frag,vert"
+let g:alternateExtensions_tese = "geom,frag,vert,tesc"
+let g:alternateExtensions_geom = "frag,vert,tesc,tese"
+let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
 " {{{2 quick-scope
 " Only enable quick-scope when using f/F/t/T movements
@@ -278,8 +280,25 @@ if has("autocmd")
         autocmd FileType matlab setlocal commentstring=%\ %s
         autocmd FileType tex setlocal textwidth=80
 
+        " Haskell specific
+        " see: https://reddit.com/r/haskell/comments/43jauf/vim_and_haskell_in_2016/
+        " au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
+        au FileType haskell setlocal makeprg=stack\ ghc\ --\ -e\ :q\ %
+        au FileType haskell setlocal errorformat=
+                        \%-G,
+                        \%-Z\ %#,
+                        \%W%f:%l:%c:\ Warning:\ %m,
+                        \%E%f:%l:%c:\ %m,
+                        \%E%>%f:%l:%c:,
+                        \%+C\ \ %#%m,
+                        \%W%>%f:%l:%c:,
+                        \%+C\ \ %#%tarning:\ %m,
+
         " Get back to the last cursor position
         autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+
+        " Markdown
+        au FileType markdown setlocal nomodeline
 
         " Help mode bindings
         " <CR> to follow a link
@@ -399,6 +418,12 @@ noremap <leader>y "+y
 noremap <leader>yy "+yy
 noremap <leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
 
+" Switching buffers
+nnoremap <leader><space> :ls<cr>:b<space>
+nnoremap <leader>s<space> :ls<cr>:sb<space>
+nnoremap <leader>v<space> :ls<cr>:vert sb<space>
+nnoremap <leader>t<space> :ls<cr>:tab sb<space>
+
 " ,t : Change indentation parameters
 noremap <leader>t :Stab<CR>
 
@@ -416,8 +441,8 @@ nnoremap <leader>ss :call StripWhitespace()<CR>
 nnoremap <leader>tig :!tig<CR>
 
 " ,b / ,nb to convert to binary
-nnoremap <Leader>b :%!xxd<CR>
-nnoremap <Leader>nb :%!xxd -r<CR>
+nnoremap <leader>b :%!xxd<CR>
+nnoremap <leader>nb :%!xxd -r<CR>
 
 " Force redraw
 nnoremap <silent> <leader>r :redraw!<CR>
@@ -425,13 +450,13 @@ nnoremap <silent> <leader>r :redraw!<CR>
 " Don't save files named ':'
 cnoremap w: w
 
-" Fix common mistakes
+" Common mistakes
 cnoremap ww w
 cnoremap qw wq
 
 " {{{1 NVIM
 if has('nvim')
-  tnoremap <Esc> <c-\><c-n>
-  au WinEnter *term://* call feedkeys('i')
+    tnoremap <Esc> <c-\><c-n>
+    au WinEnter *term://* call feedkeys('i')
 endif
 
