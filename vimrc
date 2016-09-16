@@ -25,8 +25,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'bronson/vim-visual-star-search'
-Plug 'rking/ag.vim'
-Plug 'unblevable/quick-scope'
+Plug 'mhinz/vim-grepper'
 Plug 'KabbAmine/zeavim.vim'
 
 " Text manipulation
@@ -37,9 +36,9 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish', {'for': 'fish'}
-" Plug 'freefem.vim', {'for': 'edp'}
+Plug 'freefem.vim', {'for': 'edp'}
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
-" Plug 'idris-hackers/idris-vim', {'for': 'idris'}
+Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -110,7 +109,7 @@ syntax on
 " zw : misspelled word
 " zuw et zug : undoing
 " :runtime spell/cleanadd.vim : cleaning spell dictionary
-set spelllang=fr
+set spelllang=en
 
 " Searching
 set incsearch " Display current search results (during typing)
@@ -174,7 +173,7 @@ let g:tmuxline_preset = {
       \'z'    : '%R'}
 
 " {{{2 Ctrlp
-set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/lib/* " Ignore some files
+set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/rel/* " Ignore some files
 let g:ctrlp_max_height = 10 " Max height
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
@@ -195,29 +194,10 @@ let g:alternateExtensions_tese = "geom,frag,vert,tesc"
 let g:alternateExtensions_geom = "frag,vert,tesc,tese"
 let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
-" {{{2 quick-scope
-" Only enable quick-scope when using f/F/t/T movements
-" see: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
-let g:qs_enable = 0
-let g:qs_enable_char_list = [ 'f', 'F', 't', 'T' ]
-
-function! Quick_scope_selective(movement)
-    let needs_disabling = 0
-    if !g:qs_enable
-        QuickScopeToggle
-        redraw
-        let needs_disabling = 1
-    endif
-    let letter = nr2char(getchar())
-    if needs_disabling
-        QuickScopeToggle
-    endif
-    return a:movement . letter
-endfunction
-
-for i in g:qs_enable_char_list
-    execute 'noremap <expr> <silent>' . i . " Quick_scope_selective('". i . "')"
-endfor
+" {{{2 vim-grepper
+" Must use ' instead of "
+command! -nargs=* -complete=file GG Grepper -tool git -query <args>
+command! -nargs=* Ag Grepper -noprompt -tool ag -grepprg ag --vimgrep <args> %
 
 " {{{2 vim-polyglot
 let g:polyglot_disabled = ['julia']
@@ -269,7 +249,7 @@ if has("autocmd")
         au!
 
         " New filetypes
-        autocmd BufNewFile,BufRead *.comp set filetype=glsl
+        autocmd BufNewFile,BufRead *.tesc,*.tese,*.comp set filetype=glsl
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -339,6 +319,13 @@ set smarttab
 
 " C / D coherence
 noremap Y y$
+
+" Consistent behaviour of j/k on wrapped lines
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+" Jump to the end of the line in insert mode
+inoremap <C-e> <C-o>$
 
 " Select text previously pasted
 noremap gV `[v`]
@@ -454,9 +441,28 @@ cnoremap w: w
 cnoremap ww w
 cnoremap qw wq
 
+" Text-objects
+" Entire file
+onoremap af :<C-u>normal! ggVG<CR>
+
 " {{{1 NVIM
+" https://wiki.archlinux.org/index.php/Neovim
 if has('nvim')
-    tnoremap <Esc> <c-\><c-n>
+    " RTP
+    set rtp^=/usr/share/vim/vimfiles/
+
+    " Terminal
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
+    nnoremap <A-l> <C-w>l
+
+    " Automatically goes in insert mode
     au WinEnter *term://* call feedkeys('i')
 endif
 
