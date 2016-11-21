@@ -101,7 +101,6 @@ behave xterm
 
 " Syntax Highlighting
 filetype on
-syn on
 syntax on
 
 " Spell checking
