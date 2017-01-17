@@ -35,10 +35,10 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
-Plug 'dag/vim-fish', {'for': 'fish'}
-Plug 'freefem.vim', {'for': 'edp'}
-Plug 'lambdatoast/elm.vim', {'for': 'elm'}
-Plug 'idris-hackers/idris-vim', {'for': 'idris'}
+" Plug 'dag/vim-fish', {'for': 'fish'}
+" Plug 'freefem.vim', {'for': 'edp'}
+" Plug 'lambdatoast/elm.vim', {'for': 'elm'}
+" Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 
 " Snippets
 Plug 'SirVer/ultisnips'
