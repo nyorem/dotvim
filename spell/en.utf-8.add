@@ -121,3 +121,10 @@ compacity
 coordinatewise
 semidiscrete
 halfspace
+nullspace
+#oftmax
+backpropagating
+#oftmax
+#oftmax
+softmax/!
+softmax
