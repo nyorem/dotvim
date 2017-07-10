@@ -39,6 +39,7 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'freefem.vim', {'for': 'edp'}
 " Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 " Plug 'idris-hackers/idris-vim', {'for': 'idris'}
+Plug 'mipmip/vim-run-in-blender'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -58,9 +59,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'altercation/vim-colors-solarized'
 
 " vim-scripts
-Plug 'SearchComplete'
-Plug 'DoxygenToolkit.vim'
-Plug 'a.vim'
+Plug 'vim-scripts/SearchComplete'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/a.vim'
 
 call plug#end()
 
