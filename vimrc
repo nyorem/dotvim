@@ -31,7 +31,6 @@ Plug 'KabbAmine/zeavim.vim'
 " Text manipulation
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
-Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
@@ -293,7 +292,7 @@ if has("autocmd")
         autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 
         " Markdown
-        au FileType markdown setlocal nomodeline
+        " au FileType markdown setlocal nomodeline
 
         " Help mode bindings
         " <CR> to follow a link
@@ -393,6 +392,12 @@ vnoremap Q :norm @q<cr>
 " Deactivate look-up functions
 nnoremap K k
 vnoremap K k
+
+" Avoid lowercasing selected text in visual mode
+vnoremap u <NOP>
+
+" Non-ASCII characters
+nnoremap <Leader>a /[^\x00-\x7F]<CR>:set hlsearch<CR>
 
 " Latex building and Makefile execution
 nnoremap <F2> :w<CR>:!pdflatex %<CR>
