@@ -1,5 +1,5 @@
-" {{{1 VIM-PLUG
-set nocompatible " No reason today to assure compatibility with vi
+" {{{1 PLUGINS
+set nocompatible " No reason today to be compatible with vi
 filetype off
 
 " Install vim-plug if not present
@@ -12,20 +12,14 @@ endif
 
 call plug#begin('~/.vim/bundle/')
 
-" Github repos
-
-" In development
-" Plug '~/projets/hawking/vim'
-
 " Must-have
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'ervandew/supertab'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
-Plug 'mhinz/vim-grepper'
 Plug 'KabbAmine/zeavim.vim'
 
 " Text manipulation
@@ -34,10 +28,6 @@ Plug 'tommcdo/vim-exchange'
 
 " Support for others languages
 Plug 'sheerun/vim-polyglot'
-" Plug 'dag/vim-fish', {'for': 'fish'}
-" Plug 'freefem.vim', {'for': 'edp'}
-" Plug 'lambdatoast/elm.vim', {'for': 'elm'}
-" Plug 'idris-hackers/idris-vim', {'for': 'idris'}
 Plug 'mipmip/vim-run-in-blender'
 
 " Snippets
@@ -59,7 +49,6 @@ Plug 'altercation/vim-colors-solarized'
 
 " vim-scripts
 Plug 'vim-scripts/SearchComplete'
-Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/a.vim'
 
 call plug#end()
@@ -71,7 +60,7 @@ let mapleader = ","
 let maplocalleader = " "
 
 " UI
-set t_Co=256 " 256 colours support
+set t_Co=256 " 256 color support
 set ruler " Show current position
 set number " Show lines number
 set relativenumber " Use relative numbers
@@ -80,7 +69,7 @@ set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
-set visualbell " No sound!
+set visualbell " No sounds!
 
 " Behaviors
 set shell=zsh " Default shell to use with :sh command
@@ -88,15 +77,15 @@ set hidden " Hidden buffer by default
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 set makeprg=make "Standard make
 set showmatch " Show corresponding parentheses
-set backspace=indent,eol,start " Allow using backspace
-set history=50 " Maximum numbers of commands in q:
+set backspace=indent,eol,start " Allow using backspace in insert mode to move
+set history=100 " Maximum numbers of commands in q:
 set showcmd " Show current command
 set autoread " Automatically reload a file when changed
 set path+=$PWD/** " Add stuff to the search path (gf)
 
 " Mouse use
-set mousehide
 set mouse=a " Activate mouse
+set mousehide " Gide cursor
 behave xterm
 
 " Syntax Highlighting
@@ -141,33 +130,21 @@ endif
 
 " {{{1 PLUGINS
 
-" {{{2 Airline
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" {{{2 lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_symbols.crypt = ''
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_section_warning = ''
-let g:airline_detect_modified = 1
-let g:airline_detect_paste = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#empty_message = ''
-let g:airline#extensions#ctrlp#color_template = 'insert'
-let g:airline_exclude_preview = 1
+set noshowmode " Don't show mode since it is already in the statusline
 
-
-" {{{2 Tmuxline
+" {{{2 tmuxline.vim
 " Do not use powerline symbols
 let g:tmuxline_separators = {
             \ 'left' : '',
@@ -175,7 +152,7 @@ let g:tmuxline_separators = {
             \ 'right' : '',
             \ 'right_alt' : '<',
             \ 'space' : ' '}
-let g:tmuxline_theme = 'airline'
+" Custom the tmuxline
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#W',
@@ -186,15 +163,9 @@ let g:tmuxline_preset = {
       \'y'    : '%a',
       \'z'    : '%R'}
 
-" {{{2 Ctrlp
-set wildignore+=.DS_Store,*~,*.swp,*.class,*.o,*/\.git/*,*/build/*,*/rel/* " Ignore some files
-let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_max_height = 10
-let g:ctrlp_use_caching = 1
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+" {{{2 fzf.vim
+nnoremap <C-p> :Files<CR>
+nnoremap <C-b> :Buffers<CR>
 
 " {{{2 Ultisnips
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
@@ -210,11 +181,6 @@ let g:alternateExtensions_tesc = "tese,geom,frag,vert"
 let g:alternateExtensions_tese = "geom,frag,vert,tesc"
 let g:alternateExtensions_geom = "frag,vert,tesc,tese"
 let g:alternateExtensions_frag = "vert,tesc,tese,geom"
-
-" {{{2 vim-grepper
-" Must use ' instead of "
-command! -nargs=* -complete=file GG Grepper -tool git -query <args>
-command! -nargs=* Ag Grepper -noprompt -tool ag -grepprg ag --vimgrep <args> %
 
 " {{{2 vim-polyglot
 let g:polyglot_disabled = ['julia']
@@ -266,7 +232,7 @@ if has("autocmd")
         au!
 
         " New filetypes
-        autocmd BufNewFile,BufRead *.tesc,*.tese,*.comp set filetype=glsl
+        autocmd BufNewFile,BufRead *.geom,*.tesc,*.tese,*.comp set filetype=glsl
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -305,12 +271,11 @@ if has("autocmd")
         autocmd filetype help nnoremap <buffer>q :q<CR>
     augroup END
 
-    " Vimscript file settings {{{
+    " Vimscript file settings
     augroup filetype_vim
         autocmd!
         autocmd FileType vim setlocal foldmethod=marker
     augroup END
-    " }}}
 else
     set autoindent " Auto indent every time
 endif
@@ -325,7 +290,7 @@ set smartindent " Intelligent indentation
 set listchars=tab:▸\ ,trail:·,nbsp:_	" Invisible characters
 set list " Display invisible characters
 
-" DEFAULTS TABULATIONS PARAMETERS
+" TABS/SPACES PARAMETERS
 set expandtab " Replace tabs with spaces
 set tabstop=4 " Number of spaces corresponding to a tabulation
 set shiftwidth=4 " Spaces used for an indentation
@@ -334,14 +299,14 @@ set smarttab
 
 " {{{1 MAPPINGS
 
-" C / D coherence
+" Being coherent with C / D
 noremap Y y$
 
 " Consistent behaviour of j/k on wrapped lines
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
-" Jump to the end of the line in insert mode
+" Jump to the end of the line in insert mode like in the shell
 inoremap <C-e> <C-o>$
 
 " Select text previously pasted
@@ -392,7 +357,7 @@ xnoremap >  >gv
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
 
-" Deactivate look-up functions
+" Deactivate man look-up functions
 nnoremap K k
 vnoremap K k
 
@@ -401,16 +366,6 @@ vnoremap u <NOP>
 
 " Non-ASCII characters
 nnoremap <Leader>a /[^\x00-\x7F]<CR>:set hlsearch<CR>
-
-" Latex building and Makefile execution
-nnoremap <F2> :w<CR>:!pdflatex %<CR>
-nnoremap <F3> :w<CR>:Make<CR>
-
-" Bubbling text
-nmap <C-Down> ]e
-nmap <C-Up> [e
-vmap <C-Down> ]egv
-vmap <C-Up> [egv
 
 " FOLDS
 " zi = toggle fold
@@ -447,9 +402,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " ,ss : Strip trailing whitespaces
 nnoremap <leader>ss :call StripWhitespace()<CR>
 
-" ,tig : open tig
-nnoremap <leader>tig :!tig<CR>
-
 " ,b / ,nb to convert to binary
 nnoremap <leader>b :%!xxd<CR>
 nnoremap <leader>nb :%!xxd -r<CR>
@@ -463,10 +415,6 @@ cnoremap w: w
 " Common mistakes
 cnoremap ww w
 cnoremap qw wq
-
-" Text-objects
-" Entire file
-onoremap af :<C-u>normal! ggVG<CR>
 
 " {{{1 NVIM
 " https://wiki.archlinux.org/index.php/Neovim
@@ -485,7 +433,6 @@ if has('nvim')
     nnoremap <A-k> <C-w>k
     nnoremap <A-l> <C-w>l
 
-    " Automatically goes in insert mode
+    " Automatically goes in insert mode when entering :terminal
     au WinEnter *term://* call feedkeys('i')
 endif
-
