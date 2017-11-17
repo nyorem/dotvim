@@ -42,7 +42,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-vinegar'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -50,6 +49,9 @@ Plug 'altercation/vim-colors-solarized'
 " vim-scripts
 Plug 'vim-scripts/SearchComplete'
 Plug 'vim-scripts/a.vim'
+
+" misc
+Plug 'lsrdg/vibusen.vim'
 
 call plug#end()
 
@@ -152,7 +154,7 @@ let g:tmuxline_separators = {
             \ 'right' : '',
             \ 'right_alt' : '<',
             \ 'space' : ' '}
-" Custom the tmuxline
+" Customize the tmuxline
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#W',
@@ -184,6 +186,9 @@ let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
 " {{{2 vim-polyglot
 let g:polyglot_disabled = ['julia']
+
+" {{{2 vibusen.vim
+let g:IbusDefaultEngine = 'xkb:fr::fra'
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -301,6 +306,18 @@ set smarttab
 
 " Being coherent with C / D
 noremap Y y$
+
+" vinegar like mapping (current version does not work when pressing '-' twice)
+function! EditCurrentDirectory()
+    let l:dname = expand("%:p:h")
+    execute "edit" .  l:dname
+endfunction
+nnoremap - :call EditCurrentDirectory()<CR>
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_sort_sequence = '[\/]$,*,\%(' . join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$'
+if !exists("g:netrw_banner")
+  let g:netrw_banner = 0
+endif
 
 " Consistent behaviour of j/k on wrapped lines
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
