@@ -184,11 +184,8 @@ let g:alternateExtensions_tese = "geom,frag,vert,tesc"
 let g:alternateExtensions_geom = "frag,vert,tesc,tese"
 let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
-" {{{2 vim-polyglot
-let g:polyglot_disabled = ['julia']
-
 " {{{2 vibusen.vim
-let g:IbusDefaultEngine = 'xkb:fr::fra'
+let g:VibusenDefaultEngine = 'xkb:fr::fra'
 
 " {{{1 USEFUL FUNCTIONS
 

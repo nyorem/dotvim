@@ -8,3 +8,6 @@
 .netrwhist
 view/*
 autoload/plug.vim.old
+swap/
+
+**/doc/tags
