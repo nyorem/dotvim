@@ -71,7 +71,7 @@ set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
-set visualbell " No sounds!
+set visualbell " No sounds
 
 " Behaviors
 set shell=zsh " Default shell to use with :sh command
@@ -83,7 +83,7 @@ set backspace=indent,eol,start " Allow using backspace in insert mode to move
 set history=100 " Maximum numbers of commands in q:
 set showcmd " Show current command
 set autoread " Automatically reload a file when changed
-set path+=$PWD/** " Add stuff to the search path (gf)
+set path+=$PWD/** " Add stuff to the search path (for the gf command)
 
 " Mouse use
 set mouse=a " Activate mouse
@@ -430,23 +430,11 @@ cnoremap w: w
 cnoremap ww w
 cnoremap qw wq
 
-" {{{1 NVIM
-" https://wiki.archlinux.org/index.php/Neovim
-if has('nvim')
-    " RTP
-    set rtp^=/usr/share/vim/vimfiles/
-
-    " Terminal
-    tnoremap <Esc> <C-\><C-n>
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-    nnoremap <A-l> <C-w>l
-
-    " Automatically goes in insert mode when entering :terminal
-    au WinEnter *term://* call feedkeys('i')
+" {{{1 TERMINAL
+if has("terminal")
+    tnoremap <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+    cabbr te terminal ++curwin ++kill=kill
+    cabbr term terminal ++curwin ++kill=kill
+    cabbr vterm vert :term ++kill=kill
+    cabbr hterm term ++kill=kill
 endif
