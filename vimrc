@@ -41,7 +41,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
 
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
@@ -243,13 +242,13 @@ if has("autocmd")
         autocmd FileType r,cmake setlocal commentstring=#\ %s
         autocmd FileType cabal setlocal commentstring=--\ %s
         autocmd FileType matlab setlocal commentstring=%\ %s
-        autocmd FileType tex setlocal textwidth=80
+        autocmd FileType plaintex,tex setlocal textwidth=80
 
         " Haskell specific
         " see: https://reddit.com/r/haskell/comments/43jauf/vim_and_haskell_in_2016/
         " au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
-        au FileType haskell setlocal makeprg=stack\ ghc\ --\ -e\ :q\ %
-        au FileType haskell setlocal errorformat=
+        autocmd FileType haskell setlocal makeprg=stack\ ghc\ --\ -e\ :q\ %
+        autocmd FileType haskell setlocal errorformat=
                         \%-G,
                         \%-Z\ %#,
                         \%W%f:%l:%c:\ Warning:\ %m,
