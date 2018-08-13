@@ -129,7 +129,7 @@ else
     endif
 endif
 
-" {{{1 PLUGINS
+" {{{1 PLUGINS OPTIONS
 
 " {{{2 lightline.vim
 let g:lightline = {
@@ -234,6 +234,7 @@ if has("autocmd")
 
         " New filetypes
         autocmd BufNewFile,BufRead *.geom,*.tesc,*.tese,*.comp set filetype=glsl
+        autocmd BufNewFile,BufRead *.md.html set filetype=markdown
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
