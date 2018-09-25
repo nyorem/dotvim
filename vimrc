@@ -271,6 +271,9 @@ if has("autocmd")
         " q to quit
         autocmd filetype help nnoremap <buffer><CR> <C-]>
         autocmd filetype help nnoremap <buffer>q :q<CR>
+
+        " set wrapping in diff mode
+        autocmd FilterWritePre * if &diff | setlocal wrap< | endif
     augroup END
 
     " Vimscript file settings
