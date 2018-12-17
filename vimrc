@@ -354,10 +354,6 @@ inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 
-" Use sane regexes
-nnoremap / /\v
-vnoremap / /\v
-
 " Restore ','
 nnoremap ,, ,
 
