@@ -20,7 +20,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
-Plug 'KabbAmine/zeavim.vim'
+Plug 'romainl/vim-cool'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -273,7 +273,7 @@ if has("autocmd")
         autocmd filetype help nnoremap <buffer>q :q<CR>
 
         " set wrapping in diff mode
-        autocmd FilterWritePre * if &diff | setlocal wrap< | endif
+        au VimEnter * if &diff | execute 'windo set wrap' | endif
     augroup END
 
     " Vimscript file settings
