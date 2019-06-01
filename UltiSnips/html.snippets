@@ -1,0 +1,20 @@
+snippet bs "Bootstrap template" b
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css">
+
+		<title>${1:`!p snip.rv = snip.basename.replace('-', ' ').capitalize()`}</title>
+	</head>
+	<body>
+		${0:body}
+
+        <script src="https://unpkg.com/jquery/dist/jquery.slim.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+endsnippet
