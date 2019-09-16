@@ -70,7 +70,7 @@ set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
-set visualbell " No sounds
+set belloff=all
 
 " Behaviors
 set shell=zsh " Default shell to use with :sh command
@@ -307,7 +307,7 @@ set smarttab
 " Being coherent with C / D
 noremap Y y$
 
-" vinegar like mapping (current version does not work when pressing '-' twice)
+" vim-vinegar like mapping
 function! EditCurrentDirectory()
     let l:dname = expand("%:p:h")
     execute "edit" .  l:dname
