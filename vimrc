@@ -51,6 +51,7 @@ Plug 'vim-scripts/a.vim'
 
 " misc
 Plug 'lsrdg/vibusen.vim'
+Plug 'whonore/Coqtail'
 
 call plug#end()
 
