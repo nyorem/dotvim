@@ -11,3 +11,4 @@ autoload/plug.vim.old
 swap/
 
 **/doc/tags
+bundle/

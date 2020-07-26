@@ -21,6 +21,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
+Plug 'mattn/emmet-vim'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -186,6 +187,9 @@ let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
 " {{{2 vibusen.vim
 let g:VibusenDefaultEngine = 'xkb:fr::fra'
+
+" {{{⅛ emmet-vim
+let g:user_emmet_leader_key = ','
 
 " {{{1 USEFUL FUNCTIONS
 
