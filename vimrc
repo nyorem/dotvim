@@ -88,7 +88,7 @@ set path+=$PWD/** " Add stuff to the search path (for the gf command)
 
 " Mouse use
 set mouse=a " Activate mouse
-set mousehide " Gide cursor
+set mousehide " Hide cursor
 behave xterm
 
 " Syntax Highlighting
@@ -132,6 +132,9 @@ else
 endif
 
 " {{{1 PLUGINS OPTIONS
+
+" {{{2 vim-polyglot
+let g:polyglot_disabled = ["latex"]
 
 " {{{2 lightline.vim
 let g:lightline = {
@@ -191,7 +194,7 @@ let g:VibusenDefaultEngine = 'xkb:fr::fra'
 " {{{2 vim-vue
 let g:vue_pre_processors = []
 
-" {{{⅛ emmet-vim
+" {{{2 emmet-vim
 let g:user_emmet_leader_key = ','
 
 " {{{1 USEFUL FUNCTIONS
@@ -243,6 +246,7 @@ if has("autocmd")
         " New filetypes
         autocmd BufNewFile,BufRead *.geom,*.tesc,*.tese,*.comp set filetype=glsl
         autocmd BufNewFile,BufRead *.md.html set filetype=markdown
+        autocmd BufNewFile,BufRead *.ih set filetype=cpp
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
