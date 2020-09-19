@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
 Plug 'mattn/emmet-vim'
+Plug 'tomtom/tcomment_vim'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -36,7 +37,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Tpope
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -187,6 +187,9 @@ let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 
 " {{{2 vibusen.vim
 let g:VibusenDefaultEngine = 'xkb:fr::fra'
+
+" {{{2 vim-vue
+let g:vue_pre_processors = []
 
 " {{{⅛ emmet-vim
 let g:user_emmet_leader_key = ','
