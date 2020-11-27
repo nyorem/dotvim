@@ -17,7 +17,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ervandew/supertab'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
@@ -29,6 +29,7 @@ Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 
 " Support for others languages
+let g:polyglot_disabled = ["latex"]
 Plug 'sheerun/vim-polyglot'
 Plug 'mipmip/vim-run-in-blender'
 
@@ -133,9 +134,6 @@ endif
 
 " {{{1 PLUGINS OPTIONS
 
-" {{{2 vim-polyglot
-let g:polyglot_disabled = ["latex"]
-
 " {{{2 lightline.vim
 let g:lightline = {
       \ 'colorscheme': 'solarized',
@@ -172,6 +170,7 @@ let g:tmuxline_preset = {
 " {{{2 fzf.vim
 nnoremap <C-p> :Files<CR>
 nnoremap <C-b> :Buffers<CR>
+let g:fzf_layout = { 'down': '~40%' }
 
 " {{{2 Ultisnips
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
@@ -406,7 +405,7 @@ set foldmethod=marker " Default fold method
 " Copy / paste within system clipboard
 noremap <leader>y "+y
 noremap <leader>yy "+yy
-noremap <leader>p :set paste<CR>:put	*<CR>:set nopaste<CR>
+noremap <leader>p :set paste<CR>:put	+<CR>:set nopaste<CR>
 
 " Switching buffers
 nnoremap <leader><space> :ls<cr>:b<space>
