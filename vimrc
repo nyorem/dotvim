@@ -90,7 +90,7 @@ set path+=$PWD/** " Add stuff to the search path (for the gf command)
 " Mouse use
 set mouse=a " Activate mouse
 set mousehide " Hide cursor
-behave xterm
+set ttymouse=sgr " To be able to click on columns far away on the right
 
 " Syntax Highlighting
 filetype on
