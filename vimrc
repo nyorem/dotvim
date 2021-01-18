@@ -47,13 +47,9 @@ Plug 'tpope/vim-eunuch'
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
 
-" vim-scripts
-Plug 'vim-scripts/SearchComplete'
-Plug 'vim-scripts/a.vim'
-
 " misc
+Plug 'vim-scripts/a.vim'
 Plug 'lsrdg/vibusen.vim'
-Plug 'whonore/Coqtail'
 
 call plug#end()
 
@@ -73,7 +69,7 @@ set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
 set scrolloff=3 " Number of lines to see when scrolling
-set belloff=all
+set belloff=all " Deactivate bell rings
 
 " Behaviors
 set shell=zsh " Default shell to use with :sh command
@@ -180,12 +176,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 " {{{2 a.vim
-" Alternate files for GLSL code
 let g:alternateExtensions_vert = "tesc,tese,geom,frag"
 let g:alternateExtensions_tesc = "tese,geom,frag,vert"
 let g:alternateExtensions_tese = "geom,frag,vert,tesc"
 let g:alternateExtensions_geom = "frag,vert,tesc,tese"
 let g:alternateExtensions_frag = "vert,tesc,tese,geom"
+let g:alternateExtensions_h = "ih,cpp"
+let g:alternateExtensions_ih = "h,cpp"
 
 " {{{2 vibusen.vim
 let g:VibusenDefaultEngine = 'xkb:fr::fra'
@@ -246,6 +243,7 @@ if has("autocmd")
         autocmd BufNewFile,BufRead *.geom,*.tesc,*.tese,*.comp set filetype=glsl
         autocmd BufNewFile,BufRead *.md.html set filetype=markdown
         autocmd BufNewFile,BufRead *.ih set filetype=cpp
+        autocmd BufNewFile,BufRead *.dox set filetype=doxygen
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
