@@ -253,3 +253,5 @@ multigrid
 localness
 Parikh
 unimodularity
+circumradius
+pointels

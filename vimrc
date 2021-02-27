@@ -45,7 +45,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 
 " Colorschemes
-Plug 'altercation/vim-colors-solarized'
+Plug 'nyorem/vim-colors-solarized'
 
 " misc
 Plug 'vim-scripts/a.vim'
