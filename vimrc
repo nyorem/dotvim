@@ -23,6 +23,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
 Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
+Plug 'ycm-core/YouCompleteMe'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -192,6 +193,15 @@ let g:vue_pre_processors = []
 
 " {{{2 emmet-vim
 let g:user_emmet_leader_key = ','
+
+" {{{2 YouCompleteMe
+let g:ycm_auto_trigger = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " {{{1 USEFUL FUNCTIONS
 
