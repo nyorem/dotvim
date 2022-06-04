@@ -13,6 +13,7 @@ endif
 call plug#begin('~/.vim/bundle/')
 
 " Must-have
+Plug 'Raimondi/delimitMate'
 Plug 'itchyny/lightline.vim'
 Plug 'ervandew/supertab'
 Plug 'christoomey/vim-tmux-navigator'
@@ -24,6 +25,11 @@ Plug 'romainl/vim-cool'
 Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'will133/vim-dirdiff'
+Plug 'ericcurtin/CurtineIncSw.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'airblade/vim-gitgutter'
+" Plug 'frazrepo/vim-rainbow'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -165,9 +171,15 @@ let g:tmuxline_preset = {
       \'z'    : '%R'}
 
 " {{{2 fzf.vim
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+let g:fzf_layout = { 'down': '~40%' }
+
 nnoremap <C-p> :Files<CR>
 nnoremap <C-b> :Buffers<CR>
-let g:fzf_layout = { 'down': '~40%' }
+
+" When searching in files, don't consider the filenames
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+nnoremap <C-f>f :Rg<CR>
 
 " {{{2 Ultisnips
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
@@ -195,13 +207,47 @@ let g:vue_pre_processors = []
 let g:user_emmet_leader_key = ','
 
 " {{{2 YouCompleteMe
-let g:ycm_auto_trigger = 0
+let g:ycm_auto_trigger = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+nnoremap <leader>jd :YcmCompleter GoTo<cr>
+nnoremap <leader>aa :YcmCompleter FixIt<cr>
+nnoremap <leader>sd :YcmShowDetailedDiagnostic<cr>
+
+" Let clangd fully control code completion
+let g:ycm_clangd_uses_ycmd_caching = 0
+" let g:ycm_clangd_binary_path = exepath("clangd")
+let g:ycm_show_detailed_diag_in_popup = 1
+
+" {{{2 clang-format
+map <leader>k :py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
+" map <leader>k :!clang-format-11 % -style=file -i<cr>
+" map <c-k> :!clang-format-11 % -style=file -i<cr>
+imap <C-K> <c-o>:py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
+
+" {{{2 vim-gitgutter
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 1
+
+" {{{2 vim-rainbow
+" autocmd FileType c,cpp,objc,objcpp call rainbow#load()
+
+" {{{2 CurtineIncSw.vim
+nnoremap <F5> :call CurtineIncSw()<CR>
+
+" {{{2 netrw
+let g:netrw_keepdir = 0
+let g:netrw_localcopydircmd = 'cp -r'
+hi! link netrwMarkFile Search
+
+" {{{2 ctrlsf.vim
+let g:ctrlsf_default_root = "project"
+nmap <C-g> <Plug>CtrlSFPrompt
+vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -254,6 +300,8 @@ if has("autocmd")
         autocmd BufNewFile,BufRead *.md.html set filetype=markdown
         autocmd BufNewFile,BufRead *.ih set filetype=cpp
         autocmd BufNewFile,BufRead *.dox set filetype=doxygen
+        autocmd BufEnter,BufNew *.inc,*.bb set filetype=bash
+        autocmd BufNewFile,BufRead *.h++,*.ecpp setlocal ft=cpp
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -263,6 +311,17 @@ if has("autocmd")
         autocmd FileType cabal setlocal commentstring=--\ %s
         autocmd FileType matlab setlocal commentstring=%\ %s
         autocmd FileType plaintex,tex setlocal textwidth=80
+
+        " Function to autoformat C++ code with clang-format
+        if filereadable("/usr/share/vim/addons/syntax/clang-format-11.py")
+            function! FormatCPPOnSave()
+                let l:formatdiff = 1
+                py3f /usr/share/vim/addons/syntax/clang-format-11.py
+            endfunction
+
+            " Format C++ files on save
+            " autocmd BufWritePre *.h,*.hpp,*.cc,*.cpp call FormatCPPOnSave()
+        endif
 
         " Haskell specific
         " see: https://reddit.com/r/haskell/comments/43jauf/vim_and_haskell_in_2016/
@@ -450,7 +509,8 @@ cnoremap qw wq
 
 " {{{1 TERMINAL
 if has("terminal")
-    tnoremap <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+    autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+    autocmd FileType fzf tunmap <buffer> <Esc><Esc>
     cabbr te terminal ++curwin ++kill=kill
     cabbr term terminal ++curwin ++kill=kill
     cabbr vterm vert :term ++kill=kill
