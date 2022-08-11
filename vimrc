@@ -29,6 +29,7 @@ Plug 'will133/vim-dirdiff'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'chaoren/vim-wordmotion'
 " Plug 'frazrepo/vim-rainbow'
 
 " Text manipulation
