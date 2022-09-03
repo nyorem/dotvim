@@ -56,6 +56,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-sensible'
 
 " Colorschemes
 Plug 'nyorem/vim-colors-solarized'
@@ -78,6 +80,7 @@ set ruler " Show current position
 set number " Show lines number
 set relativenumber " Use relative numbers
 set encoding=utf-8 " Default character encoding
+set fileencoding=utf-8 " Default file
 set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
@@ -309,7 +312,8 @@ if has("autocmd")
         autocmd BufNewFile,BufRead *.ih set filetype=cpp
         autocmd BufNewFile,BufRead *.dox set filetype=doxygen
         autocmd BufEnter,BufNew *.inc,*.bb set filetype=bash
-        autocmd BufNewFile,BufRead *.h++,*.ecpp setlocal ft=cpp
+        autocmd BufNewFile,BufRead *.h++,*.ecpp setlocal filetype=cpp
+        autocmd BufNewFile,BufRead *.bb,*.inc setlocal filetype=bash
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
