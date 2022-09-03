@@ -22,24 +22,26 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'will133/vim-dirdiff'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'chaoren/vim-wordmotion'
 " Plug 'frazrepo/vim-rainbow'
+Plug 'vimwiki/vimwiki'
+Plug 'junegunn/gv.vim'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
+" Plug 'chaoren/vim-wordmotion'
 
 " Support for others languages
 let g:polyglot_disabled = ["latex"]
 Plug 'sheerun/vim-polyglot'
-Plug 'mipmip/vim-run-in-blender'
+" Plug 'mipmip/vim-run-in-blender'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -49,19 +51,18 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
 
 " Colorschemes
 Plug 'nyorem/vim-colors-solarized'
 
-" misc
+" Misc
 Plug 'vim-scripts/a.vim'
 Plug 'lsrdg/vibusen.vim'
-Plug 'vimwiki/vimwiki'
-Plug 'junegunn/gv.vim'
 
 call plug#end()
 
@@ -105,10 +106,10 @@ filetype on
 syntax on
 
 " Spell checking
-" zg(ood) : add a word to the dictionary (zG : temporarily)
-" zw : misspelled word
-" zuw et zug : undoing
-" :runtime spell/cleanadd.vim : cleaning spell dictionary
+" zg(g=good) : add a word to the dictionary (zG: temporarily)
+" zw: misspelled word
+" zuw and zug: undoing
+" :runtime spell/cleanadd.vim: cleaning spell dictionary
 set spelllang=en
 
 " Searching
@@ -254,6 +255,8 @@ let g:ctrlsf_default_root = "project"
 nmap <C-g> <Plug>CtrlSFPrompt
 vmap <C-g> <Plug>CtrlSFVwordPath
 
+" {{{2 vim-fugitive
+nnoremap <leader>g :tab G<CR>
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -391,16 +394,16 @@ set smarttab
 noremap Y y$
 
 " vim-vinegar like mapping
-function! EditCurrentDirectory()
-    let l:dname = expand("%:p:h")
-    execute "edit" .  l:dname
-endfunction
-nnoremap - :call EditCurrentDirectory()<CR>
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_sort_sequence = '[\/]$,*,\%(' . join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$'
-if !exists("g:netrw_banner")
-  let g:netrw_banner = 0
-endif
+" function! EditCurrentDirectory()
+"     let l:dname = expand("%:p:h")
+"     execute "edit" .  l:dname
+" endfunction
+" nnoremap - :call EditCurrentDirectory()<CR>
+" let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+" let g:netrw_sort_sequence = '[\/]$,*,\%(' . join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$'
+" if !exists("g:netrw_banner")
+"   let g:netrw_banner = 0
+" endif
 
 " Consistent behaviour of j/k on wrapped lines
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -492,7 +495,7 @@ noremap <leader>t :Stab<CR>
 nnoremap <leader>m <C-W>_<C-W><Bar>
 
 " ,ev : open the vimrc and ,sv source it
-nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>:only<CR>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " ,ss : Strip trailing whitespaces
@@ -513,11 +516,11 @@ cnoremap ww w
 cnoremap qw wq
 
 " {{{1 TERMINAL
-if has("terminal")
-    autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
-    autocmd FileType fzf tunmap <buffer> <Esc><Esc>
-    cabbr te terminal ++curwin ++kill=kill
-    cabbr term terminal ++curwin ++kill=kill
-    cabbr vterm vert :term ++kill=kill
-    cabbr hterm term ++kill=kill
-endif
+" if has("terminal")
+"     autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+"     autocmd FileType fzf tunmap <buffer> <Esc><Esc>
+"     cabbr te terminal ++curwin ++kill=kill
+"     cabbr term terminal ++curwin ++kill=kill
+"     cabbr vterm vert :term ++kill=kill
+"     cabbr hterm term ++kill=kill
+" endif
