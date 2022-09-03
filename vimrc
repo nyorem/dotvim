@@ -51,6 +51,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-fugitive'
 
 " Colorschemes
 Plug 'nyorem/vim-colors-solarized'
@@ -58,6 +60,8 @@ Plug 'nyorem/vim-colors-solarized'
 " misc
 Plug 'vim-scripts/a.vim'
 Plug 'lsrdg/vibusen.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'junegunn/gv.vim'
 
 call plug#end()
 
