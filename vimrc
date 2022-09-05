@@ -66,7 +66,7 @@ Plug 'nyorem/vim-colors-solarized'
 
 " Misc
 Plug 'vim-scripts/a.vim'
-Plug 'lsrdg/vibusen.vim'
+" Plug 'lsrdg/vibusen.vim'
 
 call plug#end()
 
@@ -90,7 +90,7 @@ set scrolloff=3 " Number of lines to see when scrolling
 set belloff=all " Deactivate bell rings
 
 " Behaviors
-set shell=zsh " Default shell to use with :sh command
+" set shell=zsh " Default shell to use with :sh command
 set hidden " Hidden buffer by default
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 set makeprg=make "Standard make
@@ -138,7 +138,7 @@ else
     " CONSOLE
     if has("unix")
         " SOLARIZED
-        colorscheme solarized
+        " colorscheme solarized
         set background=light
         let g:solarized_termtrans = 1
     else
@@ -232,7 +232,7 @@ nnoremap <leader>sd :YcmShowDetailedDiagnostic<cr>
 
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
-" let g:ycm_clangd_binary_path = exepath("clangd")
+let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_show_detailed_diag_in_popup = 1
 
 " {{{2 clang-format
@@ -347,7 +347,7 @@ if has("autocmd")
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType c,cpp,cuda,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+        autocmd FileType c,cpp,cuda,objc,java setlocal ts=2 sts=2 sw=2 expandtab cindent cino+='(0'
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
         autocmd FileType r,cmake setlocal commentstring=#\ %s
         autocmd FileType cabal setlocal commentstring=--\ %s
@@ -418,9 +418,9 @@ set list " Display invisible characters
 
 " TABS/SPACES PARAMETERS
 set expandtab " Replace tabs with spaces
-set tabstop=4 " Number of spaces corresponding to a tabulation
-set shiftwidth=4 " Spaces used for an indentation
-set softtabstop=4 " Spaces to delete if we delete a tab
+set tabstop=2 " Number of spaces corresponding to a tabulation
+set shiftwidth=2 " Spaces used for an indentation
+set softtabstop=2 " Spaces to delete if we delete a tab
 set smarttab
 
 " {{{1 MAPPINGS
