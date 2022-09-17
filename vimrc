@@ -51,7 +51,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
@@ -260,6 +260,9 @@ vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-fugitive
 nnoremap <leader>g :tab G<CR>
+nnoremap <leader>gp :Dispatch! git push<CR>
+nnoremap <leader>gpu :Dispatch! git pull --rebase<CR>
+
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
