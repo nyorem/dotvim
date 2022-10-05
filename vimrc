@@ -255,12 +255,15 @@ hi! link netrwMarkFile Search
 
 " {{{2 ctrlsf.vim
 let g:ctrlsf_default_root = "project"
-nmap <C-g> <Plug>CtrlSFPrompt
+nmap <C-g>g <Plug>CtrlSFPrompt
+nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-fugitive
 nnoremap <leader>g :tab G<CR>
+nnoremap <leader>gl :tab G log<CR>
 nnoremap <leader>gp :Dispatch! git push<CR>
+nnoremap <leader>gpf :Dispatch! git push --force<CR>
 nnoremap <leader>gpu :Dispatch! git pull --rebase<CR>
 
 " {{{1 USEFUL FUNCTIONS
