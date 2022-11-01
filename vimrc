@@ -58,6 +58,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
 
 " Colorschemes
 Plug 'nyorem/vim-colors-solarized'
