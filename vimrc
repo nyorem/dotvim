@@ -30,8 +30,9 @@ Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'airblade/vim-gitgutter'
 " Plug 'frazrepo/vim-rainbow'
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 Plug 'junegunn/gv.vim'
+Plug 'puremourning/vimspector'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -184,8 +185,9 @@ let g:tmuxline_preset = {
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 let g:fzf_layout = { 'down': '~40%' }
 
-nnoremap <C-p> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
+nnoremap <C-p>f :Files<CR>
+nnoremap <C-p>g :GFiles<CR>
+nnoremap <C-p>b :Buffers<CR>
 
 " When searching in files, don't consider the filenames
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
@@ -251,7 +253,11 @@ nnoremap <F5> :call CurtineIncSw()<CR>
 
 " {{{2 netrw
 let g:netrw_keepdir = 0
+" let g:netrw_browse_split = 4
+" let g:netrw_preview = 1
+ let g:netrw_winsize = 80
 let g:netrw_localcopydircmd = 'cp -r'
+let g:netrw_localmovecmd = 'mv'
 hi! link netrwMarkFile Search
 
 " {{{2 ctrlsf.vim
@@ -266,6 +272,22 @@ nnoremap <leader>gl :tab G log<CR>
 nnoremap <leader>gp :Dispatch! git push<CR>
 nnoremap <leader>gpf :Dispatch! git push --force<CR>
 nnoremap <leader>gpu :Dispatch! git pull --rebase<CR>
+
+" {{{2 vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_install_gadgets = [ 'vscode-cpptools', 'CodeLLDB', 'debugpy' ]
+
+nnoremap <Leader>dd :call vimspector#Launch()<CR>
+nnoremap <Leader>de :call vimspector#Reset()<CR>
+nnoremap <Leader>dc :call vimspector#Continue()<CR>
+
+nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+
+nmap <Leader>dk <Plug>VimspectorRestart
+nmap <Leader>dh <Plug>VimspectorStepOut
+nmap <Leader>dl <Plug>VimspectorStepInto
+nmap <Leader>dj <Plug>VimspectorStepOver
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -528,7 +550,7 @@ cnoremap qw wq
 
 " {{{1 TERMINAL
 " if has("terminal")
-"     autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+"    autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
 "     autocmd FileType fzf tunmap <buffer> <Esc><Esc>
 "     cabbr te terminal ++curwin ++kill=kill
 "     cabbr term terminal ++curwin ++kill=kill
