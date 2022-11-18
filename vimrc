@@ -185,9 +185,9 @@ let g:tmuxline_preset = {
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 let g:fzf_layout = { 'down': '~40%' }
 
-nnoremap <C-p>f :Files<CR>
-nnoremap <C-p>g :GFiles<CR>
-nnoremap <C-p>b :Buffers<CR>
+nnoremap <C-p><C-f> :Files<CR>
+nnoremap <C-p><C-p> :GFiles<CR>
+nnoremap <C-p><C-b> :Buffers<CR>
 
 " When searching in files, don't consider the filenames
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
@@ -249,7 +249,7 @@ let g:gitgutter_eager = 1
 " autocmd FileType c,cpp,objc,objcpp call rainbow#load()
 
 " {{{2 CurtineIncSw.vim
-nnoremap <F5> :call CurtineIncSw()<CR>
+nnoremap <leader><F5> :call CurtineIncSw()<CR>
 
 " {{{2 netrw
 let g:netrw_keepdir = 0
@@ -281,6 +281,9 @@ nnoremap <Leader>dd :call vimspector#Launch()<CR>
 nnoremap <Leader>de :call vimspector#Reset()<CR>
 nnoremap <Leader>dc :call vimspector#Continue()<CR>
 
+nnoremap <Leader>db <Plug>VimspectorBreakpoints
+nnoremap <Leader>dp <Plug>VimspectorBalloonEval
+noremap <Leader>dp <Plug>VimspectorBalloonEval
 nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
 nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
 
