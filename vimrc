@@ -247,7 +247,7 @@ let g:gitgutter_eager = 1
 " autocmd FileType c,cpp,objc,objcpp call rainbow#load()
 
 " {{{2 CurtineIncSw.vim
-nnoremap <leader><F5> :call CurtineIncSw()<CR>
+nnoremap <leader>sf :call CurtineIncSw()<CR>
 
 " {{{2 netrw
 let g:netrw_keepdir = 0
