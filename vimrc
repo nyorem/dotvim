@@ -236,10 +236,8 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_show_detailed_diag_in_popup = 1
 
 " {{{2 clang-format
-map <leader>k :py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
-" map <leader>k :!clang-format-11 % -style=file -i<cr>
-" map <c-k> :!clang-format-11 % -style=file -i<cr>
-imap <C-K> <c-o>:py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
+noremap <leader>k :py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
+inoremap <c-k> <c-o>:py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
 
 " {{{2 vim-gitgutter
 let g:gitgutter_realtime = 0
