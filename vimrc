@@ -33,6 +33,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'vimwiki/vimwiki'
 Plug 'junegunn/gv.vim'
 Plug 'puremourning/vimspector'
+Plug 'kergoth/vim-bitbake'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -341,9 +342,7 @@ if has("autocmd")
         autocmd BufNewFile,BufRead *.md.html set filetype=markdown
         autocmd BufNewFile,BufRead *.ih set filetype=cpp
         autocmd BufNewFile,BufRead *.dox set filetype=doxygen
-        autocmd BufEnter,BufNew *.inc,*.bb set filetype=bash
         autocmd BufNewFile,BufRead *.h++,*.ecpp setlocal filetype=cpp
-        autocmd BufNewFile,BufRead *.bb,*.inc setlocal filetype=bash
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
