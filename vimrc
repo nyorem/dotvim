@@ -133,7 +133,7 @@ set wildmode=list:longest,list:full " Display every possibilities
 if has('gui_running')
     " GUI
     set guicursor+=a:blinkon0 " Deactivate cursor blinking
-    set background=light
+    set background=dark
     colorscheme solarized
 else
     " CONSOLE
@@ -222,6 +222,7 @@ let g:user_emmet_leader_key = ','
 " {{{2 YouCompleteMe
 let g:ycm_auto_trigger = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_confirm_extra_conf = 0
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -233,7 +234,7 @@ nnoremap <leader>sd :YcmShowDetailedDiagnostic<cr>
 
 " Let clangd fully control code completion
 let g:ycm_clangd_uses_ycmd_caching = 0
-let g:ycm_clangd_binary_path = exepath("clangd")
+" let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_show_detailed_diag_in_popup = 1
 
 " {{{2 clang-format
