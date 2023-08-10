@@ -34,6 +34,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 Plug 'puremourning/vimspector'
 Plug 'kergoth/vim-bitbake'
+Plug 'itspriddle/vim-shellcheck'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
@@ -290,6 +291,9 @@ nmap <Leader>dk <Plug>VimspectorRestart
 nmap <Leader>dh <Plug>VimspectorStepOut
 nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
+
+" {{{2 vim-shellcheck
+au BufWritePost *.sh ShellCheck
 
 " {{{1 USEFUL FUNCTIONS
 
