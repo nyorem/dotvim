@@ -68,7 +68,7 @@ Plug 'nyorem/vim-colors-solarized'
 
 " Misc
 Plug 'vim-scripts/a.vim'
-Plug 'lsrdg/vibusen.vim'
+" Plug 'lsrdg/vibusen.vim'
 
 call plug#end()
 
@@ -223,6 +223,7 @@ let g:user_emmet_leader_key = ','
 " {{{2 YouCompleteMe
 let g:ycm_auto_trigger = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_confirm_extra_conf = 0
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -238,8 +239,8 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_show_detailed_diag_in_popup = 1
 
 " {{{2 clang-format
-noremap <leader>k :py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
-inoremap <c-k> <c-o>:py3file /usr/share/clang/clang-format-11/clang-format.py<cr>
+noremap <leader>k :py3file /usr/share/clang/clang-format-14/clang-format.py<cr>
+inoremap <c-k> <c-o>:py3file /usr/share/clang/clang-format-14/clang-format.py<cr>
 
 " {{{2 vim-gitgutter
 let g:gitgutter_realtime = 0
@@ -350,7 +351,7 @@ if has("autocmd")
 
         " Specific parameters for some filetypes
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-        autocmd FileType c,cpp,cuda,objc,java setlocal ts=4 sts=4 sw=4 expandtab cindent cino+='(0'
+        autocmd FileType c,cpp,cuda,objc,java setlocal ts=2 sts=2 sw=2 expandtab cindent cino+='(0'
         autocmd FileType haskell setlocal ts=4 sts=4 sw=4 expandtab
         autocmd FileType r,cmake setlocal commentstring=#\ %s
         autocmd FileType cabal setlocal commentstring=--\ %s
@@ -421,9 +422,9 @@ set list " Display invisible characters
 
 " TABS/SPACES PARAMETERS
 set expandtab " Replace tabs with spaces
-set tabstop=4 " Number of spaces corresponding to a tabulation
-set shiftwidth=4 " Spaces used for an indentation
-set softtabstop=4 " Spaces to delete if we delete a tab
+set tabstop=2 " Number of spaces corresponding to a tabulation
+set shiftwidth=2 " Spaces used for an indentation
+set softtabstop=2 " Spaces to delete if we delete a tab
 set smarttab
 
 " {{{1 MAPPINGS
@@ -554,11 +555,14 @@ cnoremap ww w
 cnoremap qw wq
 
 " {{{1 TERMINAL
-" if has("terminal")
-"    autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
-"     autocmd FileType fzf tunmap <buffer> <Esc><Esc>
-"     cabbr te terminal ++curwin ++kill=kill
-"     cabbr term terminal ++curwin ++kill=kill
-"     cabbr vterm vert :term ++kill=kill
-"     cabbr hterm term ++kill=kill
-" endif
+if has("terminal")
+  " Open terminal containing current file
+  nnoremap <leader>ot :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
+
+  " autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
+  " autocmd FileType fzf tunmap <buffer> <Esc><Esc>
+  " cabbr te terminal ++curwin ++kill=kill
+  " cabbr term terminal ++curwin ++kill=kill
+  " cabbr vterm vert :term ++kill=kill
+  " cabbr hterm term ++kill=kill
+endif
