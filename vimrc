@@ -92,7 +92,7 @@ set scrolloff=3 " Number of lines to see when scrolling
 set belloff=all " Deactivate bell rings
 
 " Behaviors
-" set shell=zsh " Default shell to use with :sh command
+set shell=zsh " Default shell to use with :sh command
 set hidden " Hidden buffer by default
 set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
 set makeprg=make "Standard make
@@ -134,13 +134,13 @@ set wildmode=list:longest,list:full " Display every possibilities
 if has('gui_running')
     " GUI
     set guicursor+=a:blinkon0 " Deactivate cursor blinking
-    set background=dark
+    set background=light
     colorscheme solarized
 else
     " CONSOLE
     if has("unix")
         " SOLARIZED
-        " colorscheme solarized
+        colorscheme solarized
         set background=light
         let g:solarized_termtrans = 1
     else
