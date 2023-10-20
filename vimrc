@@ -35,6 +35,7 @@ Plug 'junegunn/gv.vim'
 Plug 'puremourning/vimspector'
 Plug 'kergoth/vim-bitbake'
 Plug 'itspriddle/vim-shellcheck'
+Plug 'mhinz/vim-startify'
 
 " Text manipulation
 Plug 'tommcdo/vim-lion'
