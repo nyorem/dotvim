@@ -24,7 +24,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'romainl/vim-cool'
 " Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'ycm-core/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'will133/vim-dirdiff'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'dyng/ctrlsf.vim'
@@ -106,7 +106,9 @@ set path+=$PWD/** " Add stuff to the search path (for the gf command)
 " Mouse use
 set mouse=a " Activate mouse
 set mousehide " Hide cursor
-set ttymouse=sgr " To be able to click on columns far away on the right
+if !has("nvim")
+    set ttymouse=sgr " To be able to click on columns far away on the right
+endif
 
 " Syntax Highlighting
 filetype on
@@ -187,9 +189,9 @@ let g:tmuxline_preset = {
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 let g:fzf_layout = { 'down': '~40%' }
 
-nnoremap <C-p><C-f> :Files<CR>
-nnoremap <C-p><C-p> :GFiles<CR>
-nnoremap <C-p><C-b> :Buffers<CR>
+nnoremap <Space>fa :Files<CR>
+nnoremap <Space><Space> :GFiles<CR>
+nnoremap <Space>, :Buffers<CR>
 
 " When searching in files, don't consider the filenames
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
@@ -220,23 +222,54 @@ let g:vue_pre_processors = []
 " {{{2 emmet-vim
 let g:user_emmet_leader_key = ','
 
-" {{{2 YouCompleteMe
-let g:ycm_auto_trigger = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_confirm_extra_conf = 0
+" {{{2 coc.nvim
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-nnoremap <leader>jd :YcmCompleter GoTo<cr>
-nnoremap <leader>aa :YcmCompleter FixIt<cr>
-nnoremap <leader>sd :YcmShowDetailedDiagnostic<cr>
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Let clangd fully control code completion
-let g:ycm_clangd_uses_ycmd_caching = 0
-" let g:ycm_clangd_binary_path = exepath("clangd")
-let g:ycm_show_detailed_diag_in_popup = 1
+function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> <Space>cd <Plug>(coc-definition)
+nmap <silent> <Space>cr <Plug>(coc-references)
+
+" Formatting selected code
+xmap <Space>cf <Plug>(coc-format-selected)
+nmap <Space>cf <Plug>(coc-format-selected)
+
+" Remap keys for applying code actions at the cursor position
+nmap <Space>ca  <Plug>(coc-codeaction-cursor)
+
+if !has("gui_running")
+    highlight CocFloating ctermbg=black ctermfg=white
+    highlight CocHint ctermbg=black ctermfg=white
+    highlight CocInlayHint ctermbg=black ctermfg=white
+endif
 
 " {{{2 clang-format
 noremap <leader>k :py3file /usr/share/clang/clang-format-14/clang-format.py<cr>
