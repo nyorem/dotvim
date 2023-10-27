@@ -33,7 +33,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'vimwiki/vimwiki'
 Plug 'junegunn/gv.vim'
 Plug 'puremourning/vimspector'
-Plug 'kergoth/vim-bitbake'
+Plug 'nyorem/vim-bitbake'
 Plug 'itspriddle/vim-shellcheck'
 Plug 'mhinz/vim-startify'
 
