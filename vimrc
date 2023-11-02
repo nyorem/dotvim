@@ -592,11 +592,4 @@ cnoremap qw wq
 if has("terminal")
   " Open terminal containing current file
   nnoremap <Space>ot :let $VIM_DIR=expand('%:p:h')<CR>:terminal<CR>cd $VIM_DIR<CR>
-
-  " autocmd TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-\><C-n>:setlocal nonumber<cr>:setlocal norelativenumber<cr>
-  " autocmd FileType fzf tunmap <buffer> <Esc><Esc>
-  " cabbr te terminal ++curwin ++kill=kill
-  " cabbr term terminal ++curwin ++kill=kill
-  " cabbr vterm vert :term ++kill=kill
-  " cabbr hterm term ++kill=kill
 endif
