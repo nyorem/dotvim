@@ -32,7 +32,9 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'frazrepo/vim-rainbow'
 " Plug 'vimwiki/vimwiki'
 Plug 'junegunn/gv.vim'
-Plug 'puremourning/vimspector'
+if !has("nvim")
+    Plug 'puremourning/vimspector'
+endif
 Plug 'nyorem/vim-bitbake'
 Plug 'itspriddle/vim-shellcheck'
 Plug 'mhinz/vim-startify'
