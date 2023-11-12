@@ -330,7 +330,7 @@ nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
 
 " {{{2 vim-shellcheck
-au BufWritePost *.sh ShellCheck
+au BufWritePost *.sh ShellCheck!
 
 " {{{1 USEFUL FUNCTIONS
 
@@ -396,10 +396,10 @@ if has("autocmd")
         autocmd FileType cpp let &makeprg = "cd $(git rev-parse --show-toplevel) && cmake --build build -j 4"
 
         " Function to autoformat C++ code with clang-format
-        if filereadable("/usr/share/vim/addons/syntax/clang-format-11.py")
+        if filereadable("/usr/share/vim/addons/syntax/clang-format-14.py")
             function! FormatCPPOnSave()
                 let l:formatdiff = 1
-                py3f /usr/share/vim/addons/syntax/clang-format-11.py
+                py3f /usr/share/vim/addons/syntax/clang-format-14.py
             endfunction
 
             " Format C++ files on save
