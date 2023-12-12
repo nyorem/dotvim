@@ -304,11 +304,11 @@ nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-fugitive
-nnoremap <leader>g :tab G<CR>
-nnoremap <leader>gl :tab G log<CR>
-nnoremap <leader>gp :Dispatch! git push<CR>
-nnoremap <leader>gpf :Dispatch! git push --force<CR>
-nnoremap <leader>gpu :Dispatch! git pull --rebase<CR>
+nnoremap <Space>gg :tabnew +Git<CR><C-w>o
+nnoremap <Space>gl :tab G log<CR>
+
+autocmd User FugitiveIndex nmap <buffer> <TAB> =
+autocmd User FugitiveObject,FugitiveIndex nnoremap <buffer> q :q<CR>
 
 " {{{2 vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
