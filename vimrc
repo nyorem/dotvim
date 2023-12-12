@@ -314,20 +314,19 @@ autocmd User FugitiveObject,FugitiveIndex nnoremap <buffer> q :q<CR>
 let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_install_gadgets = [ 'vscode-cpptools', 'CodeLLDB', 'debugpy' ]
 
-nnoremap <Leader>dd :call vimspector#Launch()<CR>
-nnoremap <Leader>de :call vimspector#Reset()<CR>
-nnoremap <Leader>dc :call vimspector#Continue()<CR>
+nnoremap <Space>dd :call vimspector#Launch()<CR>
+nnoremap <Space>de :call vimspector#Reset()<CR>
+nnoremap <Space>dc :call vimspector#Continue()<CR>
 
-nnoremap <Leader>db <Plug>VimspectorBreakpoints
-nnoremap <Leader>dp <Plug>VimspectorBalloonEval
-noremap <Leader>dp <Plug>VimspectorBalloonEval
-nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
-nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+nnoremap <Space>db <Plug>VimspectorBreakpoints
+nnoremap <Space>dp <Plug>VimspectorBalloonEval
+nnoremap <Space>dt :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Space>dT :call vimspector#ClearBreakpoints()<CR>
 
-nmap <Leader>dk <Plug>VimspectorRestart
-nmap <Leader>dh <Plug>VimspectorStepOut
-nmap <Leader>dl <Plug>VimspectorStepInto
-nmap <Leader>dj <Plug>VimspectorStepOver
+nmap <Space>dk <Plug>VimspectorRestart
+nmap <Space>dh <Plug>VimspectorStepOut
+nmap <Space>dl <Plug>VimspectorStepInto
+nmap <Space>dj <Plug>VimspectorStepOver
 
 " {{{2 vim-shellcheck
 au BufWritePost *.sh ShellCheck!
