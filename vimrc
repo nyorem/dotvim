@@ -193,7 +193,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 let g:fzf_layout = { 'down': '~40%' }
 
 nnoremap <Space>fa :Files<CR>
-nnoremap <Space><Space> :GFiles<CR>
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Space>, :Buffers<CR>
 
 " When searching in files, don't consider the filenames
@@ -306,6 +306,10 @@ vmap <C-g> <Plug>CtrlSFVwordPath
 " {{{2 vim-fugitive
 nnoremap <Space>gg :tabnew +Git<CR><C-w>o
 nnoremap <Space>gl :tab G log<CR>
+autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
+autocmd User FugitiveIndex nmap <buffer> P :Git push --force-with-lease<CR>
+autocmd User FugitiveIndex nmap <buffer> f :Git fetch<CR>
+autocmd User FugitiveIndex nmap <buffer> F :Git pull --rebase<CR>
 
 autocmd User FugitiveIndex nmap <buffer> <TAB> =
 autocmd User FugitiveObject,FugitiveIndex nnoremap <buffer> q :q<CR>
@@ -500,8 +504,8 @@ inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 
 " Use arrows for tab switching
-nnoremap <Left> gT
-nnoremap <Right> gt
+nnoremap <C-Left> gT
+nnoremap <C-Right> gt
 
 " Sudo write a file
 cmap w!! w !sudo tee > /dev/null %
@@ -552,15 +556,9 @@ set foldmethod=marker " Default fold method
 
 " <leader> mappings
 " Copy / paste within system clipboard
-noremap <leader>y "+y
-noremap <leader>yy "+yy
-noremap <leader>p :set paste<CR>:put	+<CR>:set nopaste<CR>
-
-" Switching buffers
-nnoremap <leader><space> :ls<cr>:b<space>
-nnoremap <leader>s<space> :ls<cr>:sb<space>
-nnoremap <leader>v<space> :ls<cr>:vert sb<space>
-nnoremap <leader>t<space> :ls<cr>:tab sb<space>
+" noremap <leader>y "+y
+" noremap <leader>yy "+yy
+" noremap <leader>p :set paste<CR>:put	+<CR>:set nopaste<CR>
 
 " ,t : Change indentation parameters
 noremap <leader>t :Stab<CR>
@@ -596,7 +594,7 @@ if has("terminal")
 endif
 
 " {{{1 WSL
-let s:clip = '/mnt/c/Windows/System32/clip.exe'
+let s:clip = 'clip.exe'
 if executable(s:clip)
     augroup WSLYank
         autocmd!
