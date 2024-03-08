@@ -28,7 +28,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'will133/vim-dirdiff'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'airblade/vim-gitgutter'
+if !has("nvim")
+    " See https://github.com/pwntester/octo.nvim/issues/441
+    Plug 'airblade/vim-gitgutter'
+endif
 " Plug 'frazrepo/vim-rainbow'
 " Plug 'vimwiki/vimwiki'
 Plug 'junegunn/gv.vim'
