@@ -13,68 +13,65 @@ endif
 call plug#begin('~/.vim/bundle/')
 
 " Must-have
-Plug 'Raimondi/delimitMate'
-Plug 'itchyny/lightline.vim'
-Plug 'ervandew/supertab'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'bronson/vim-visual-star-search'
-Plug 'romainl/vim-cool'
-" Plug 'mattn/emmet-vim'
-Plug 'tomtom/tcomment_vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'will133/vim-dirdiff'
-Plug 'ericcurtin/CurtineIncSw.vim'
-Plug 'dyng/ctrlsf.vim'
 if !has("nvim")
     " See https://github.com/pwntester/octo.nvim/issues/441
     Plug 'airblade/vim-gitgutter'
 endif
-" Plug 'frazrepo/vim-rainbow'
-" Plug 'vimwiki/vimwiki'
-Plug 'junegunn/gv.vim'
+Plug 'bronson/vim-visual-star-search'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dyng/ctrlsf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'ervandew/supertab'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if !has("nvim")
     Plug 'puremourning/vimspector'
 endif
-Plug 'nyorem/vim-bitbake'
-Plug 'itspriddle/vim-shellcheck'
-Plug 'mhinz/vim-startify'
+Plug 'Raimondi/delimitMate'
+Plug 'romainl/vim-cool'
+Plug 'tomtom/tcomment_vim'
+Plug 'junegunn/gv.vim'
 
 " Text manipulation
-Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
-" Plug 'chaoren/vim-wordmotion'
+Plug 'tommcdo/vim-lion'
 
 " Support for others languages
 let g:polyglot_disabled = ["latex"]
 Plug 'sheerun/vim-polyglot'
-" Plug 'mipmip/vim-run-in-blender'
 
 " Snippets
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
 " Tpope
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
 " Colorschemes
 Plug 'nyorem/vim-colors-solarized'
 
 " Misc
-Plug 'vim-scripts/a.vim'
+Plug 'ericcurtin/CurtineIncSw.vim'
+Plug 'github/copilot.vim'
+Plug 'itspriddle/vim-shellcheck'
 " Plug 'lsrdg/vibusen.vim'
+Plug 'nyorem/vim-bitbake'
+Plug 'vim-scripts/a.vim'
+Plug 'will133/vim-dirdiff'
 
 call plug#end()
 
@@ -284,9 +281,6 @@ inoremap <c-k> <c-o>:py3file /usr/share/clang/clang-format-14/clang-format.py<cr
 " {{{2 vim-gitgutter
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 1
-
-" {{{2 vim-rainbow
-" autocmd FileType c,cpp,objc,objcpp call rainbow#load()
 
 " {{{2 CurtineIncSw.vim
 nnoremap <leader>sf :call CurtineIncSw()<CR>
