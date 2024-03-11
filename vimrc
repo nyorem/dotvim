@@ -309,6 +309,7 @@ autocmd User FugitiveIndex nmap <buffer> f :Git fetch<CR>
 autocmd User FugitiveIndex nmap <buffer> F :Git pull --rebase<CR>
 
 autocmd User FugitiveIndex nmap <buffer> <TAB> =
+autocmd User FugitiveObject setlocal foldmethod=syntax nofoldenable
 autocmd User FugitiveObject,FugitiveIndex nnoremap <buffer> q :q<CR>
 
 " {{{2 vimspector
