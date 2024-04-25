@@ -594,6 +594,8 @@ endif
 " {{{1 WSL
 let s:clip = 'clip.exe'
 if executable(s:clip)
+    vmap <c-c> y
+
     augroup WSLYank
         autocmd!
         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
