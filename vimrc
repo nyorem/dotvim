@@ -35,6 +35,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'
 Plug 'tomtom/tcomment_vim'
 Plug 'junegunn/gv.vim'
+Plug 'codeindulgence/vim-tig'
 
 " Text manipulation
 Plug 'tommcdo/vim-exchange'
@@ -300,7 +301,8 @@ nmap <C-g>g <Plug>CtrlSFPrompt
 nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
-" {{{2 vim-fugitive
+" {{{2 vim-tig and vim-fugitive
+nnoremap <Space>G :Tig<CR>
 nnoremap <Space>gg :tabnew +Git<CR><C-w>o
 nnoremap <Space>gl :tab G log<CR>
 autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
