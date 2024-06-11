@@ -54,6 +54,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
@@ -86,7 +87,6 @@ let maplocalleader = " "
 set t_Co=256 " 256 color support
 set ruler " Show current position
 set number " Show lines number
-set relativenumber " Use relative numbers
 set encoding=utf-8 " Default character encoding
 set fileencoding=utf-8 " Default file
 set cursorline " Highlight current line
@@ -602,4 +602,10 @@ if executable(s:clip)
         autocmd!
         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
     augroup END
+endif
+
+if executable('wslview')
+    " see https://old.reddit.com/r/neovim/comments/olq8dw/defining_the_browse_command_for_use_with/
+    " wslview comes from https://github.com/wslutilities/wslu
+    command! -nargs=1 Browse silent exec '!wslview "<args>"'
 endif
