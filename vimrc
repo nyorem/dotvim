@@ -26,7 +26,7 @@ Plug 'ervandew/supertab'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Plug 'mattn/emmet-vim'
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if !has("nvim")
     Plug 'puremourning/vimspector'
@@ -98,7 +98,11 @@ set belloff=all " Deactivate bell rings
 " Behaviors
 set shell=zsh " Default shell to use with :sh command
 set hidden " Hidden buffer by default
-set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
+if !has("nvim")
+    " We only enable this one for vim because of this issue:
+    " https://github.com/neovim/neovim/issues/29047
+    set timeoutlen=1000 ttimeoutlen=0 " Avoiding delays with <Esc>
+endif
 set makeprg=make "Standard make
 set showmatch " Show corresponding parentheses
 set backspace=indent,eol,start " Allow using backspace in insert mode to move
