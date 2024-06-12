@@ -611,5 +611,9 @@ endif
 if executable('wslview')
     " see https://old.reddit.com/r/neovim/comments/olq8dw/defining_the_browse_command_for_use_with/
     " wslview comes from https://github.com/wslutilities/wslu
-    command! -nargs=1 Browse silent exec '!wslview "<args>"'
+    function OpenBrowserWsl(url)
+        execute "!wslview " . escape(a:url, "#")
+    endfunction
+
+    command! -nargs=1 Browse call OpenBrowserWsl(<f-args>)
 endif
