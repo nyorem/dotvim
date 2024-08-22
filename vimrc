@@ -307,7 +307,7 @@ vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-tig and vim-fugitive
 nnoremap <Space>G :Tig<CR>
-nnoremap <Space>gg :<C-u>silent! Git<CR>
+nnoremap <Space>gg :<C-u>silent! Git<CR>:set ft=fugitive<CR><C-w>o
 nnoremap <Space>gl :tab G log<CR>
 autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
 autocmd User FugitiveIndex nmap <buffer> P :Git push --force-with-lease<CR>
