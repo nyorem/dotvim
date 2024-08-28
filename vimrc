@@ -339,6 +339,14 @@ nmap <Space>dj <Plug>VimspectorStepOver
 " {{{2 vim-shellcheck
 au BufWritePost *.sh ShellCheck!
 
+" {{{2 vim-unimpaired
+nmap ( [
+nmap ) ]
+omap ( [
+omap ) ]
+xmap ( [
+xmap ) ]
+
 " {{{1 USEFUL FUNCTIONS
 
 " Set tabstop, softtabstop and shiftwidth to the same value
