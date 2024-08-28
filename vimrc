@@ -427,9 +427,6 @@ if has("autocmd")
                         \%W%>%f:%l:%c:,
                         \%+C\ \ %#%tarning:\ %m,
 
-        " Get back to the last cursor position
-        autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
-
         " Markdown
         " au FileType markdown setlocal nomodeline
 
