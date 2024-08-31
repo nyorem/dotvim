@@ -35,7 +35,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'
 Plug 'tomtom/tcomment_vim'
 Plug 'junegunn/gv.vim'
-Plug 'codeindulgence/vim-tig'
 
 " Text manipulation
 Plug 'tommcdo/vim-exchange'
@@ -306,8 +305,7 @@ nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-tig and vim-fugitive
-nnoremap <Space>G :Tig<CR>
-nnoremap <Space>gg :<C-u>silent! Git<CR>:set ft=fugitive<CR><C-w>o
+nnoremap <Space>gg :Git<CR>
 nnoremap <Space>gl :tab G log<CR>
 autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
 autocmd User FugitiveIndex nmap <buffer> P :Git push --force-with-lease<CR>
@@ -315,6 +313,7 @@ autocmd User FugitiveIndex nmap <buffer> f :Git fetch<CR>
 autocmd User FugitiveIndex nmap <buffer> F :Git pull --rebase<CR>
 
 autocmd User FugitiveIndex nmap <buffer> <TAB> =
+autocmd User FugitiveIndex nmap <buffer> x X
 autocmd User FugitiveObject setlocal foldmethod=syntax nofoldenable
 autocmd User FugitiveObject,FugitiveIndex nnoremap <buffer> q :q<CR>
 
