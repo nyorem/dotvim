@@ -595,6 +595,13 @@ cnoremap w: w
 cnoremap ww w
 cnoremap qw wq
 
+" update quickfix list results (source:
+" https://vi.stackexchange.com/questions/13662/is-there-a-way-to-update-the-quickfix-entries-after-running-cdo-cfdo)
+command! UpdateQF call setqflist(map(getqflist(), 'extend(v:val, {"text": get(getbufline(v:val.bufnr, v:val.lnum),0)})'))
+
+" prettify the whole buffer (if it's JSON)
+nnoremap <Space>jp :%!jq<CR>
+
 " {{{1 TERMINAL
 if has("terminal")
   " Open terminal containing current file
