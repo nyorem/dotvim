@@ -612,11 +612,12 @@ endif
 let s:clip = 'clip.exe'
 if executable(s:clip)
     vmap <c-c> y
+    set clipboard=unnamedplus
 
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-    augroup END
+    " augroup WSLYank
+    "     autocmd!
+    "     autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    " augroup END
 endif
 
 if executable('wslview')
