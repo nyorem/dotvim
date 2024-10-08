@@ -376,6 +376,42 @@ function! SummarizeTabs()
     endtry
 endfunction
 
+function! ReadMan(text)
+  :exe ":tabnew"
+  " make it a scratch buffer (to not care about if being 'unsaved')
+  :exe ":setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile"
+  :exe ":r!man " . a:text . " | col -b"
+  :exe ":goto"
+  :exe ":delete"
+  :exe ":set filetype=man"
+endfunction
+
+" source: https://vim.fandom.com/wiki/Open_a_window_with_the_man_page_for_the_word_under_the_cursor
+function! ReadManNormal()
+    call ReadMan(expand('<cword>'))
+endfunction
+
+" source: https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/6271254#6271254
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+function! ReadManVisual()
+    call ReadMan(s:get_visual_selection())
+endfunction
+
+nnoremap <Space>m :call ReadManNormal()<CR>
+vnoremap <Space>m :call ReadManVisual()<CR>
+
 " Strip trailing whitespace
 function! StripWhitespace()
     let save_cursor = getpos(".")
@@ -542,9 +578,8 @@ xnoremap >  >gv
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
 
-" Deactivate man look-up functions
-nnoremap K k
-vnoremap K k
+" K = opposite of J => split line at cursor position
+nnoremap K i<CR><ESC>g;
 
 " Avoid lowercasing selected text in visual mode
 vnoremap u <NOP>
@@ -561,12 +596,6 @@ nnoremap <Leader>a /[^\x00-\x7F]<CR>:set hlsearch<CR>
 " zR = open all folds
 
 set foldmethod=marker " Default fold method
-
-" <leader> mappings
-" Copy / paste within system clipboard
-" noremap <leader>y "+y
-" noremap <leader>yy "+yy
-" noremap <leader>p :set paste<CR>:put	+<CR>:set nopaste<CR>
 
 " ,t : Change indentation parameters
 noremap <leader>t :Stab<CR>
