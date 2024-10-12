@@ -444,7 +444,7 @@ if has("autocmd")
         autocmd FileType cabal setlocal commentstring=--\ %s
         autocmd FileType matlab setlocal commentstring=%\ %s
         autocmd FileType plaintex,tex setlocal textwidth=80
-        autocmd FileType cpp let &makeprg = "cd $(git rev-parse --show-toplevel) && cmake --build build -j 4"
+        autocmd FileType cmake,c,cpp let &makeprg = "cd $(git rev-parse --show-toplevel) && cmake --build build -j 8"
 
         " Function to autoformat C++ code with clang-format
         if filereadable("/usr/share/vim/addons/syntax/clang-format-14.py")
