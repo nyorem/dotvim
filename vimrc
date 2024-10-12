@@ -30,8 +30,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if !has("nvim")
     Plug 'puremourning/vimspector'
-    Plug 'Raimondi/delimitMate'
 endif
+Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'
 Plug 'tomtom/tcomment_vim'
 Plug 'junegunn/gv.vim'
@@ -305,13 +305,14 @@ nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
 " {{{2 vim-tig and vim-fugitive
-nnoremap <Space>gg :Git<CR>
-nnoremap <Space>gl :tab G log<CR>
+nnoremap <Space>gg :tab Git<CR>
+nnoremap <Space>gl :tab Git log<CR>
 autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
 autocmd User FugitiveIndex nmap <buffer> P :Git push --force-with-lease<CR>
 autocmd User FugitiveIndex nmap <buffer> f :Git fetch<CR>
 autocmd User FugitiveIndex nmap <buffer> F :Git pull --rebase<CR>
 
+autocmd User FugitiveIndex nmap <buffer> l :tab Git log<CR>
 autocmd User FugitiveIndex nmap <buffer> <TAB> =
 autocmd User FugitiveIndex nmap <buffer> x X
 autocmd User FugitiveObject setlocal foldmethod=syntax nofoldenable
