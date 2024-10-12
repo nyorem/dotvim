@@ -30,8 +30,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if !has("nvim")
     Plug 'puremourning/vimspector'
+    Plug 'Raimondi/delimitMate'
 endif
-Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'
 Plug 'tomtom/tcomment_vim'
 Plug 'junegunn/gv.vim'
@@ -336,7 +336,7 @@ nmap <Space>dl <Plug>VimspectorStepInto
 nmap <Space>dj <Plug>VimspectorStepOver
 
 " {{{2 vim-shellcheck
-au BufWritePost *.sh ShellCheck!
+" au BufWritePost *.sh ShellCheck!
 
 " {{{2 vim-unimpaired
 nmap ( [
