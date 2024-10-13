@@ -67,8 +67,10 @@ Plug 'nyorem/vim-colors-solarized'
 
 " Misc
 Plug 'ericcurtin/CurtineIncSw.vim'
-Plug 'github/copilot.vim'
 Plug 'itspriddle/vim-shellcheck'
+if !has("nvim")
+    Plug 'github/copilot.vim'
+endif
 " Plug 'lsrdg/vibusen.vim'
 Plug 'nyorem/vim-bitbake'
 Plug 'vim-scripts/a.vim'
@@ -167,7 +169,7 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
 
