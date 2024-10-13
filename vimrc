@@ -39,6 +39,7 @@ Plug 'junegunn/gv.vim'
 " Text manipulation
 Plug 'tommcdo/vim-exchange'
 Plug 'tommcdo/vim-lion'
+Plug 'stefandtw/quickfix-reflector.vim'
 
 " Support for others languages
 let g:polyglot_disabled = ["latex"]
