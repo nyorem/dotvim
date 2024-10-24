@@ -430,7 +430,7 @@ if has("autocmd")
     filetype plugin indent on
 
     augroup vimrcEx
-        au!
+        autocmd!
 
         " New filetypes
         autocmd BufNewFile,BufRead *.geom,*.tesc,*.tese,*.comp set filetype=glsl
@@ -448,6 +448,8 @@ if has("autocmd")
         autocmd FileType matlab setlocal commentstring=%\ %s
         autocmd FileType plaintex,tex setlocal textwidth=80
         autocmd FileType cmake,c,cpp let &makeprg = "cd $(git rev-parse --show-toplevel) && cmake --build build -j 8"
+        autocmd FileType cmake,c,cpp  nnoremap <buffer> <F7> :Make<CR>
+        autocmd FileType sh nnoremap <buffer> <F7> :ShellCheck!<CR>
 
         " Function to autoformat C++ code with clang-format
         if filereadable("/usr/share/vim/addons/syntax/clang-format-14.py")
