@@ -112,6 +112,7 @@ set history=100 " Maximum numbers of commands in q:
 set showcmd " Show current command
 set autoread " Automatically reload a file when changed
 set path+=$PWD/** " Add stuff to the search path (for the gf command)
+let g:markdown_folding = 1 " Enable header folding for Markdown files
 
 " Mouse use
 set mouse=a " Activate mouse
@@ -450,6 +451,7 @@ if has("autocmd")
         autocmd FileType cmake,c,cpp let &makeprg = "cd $(git rev-parse --show-toplevel) && cmake --build build -j 8"
         autocmd FileType cmake,c,cpp  nnoremap <buffer> <F7> :Make<CR>
         autocmd FileType sh nnoremap <buffer> <F7> :ShellCheck!<CR>
+        autocmd FileType markdown setlocal foldlevel=99
 
         " Function to autoformat C++ code with clang-format
         if filereadable("/usr/share/vim/addons/syntax/clang-format-14.py")
