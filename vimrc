@@ -73,7 +73,7 @@ if !has("nvim")
     Plug 'github/copilot.vim'
 endif
 " Plug 'lsrdg/vibusen.vim'
-Plug 'nyorem/vim-bitbake'
+Plug 'kergoth/vim-bitbake'
 Plug 'vim-scripts/a.vim'
 Plug 'will133/vim-dirdiff'
 
