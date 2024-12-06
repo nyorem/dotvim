@@ -58,7 +58,9 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
+if !has("nvim")
+    Plug 'tpope/vim-surround'
+endif
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
@@ -569,6 +571,9 @@ inoremap jj <Esc>
 inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
+
+" Duplicate current buffer in new tab
+nnoremap <C-w>T :tab split<CR>
 
 " Restore ','
 nnoremap ,, ,
