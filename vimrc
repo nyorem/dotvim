@@ -12,7 +12,6 @@ endif
 
 call plug#begin('~/.vim/bundle/')
 
-" Must-have
 if !has("nvim")
     " See https://github.com/pwntester/octo.nvim/issues/441
     Plug 'airblade/vim-gitgutter'
@@ -20,62 +19,47 @@ endif
 Plug 'bronson/vim-visual-star-search'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dyng/ctrlsf.vim'
-Plug 'itchyny/lightline.vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'ervandew/supertab'
+if !has("nvim")
+    Plug 'github/copilot.vim'
+endif
+Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
+Plug 'itspriddle/vim-shellcheck'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'mattn/emmet-vim'
-" Plug 'mhinz/vim-startify'
+Plug 'junegunn/gv.vim'
+Plug 'kergoth/vim-bitbake'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nyorem/vim-colors-solarized'
 if !has("nvim")
     Plug 'puremourning/vimspector'
 endif
 Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'
-Plug 'tomtom/tcomment_vim'
-Plug 'junegunn/gv.vim'
-
-" Text manipulation
-Plug 'tommcdo/vim-exchange'
-Plug 'tommcdo/vim-lion'
-Plug 'stefandtw/quickfix-reflector.vim'
-
-" Support for others languages
 let g:polyglot_disabled = ["latex"]
 Plug 'sheerun/vim-polyglot'
-
-" Snippets
-Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-
-" Tpope
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-lion'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 if !has("nvim")
     Plug 'tpope/vim-surround'
 endif
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-
-" Colorschemes
-Plug 'nyorem/vim-colors-solarized'
-
-" Misc
-Plug 'ericcurtin/CurtineIncSw.vim'
-Plug 'itspriddle/vim-shellcheck'
-if !has("nvim")
-    Plug 'github/copilot.vim'
-endif
-" Plug 'lsrdg/vibusen.vim'
-Plug 'kergoth/vim-bitbake'
 Plug 'vim-scripts/a.vim'
 Plug 'will133/vim-dirdiff'
 
@@ -92,7 +76,7 @@ set t_Co=256 " 256 color support
 set ruler " Show current position
 set number " Show lines number
 set encoding=utf-8 " Default character encoding
-set fileencoding=utf-8 " Default file
+set fileencoding=utf-8 " Default file encoding
 set cursorline " Highlight current line
 set title " Show filename in the window titlebar
 set laststatus=2 " Always display status bar
@@ -100,7 +84,7 @@ set scrolloff=3 " Number of lines to see when scrolling
 set belloff=all " Deactivate bell rings
 
 " Behaviors
-set shell=zsh " Default shell to use with :sh command
+set shell=bash " Default shell to use with :sh command
 set hidden " Hidden buffer by default
 if !has("nvim")
     " We only enable this one for vim because of this issue:
@@ -226,15 +210,6 @@ let g:alternateExtensions_frag = "vert,tesc,tese,geom"
 let g:alternateExtensions_h = "ih,cpp"
 let g:alternateExtensions_ih = "h,cpp"
 
-" {{{2 vibusen.vim
-let g:VibusenDefaultEngine = 'xkb:fr::fra'
-
-" {{{2 vim-vue
-let g:vue_pre_processors = []
-
-" {{{2 emmet-vim
-let g:user_emmet_leader_key = ','
-
 " {{{2 coc.nvim
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
@@ -284,10 +259,6 @@ if !has("gui_running")
     highlight CocInlayHint ctermbg=black ctermfg=white
 endif
 
-" {{{2 clang-format
-noremap <leader>k :py3file /usr/share/clang/clang-format-14/clang-format.py<cr>
-inoremap <c-k> <c-o>:py3file /usr/share/clang/clang-format-14/clang-format.py<cr>
-
 " {{{2 vim-gitgutter
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 1
@@ -310,7 +281,7 @@ nmap <C-g>g <Plug>CtrlSFPrompt
 nnoremap <C-g>t :CtrlSFToggle<CR>
 vmap <C-g> <Plug>CtrlSFVwordPath
 
-" {{{2 vim-tig and vim-fugitive
+" {{{2 vim-fugitive
 nnoremap <Space>gg :tab Git<CR>
 nnoremap <Space>gl :tab Git log<CR>
 autocmd User FugitiveIndex nmap <buffer> p :Git push<CR>
@@ -341,9 +312,6 @@ nmap <Space>dk <Plug>VimspectorRestart
 nmap <Space>dh <Plug>VimspectorStepOut
 nmap <Space>dl <Plug>VimspectorStepInto
 nmap <Space>dj <Plug>VimspectorStepOver
-
-" {{{2 vim-shellcheck
-" au BufWritePost *.sh ShellCheck!
 
 " {{{2 vim-unimpaired
 nmap ( [
@@ -455,17 +423,6 @@ if has("autocmd")
         autocmd FileType sh nnoremap <buffer> <F7> :ShellCheck!<CR>
         autocmd FileType markdown setlocal foldlevel=99
 
-        " Function to autoformat C++ code with clang-format
-        if filereadable("/usr/share/vim/addons/syntax/clang-format-14.py")
-            function! FormatCPPOnSave()
-                let l:formatdiff = 1
-                py3f /usr/share/vim/addons/syntax/clang-format-14.py
-            endfunction
-
-            " Format C++ files on save
-            " autocmd BufWritePre *.h,*.hpp,*.cc,*.cpp call FormatCPPOnSave()
-        endif
-
         " Haskell specific
         " see: https://reddit.com/r/haskell/comments/43jauf/vim_and_haskell_in_2016/
         " au FileType haskell setlocal makeprg=ghc\ -e\ :q\ %
@@ -479,9 +436,6 @@ if has("autocmd")
                         \%+C\ \ %#%m,
                         \%W%>%f:%l:%c:,
                         \%+C\ \ %#%tarning:\ %m,
-
-        " Markdown
-        " au FileType markdown setlocal nomodeline
 
         " Help mode bindings
         " <CR> to follow a link
@@ -524,18 +478,6 @@ set smarttab
 
 " Being coherent with C / D
 noremap Y y$
-
-" vim-vinegar like mapping
-" function! EditCurrentDirectory()
-"     let l:dname = expand("%:p:h")
-"     execute "edit" .  l:dname
-" endfunction
-" nnoremap - :call EditCurrentDirectory()<CR>
-" let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-" let g:netrw_sort_sequence = '[\/]$,*,\%(' . join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$'
-" if !exists("g:netrw_banner")
-"   let g:netrw_banner = 0
-" endif
 
 " Consistent behaviour of j/k on wrapped lines
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
